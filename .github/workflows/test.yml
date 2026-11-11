@@ -231,11 +231,13 @@ jobs:
         env:
           GROUP: ${{ matrix.group }}
           PACKAGES: ${{ needs.changes.outputs.aztec }}
+        # Parallelism follows the runner: hosted runners have 4 cores and 16 GB for a
+        # public repository, 2 cores and 8 GB for a private one.
         run: |
           case "$GROUP" in
             check) cd aztec && jq -r '.[]' <<<"$PACKAGES" | xargs -P 4 -I{} aztec-nargo check --package {} --silence-warnings ;;
-            world-id) ./scripts/test-world-id.sh --test-threads 4 ;;
-            *) aztec/use-cases/scripts/test-use-cases.sh --jobs 4 --test-threads 4 $GROUP ;;
+            world-id) ./scripts/test-world-id.sh --test-threads "$(nproc)" ;;
+            *) aztec/use-cases/scripts/test-use-cases.sh --jobs "$(nproc)" --test-threads "$(nproc)" $GROUP ;;
           esac
 
   # This is a job which depends on all test jobs and reports the overall status.

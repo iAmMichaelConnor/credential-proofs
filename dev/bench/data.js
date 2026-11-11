@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1794421820070,
+  "lastUpdate": 1794426843630,
   "repoUrl": "https://github.com/iAmMichaelConnor/credential-proofs",
   "entries": {
     "ACIR Opcodes": [
@@ -436,6 +436,225 @@ window.BENCHMARK_DATA = {
             "name": "zupass_pod_entry/main",
             "value": 19821,
             "unit": "circuit_size"
+          }
+        ]
+      }
+    ],
+    "Brillig Bytecode Size": [
+      {
+        "commit": {
+          "author": {
+            "name": "github-actions[bot]",
+            "username": "github-actions[bot]",
+            "email": "41898282+github-actions[bot]@users.noreply.github.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "08dcca2dddfaea20f0648009c5ceb5c16e4221dd",
+          "message": "chore: Release 0.1.0 (#1)\n\nCo-authored-by: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>",
+          "timestamp": "2026-11-11T18:07:50Z",
+          "url": "https://github.com/iAmMichaelConnor/credential-proofs/commit/08dcca2dddfaea20f0648009c5ceb5c16e4221dd"
+        },
+        "date": 1794426843427,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "aadhaar_secure_qr_verify",
+            "value": 14307,
+            "unit": "opcodes"
+          },
+          {
+            "name": "alipay_v2_response",
+            "value": 5013,
+            "unit": "opcodes"
+          },
+          {
+            "name": "alipay_v3_response",
+            "value": 6339,
+            "unit": "opcodes"
+          },
+          {
+            "name": "anon_aadhaar_v2_verify",
+            "value": 1116566,
+            "unit": "opcodes"
+          },
+          {
+            "name": "base64url_decode_344",
+            "value": 2719,
+            "unit": "opcodes"
+          },
+          {
+            "name": "ed25519_verify_18",
+            "value": 538767,
+            "unit": "opcodes"
+          },
+          {
+            "name": "entra_verify",
+            "value": 15333,
+            "unit": "opcodes"
+          },
+          {
+            "name": "ethereum_personal_sign",
+            "value": 2346,
+            "unit": "opcodes"
+          },
+          {
+            "name": "ethereum_secret_key",
+            "value": 56653,
+            "unit": "opcodes"
+          },
+          {
+            "name": "ethereum_siwe",
+            "value": 6499,
+            "unit": "opcodes"
+          },
+          {
+            "name": "facebook_verify",
+            "value": 13922,
+            "unit": "opcodes"
+          },
+          {
+            "name": "franceconnect_v1_verify",
+            "value": 13152,
+            "unit": "opcodes"
+          },
+          {
+            "name": "franceconnect_v2_verify",
+            "value": 13156,
+            "unit": "opcodes"
+          },
+          {
+            "name": "govbr_verify",
+            "value": 17359,
+            "unit": "opcodes"
+          },
+          {
+            "name": "jpki_authorise",
+            "value": 91914,
+            "unit": "opcodes"
+          },
+          {
+            "name": "kakao_verify",
+            "value": 13725,
+            "unit": "opcodes"
+          },
+          {
+            "name": "line_verify",
+            "value": 10453,
+            "unit": "opcodes"
+          },
+          {
+            "name": "linkedin_verify_bearer",
+            "value": 18251,
+            "unit": "opcodes"
+          },
+          {
+            "name": "miargentina_verify",
+            "value": 13725,
+            "unit": "opcodes"
+          },
+          {
+            "name": "oidc_apple",
+            "value": 13724,
+            "unit": "opcodes"
+          },
+          {
+            "name": "oidc_es256_jwt",
+            "value": 10127,
+            "unit": "opcodes"
+          },
+          {
+            "name": "oidc_google",
+            "value": 14277,
+            "unit": "opcodes"
+          },
+          {
+            "name": "oidc_json_member_batch",
+            "value": 5611,
+            "unit": "opcodes"
+          },
+          {
+            "name": "oidc_json_member_lookup",
+            "value": 1987,
+            "unit": "opcodes"
+          },
+          {
+            "name": "oidc_json_string_copy",
+            "value": 2059,
+            "unit": "opcodes"
+          },
+          {
+            "name": "p256_black_box_verify",
+            "value": 239,
+            "unit": "opcodes"
+          },
+          {
+            "name": "passkey_webauthn",
+            "value": 3785,
+            "unit": "opcodes"
+          },
+          {
+            "name": "peer_v4_verify",
+            "value": 6765,
+            "unit": "opcodes"
+          },
+          {
+            "name": "philsys_verify",
+            "value": 545257,
+            "unit": "opcodes"
+          },
+          {
+            "name": "reclaim_verify_claim",
+            "value": 6850,
+            "unit": "opcodes"
+          },
+          {
+            "name": "singpass_authorise",
+            "value": 18333,
+            "unit": "opcodes"
+          },
+          {
+            "name": "telegram_verify",
+            "value": 13725,
+            "unit": "opcodes"
+          },
+          {
+            "name": "university_validate_login_claims",
+            "value": 10310,
+            "unit": "opcodes"
+          },
+          {
+            "name": "university_verify_login",
+            "value": 20554,
+            "unit": "opcodes"
+          },
+          {
+            "name": "wechatpay_v3_response",
+            "value": 8690,
+            "unit": "opcodes"
+          },
+          {
+            "name": "world_id_groth16_producer_15",
+            "value": 1504369,
+            "unit": "opcodes"
+          },
+          {
+            "name": "world_id_groth16_producer_4",
+            "value": 1503239,
+            "unit": "opcodes"
+          },
+          {
+            "name": "zkemail_rsa_signature_compat",
+            "value": 27512,
+            "unit": "opcodes"
+          },
+          {
+            "name": "zupass_pod_entry",
+            "value": 6431,
+            "unit": "opcodes"
           }
         ]
       }

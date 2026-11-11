@@ -43,7 +43,6 @@ jobs:
         run: |
           curl -L https://bbup.aztec.network | bash
           ~/.bb/bbup -v ${{ env.BB_VERSION }}
-          sudo apt install -y libc++-dev
 
       # A pull request measures the benchmark packages it can affect
       # (scripts/changed-packages.sh), and its diffs cover those packages only; main

@@ -1,9 +1,9 @@
 name: Benchmarks
 
 on:
-  push:
-    branches:
-      - main
+  # Every package takes hours to measure, so no push starts it: it runs when
+  # started by hand (on `main`, which also records history on `gh-pages`).
+  workflow_dispatch:
   pull_request:
 
 permissions:
@@ -45,9 +45,10 @@ jobs:
           ~/.bb/bbup -v ${{ env.BB_VERSION }}
 
       # A pull request measures the benchmark packages it can affect
-      # (scripts/changed-packages.sh), and its diffs cover those packages only; main
-      # measures every package. The largest exports need about 7 GB and up to 16
-      # minutes each, so two run at a time on a 16 GB runner.
+      # (scripts/changed-packages.sh), and its diffs cover those packages only; a
+      # run started by hand measures every package. The largest exports need about
+      # 7 GB and up to 16 minutes each, so one runs at a time: a hosted runner has
+      # 16 GB for a public repository and 8 GB for a private one.
       - name: Select packages
         id: packages
         run: |
@@ -60,7 +61,7 @@ jobs:
 
       - name: Generate gates report
         if: steps.packages.outputs.packages != ''
-        run: ./scripts/build-gates-report.sh --jobs 2 ${{ steps.packages.outputs.packages }}
+        run: ./scripts/build-gates-report.sh --jobs 1 ${{ steps.packages.outputs.packages }}
         env:
           BACKEND: /home/runner/.bb/bb
 

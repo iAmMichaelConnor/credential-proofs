@@ -121,8 +121,8 @@ about two minutes; the longest examples job is the World ID group (about 6
 minutes).
 
 On a pull request the benchmark workflow measures the affected benchmark
-packages only, and its gate and Brillig diffs cover those packages; on `main` it
-measures every package.
+packages only, and its gate and Brillig diffs cover those packages. Every
+package is measured only when the workflow is started by hand.
 
 **Nightly** [`nightly-canary.yml`](.github/workflows/nightly-canary.yml) runs
 everything, whatever changed: every package unconstrained on Noir nightly; every
@@ -298,10 +298,11 @@ tests; names are unique across the workspace.
 `./scripts/build-gates-report.sh --jobs N [package...]` exports and measures
 them N at a time (the largest exports need about 7 GB and up to 16 minutes
 each). On a pull request the benchmark workflow measures the affected benchmark
-packages only; on `main` it measures every package and records history on the
-`gh-pages` branch, which must exist before the first workflow run. Its timeout
-is 240 minutes: two exports at a time of 28 benchmark packages, the largest
-taking up to 16 minutes each, exceed the default 60.
+packages only. Started by hand on `main`, it measures every package and records
+history on the `gh-pages` branch, which must exist before the first workflow
+run; no push starts it, because that run takes hours. Its timeout is 240
+minutes: 28 benchmark packages exported one at a time, the largest taking up to
+16 minutes each, exceed the default 60.
 
 ## Generated files
 
@@ -444,7 +445,8 @@ Before the first release:
 - **Affected-only CI.** About forty packages, a hundred example packages and the
   host code would take hours per pull request, so `scripts/changed-packages.sh`
   selects the tests, examples and benchmarks a change can affect; `main` runs
-  everything, and the nightly workflow runs everything whatever changed.
+  every test and example, and the nightly workflow runs everything whatever
+  changed. The full benchmark run is started by hand.
 - **Extra CI jobs.** `changes` computes the selection; `host` runs the host
   packages', fixtures' and generators' tests; `examples` type-checks the Aztec
   examples and runs their TXE tests without compiling them.

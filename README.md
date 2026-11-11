@@ -245,7 +245,8 @@ functions, each a complete relation with its known-answer shapes, measured with
 Noir 1.0.0 and bb 6.0.0 on 2026-11-10. Each count is the whole function,
 including its ABI and the backend's fixed per-circuit cost. The
 [benchmark workflow](.github/workflows/benchmark.yml) reports current numbers on
-pull requests and records history on the `gh-pages` branch.
+pull requests and, when started by hand, records history on the `gh-pages`
+branch.
 
 | Relation | Benchmark | Circuit size |
 | --- | --- | ---: |

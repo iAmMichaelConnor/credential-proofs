@@ -1,0 +1,7 @@
+[package]
+name = "canonical_bytes"
+type = "lib"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"
+
+[dependencies]

@@ -1,0 +1,51 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "zkemail",
+  "use_case": "event-proof",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/zkemail_event.mjs",
+      "--instance",
+      "event-proof/zkemail",
+      "--now",
+      "4000000000"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "node:crypto RSA-SHA256 PKCS#1 v1.5 over the adapter's DKIM signing input"
+  },
+  "key_provenance": "Public synthetic RS256 test key committed in fixtures/data; not a DKIM key of any mail domain. Anyone can sign with it.",
+  "claims": {
+    "domain": "mail.example",
+    "selector": "s1",
+    "sender": "alerts@mail.example",
+    "recipient": "bob@inbox.example",
+    "subject": "Order 42 shipped",
+    "body": "Your order 42 has shipped.\r\n",
+    "body_hash_base64": "KD51EtpltdcbMSmavEgG3KGgVNIV0bBPZqe1jycsj5s=",
+    "signed_at": [
+      3999999940,
+      3999999941
+    ],
+    "signing_input": "from:alerts@mail.example\r\nto:bob@inbox.example\r\nsubject:Order 42 shipped\r\ndkim-signature:v=1; a=rsa-sha256; c=relaxed/relaxed; d=mail.example; s=s1; t=3999999940; h=from:to:subject; bh=KD51EtpltdcbMSmavEgG3KGgVNIV0bBPZqe1jycsj5s=; b=",
+    "signing_input_sha256": [
+      "3320afae576a65082c0cbf7d8d62e1267e5e9fc2744f2561630fcee945b910d5",
+      "924cb782f1c74e8558bde19b14cb4ce8afe91c28301a6ae690861c97e7212fc9"
+    ]
+  },
+  "notes": [
+    "t= is 60 s before --now (and one second later for the second email).",
+    "The generator verifies each signature with node:crypto before writing.",
+    "Negative cases mutate this fixture in src/test.nr."
+  ],
+  "inputs": {
+    "fixtures/data/synthetic-rs256-private.pem": "181021221b11334ea6ed4f36bcb38439613f5fc56eeda12cb192f4ef0b420d66",
+    "fixtures/data/synthetic-rs256-public.pem": "2b7dfcaec8fd468aab2b54441e8ac408d02375c81c48f2dba4d27205b72035ac",
+    "aztec/use-cases/scripts/fixtures/generators/zkemail_event.mjs": "a6f17c458bc4c895a991d07f9ca9fc27e0817bd9177118fb10547571712577c6",
+    "aztec/use-cases/scripts/fixtures/generators/event.mjs": "ee042da71aab4fa4d529f8d22a039f5f94b2420fb202da0ce6270cbd4f675387"
+  },
+  "outputs": {
+    "src/fixture.nr": "a5a671df34d012dded0f435f9fc3e1e9ef25710fad5b0bee1f0b635719a7b6ac"
+  }
+}

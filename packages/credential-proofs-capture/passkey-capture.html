@@ -1,0 +1,57 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WebAuthn assertion capture</title>
+<main>
+  <h1>Capture a passkey assertion</h1>
+  <p>Serve this page from the relying party's expected HTTPS origin (or localhost). The request file contains only a public one-use challenge. The browser returns an assertion; it does not export the passkey private key.</p>
+  <label>Challenge request JSON <input id="request" type="file" accept="application/json"></label>
+  <label>Credential ID (base64url, optional for discoverable credentials) <input id="credential" autocomplete="off"></label>
+  <button id="capture">Authenticate and download assertion</button>
+  <pre id="status" aria-live="polite"></pre>
+</main>
+<script type="module">
+const decode = s => Uint8Array.from(atob(s.replace(/-/g, "+").replace(/_/g, "/") + "===".slice((s.length + 3) % 4)), c => c.charCodeAt(0));
+const encode = b => btoa(String.fromCharCode(...new Uint8Array(b))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
+const status = document.querySelector("#status");
+document.querySelector("#capture").addEventListener("click", async () => {
+  try {
+    const file = document.querySelector("#request").files[0];
+    if (!file) throw new Error("Choose the challenge JSON first.");
+    if (!window.isSecureContext || !navigator.credentials) throw new Error("WebAuthn requires a secure context.");
+    const request = JSON.parse(await file.text());
+    if (location.origin !== request.origin) throw new Error(`This page origin (${location.origin}) differs from the expected origin.`);
+    const credentialId = document.querySelector("#credential").value.trim();
+    const allowCredentials = credentialId ? [{ type: "public-key", id: decode(credentialId) }] : undefined;
+    const result = await navigator.credentials.get({ publicKey: {
+      challenge: decode(request.challenge_base64url),
+      rpId: request.rp_id,
+      userVerification: "required",
+      allowCredentials,
+      timeout: 120000
+    }});
+    if (!result || result.type !== "public-key") throw new Error("The browser did not return a public-key assertion.");
+    const response = result.response;
+    const output = {
+      id: result.id,
+      rawId: encode(result.rawId),
+      type: result.type,
+      response: {
+        authenticatorData: encode(response.authenticatorData),
+        clientDataJSON: encode(response.clientDataJSON),
+        signature: encode(response.signature),
+        userHandle: response.userHandle ? encode(response.userHandle) : null
+      }
+    };
+    const blob = new Blob([JSON.stringify(output, null, 2) + "\n"], { type: "application/json" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "webauthn-assertion.json";
+    link.click();
+    URL.revokeObjectURL(link.href);
+    status.textContent = "Assertion downloaded. Keep the file private; it can identify this login attempt and contains the signed browser data.";
+  } catch (error) {
+    status.textContent = error instanceof Error ? error.message : "Passkey capture failed.";
+  }
+});
+</script>

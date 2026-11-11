@@ -1,0 +1,57 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "singpass",
+  "use_case": "login-link",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/oidc.mjs",
+      "--instance",
+      "login-link/singpass",
+      "--nonce",
+      "2fc9f7a43c1afbca306204053fd0bb66e73274b7e17661cde6e04c76f4db0d0f",
+      "--now",
+      "4000000000",
+      "--audience",
+      "credential-proofs-use-case-client",
+      "--subject",
+      "local-synthetic-singpass-user"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "packages/credential-proofs-inputs/tests/builders/src/synthetic-es256.ts signSyntheticEs256 (P-256 scalar 42, RFC 6979)"
+  },
+  "inputs": {
+    "packages/credential-proofs-inputs/tests/builders/src/synthetic-es256.ts": "91bcdaa036b99477805ebf7e43f71bfc20aa259b12c0f830b166020698362b7c",
+    "packages/credential-proofs-inputs/src/singpass.ts": "1522e7cdebcbf3b40e907d506085b58e16229e9eb09535163e117142ab746de3",
+    "packages/credential-proofs-inputs/src/es256.ts": "0e73568d8a92f24deb5af5fb929be6b079e8046c17db23462ed55fbf288b60b6",
+    "aztec/use-cases/scripts/fixtures/generators/oidc.mjs": "3bf84f629c58e2597012f3486133bd2d5f215bae759daeb725aea7fbf1c80279"
+  },
+  "key_provenance": "Public synthetic P-256 scalars 42 (fixture key, packages/credential-proofs-inputs/tests/builders/src/synthetic-es256.ts) and 43 (other key); not a singpass key. Anyone can sign with them.",
+  "claims": {
+    "nonce": "2fc9f7a43c1afbca306204053fd0bb66e73274b7e17661cde6e04c76f4db0d0f",
+    "iss": "https://id.singpass.gov.sg/fapi",
+    "aud": "credential-proofs-use-case-client",
+    "sub": "local-synthetic-singpass-user",
+    "iat": 3999999940,
+    "exp": 4000000540,
+    "sub_type": "user",
+    "acr": "urn:singpass:authentication:loa:2",
+    "amr": [
+      "pwd",
+      "swk"
+    ],
+    "sub_attributes": {
+      "name": "SYNTHETIC LOCAL TEST"
+    }
+  },
+  "notes": [
+    "The nonce is the instance's bound value observed in TXE; the instance test fails with the value to use when it changes.",
+    "iat is 60 s before --now; the adapter reads the signed iat, and exp - iat is 600 s.",
+    "later_payload() is the same claims with iat one second later and the same exp, signed by the fixture key; other_key_signature() signs the fixture token under the public test scalar 43. The importer checks both tokens.",
+    "Negative cases mutate this fixture in src/test.nr."
+  ],
+  "outputs": {
+    "src/fixture.nr": "3417a76b1eede86bcce3eea9310f9b4953c8fe858d5cf00f5566bcf022206b49"
+  }
+}

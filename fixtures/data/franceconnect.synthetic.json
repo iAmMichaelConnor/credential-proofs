@@ -1,0 +1,21 @@
+{
+  "provenance": "Local synthetic public scalar42, not a FranceConnect-issued credential",
+  "expected": {
+    "environment": "production",
+    "minimumAcr": 2,
+    "audience": "synthetic-fcplus-client",
+    "subject": "synthetic-pairwise-service-subject",
+    "nonce": "0000000000000000000000000000000000000000000000000000000000000000",
+    "now": 1900000000
+  },
+  "jwk": {
+    "kty": "EC",
+    "crv": "P-256",
+    "x": "Z4DF_HAnXixwYaDnh3uxdN6t65iHAn8_qDZUFYun9Qw",
+    "y": "PLqMNLw10g6B9zCsHHvW1mGpQvkMapylXFEvnkoAEmY",
+    "alg": "ES256",
+    "use": "sig",
+    "kid": "repository-synthetic-p256"
+  },
+  "token": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InJlcG9zaXRvcnktc3ludGhldGljLXAyNTYifQ.eyJpc3MiOiJodHRwczovL2F1dGguZnJhbmNlY29ubmVjdC5nb3V2LmZyL2FwaS92MiIsImF1ZCI6InN5bnRoZXRpYy1mY3BsdXMtY2xpZW50Iiwic3ViIjoic3ludGhldGljLXBhaXJ3aXNlLXNlcnZpY2Utc3ViamVjdCIsIm5vbmNlIjoiMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMCIsImlhdCI6MTg5OTk5OTk0MCwiYXV0aF90aW1lIjoxODk5OTk5OTQwLCJleHAiOjE5MDAwMDAwNjAsImFjciI6ImVpZGFzMiIsImFtciI6WyJmYyIsInB3ZCJdfQ.IdWgmSzjhXt6Ra9DmeDFBl53bdbCvyAfBhX0lld3VwgkJXDo7m5VSXmYPdtK333Sk0K38DQS12EgYbibRXo3Wg"
+}

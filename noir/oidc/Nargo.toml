@@ -1,0 +1,12 @@
+[package]
+name = "oidc"
+type = "lib"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"
+
+[dependencies]
+base64url = { path = "../base64url" }
+sha256 = { git = "https://github.com/noir-lang/sha256", tag = "v0.3.0" }
+p256 = { path = "../p256_auth" }
+rsa_signature = { path = "../rsa_signature" }
+canonical_bytes = { path = "../canonical_bytes" }

@@ -1,0 +1,6 @@
+{
+  "manifest": "../manifest.json",
+  "materialIds": [
+    "local-relation-fixture"
+  ]
+}

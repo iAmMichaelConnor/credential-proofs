@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "scheme": "es256",
+  "materials": [
+    {
+      "id": "synthetic-jwt",
+      "category": "local-test",
+      "kind": "fixture-input",
+      "environment": "local-test",
+      "provenance": {
+        "origin": "local-synthetic",
+        "sourceUrls": [],
+        "obtainedAt": "2026-10-22",
+        "issuerKind": "local-test"
+      },
+      "privacy": "synthetic-subject",
+      "files": [
+        {
+          "path": "noir/oidc/src/known_answer_tests.nr"
+        }
+      ],
+      "trust": {
+        "role": "Synthetic test-only scalar42; not provider-issued.",
+        "algorithms": [
+          "ES256"
+        ],
+        "rotationRevocation": "Never production trust. Regenerate local fixtures only.",
+        "authentication": "Explicit public test scalar42, separate from authentic provider keys."
+      },
+      "verification": {
+        "method": "Synthetic reusable ES256 fixture; prior measurements predate current shared JSON profile and are not represented as current execution evidence.",
+        "verifier": "Node node:crypto; nargo 1.0.0-rc.3 when explicitly linked",
+        "commands": [
+          "node scripts/fixtures/material/validate-material.mjs"
+        ],
+        "result": "not-yet-verified",
+        "evidence": []
+      }
+    }
+  ],
+  "acquisitionNotes": [
+    {
+      "category": "provider-public",
+      "reason": "Generic cryptographic primitive has no single provider or issuer trust root; provider-specific manifests carry authentic keys.",
+      "checkedSources": []
+    },
+    {
+      "category": "provider-test",
+      "reason": "Generic primitive fixture is local-synthetic, never a provider-issued test.",
+      "checkedSources": []
+    }
+  ]
+}

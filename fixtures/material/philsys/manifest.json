@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 1,
+  "scheme": "philsys",
+  "materials": [
+    {
+      "id": "legacy-official-verifier-key",
+      "category": "provider-public",
+      "kind": "verification-key",
+      "environment": "production",
+      "provenance": {
+        "origin": "official-public-distribution",
+        "sourceUrls": [
+          "https://verify.philsys.gov.ph/static/scripts/main.js"
+        ],
+        "obtainedAt": "2026-10-22",
+        "issuerKind": "identity-provider"
+      },
+      "privacy": "public-key-only",
+      "files": [
+        {
+          "path": "fixtures/material/philsys/provider-public/legacy-ed25519-key.json",
+          "sha256": "c551decd9dc7e0bc6d5b878b602947322e380bd0f5d898f401782770f0a47c8e"
+        }
+      ],
+      "trust": {
+        "role": "Legacy PhilID JSON QR issuer signature key, extracted from official PSA verifier; not a holder key and not evidence of current active status.",
+        "algorithms": [
+          "Ed25519",
+          "legacy alg string EDDSA"
+        ],
+        "rotationRevocation": "No key identifier, validity dates or rotation schedule in client script. Pin explicitly; re-fetch official distribution for updates. Online active/revoked status and rightful-holder checks are separate.",
+        "authentication": "Official PSA HTTPS verifier source using host HTTPS trust store; exact source and key fingerprint retained. No X509 chain or modern COSE trust inferred.",
+        "keys": [
+          {
+            "rawKeySha256": "6506e70b9ab004e7b91964af6dfff8d6710035c041e39ae3c5d6435360df64d2",
+            "encoding": "raw32-base64"
+          }
+        ]
+      },
+      "verification": {
+        "method": "Schema and source inspection; signature success is not implied.",
+        "verifier": "Node node:crypto; nargo 1.0.0-rc.3 when explicitly linked",
+        "commands": [
+          "node scripts/fixtures/material/validate-material.mjs"
+        ],
+        "result": "public-material-parsed",
+        "evidence": []
+      }
+    },
+    {
+      "id": "official-advisory-illustrative-qr-rejected",
+      "category": "provider-test",
+      "kind": "credential",
+      "environment": "provider-test",
+      "provenance": {
+        "origin": "official-published-test",
+        "sourceUrls": [
+          "https://www.bsp.gov.ph/Regulations/Issuances/2021/M-2021-057.pdf"
+        ],
+        "obtainedAt": "2026-10-22",
+        "issuerKind": "unknown"
+      },
+      "privacy": "published-test-subject",
+      "files": [
+        {
+          "path": "fixtures/material/philsys/provider-test/official-sample-page20.png",
+          "sha256": "b234ea288010903bf170b23c04a62bbf27cc6c286e89d5055b22482ebe176327"
+        },
+        {
+          "path": "fixtures/material/philsys/provider-test/sample-transcription-verification.json",
+          "sha256": "3e842ce5d092eee0ed0d8cdca7cbca26d07cefd7fce2e472833457a0485f38f8"
+        }
+      ],
+      "trust": {
+        "role": "Legacy PhilID JSON QR issuer signature key, extracted from official PSA verifier; not a holder key and not evidence of current active status.",
+        "algorithms": [
+          "Ed25519",
+          "legacy alg string EDDSA"
+        ],
+        "rotationRevocation": "No key identifier, validity dates or rotation schedule in client script. Pin explicitly; re-fetch official distribution for updates. Online active/revoked status and rightful-holder checks are separate.",
+        "authentication": "Official PSA HTTPS verifier source using host HTTPS trust store; exact source and key fingerprint retained. No X509 chain or modern COSE trust inferred.",
+        "keys": [
+          {
+            "rawKeySha256": "6506e70b9ab004e7b91964af6dfff8d6710035c041e39ae3c5d6435360df64d2",
+            "encoding": "raw32-base64"
+          }
+        ]
+      },
+      "verification": {
+        "method": "Preserve exact PDF bytes/raster and both transcription candidates. Node Ed25519 verification rejects both with current official key; no claim which transcription or historical key could be authentic.",
+        "verifier": "Node node:crypto; nargo 1.0.0-rc.3 when explicitly linked",
+        "commands": [
+          "node scripts/fixtures/material/verify-philsys-public-sample.mjs"
+        ],
+        "result": "signature-rejected",
+        "evidence": []
+      }
+    },
+    {
+      "id": "synthetic-legacy-enrollment-holder",
+      "category": "local-test",
+      "kind": "fixture-input",
+      "environment": "local-test",
+      "provenance": {
+        "origin": "local-synthetic",
+        "sourceUrls": [],
+        "obtainedAt": "2026-10-22",
+        "generator": "generate-philsys-local.mjs; public Ed25519 seed42 and P256 scalars43/44 only",
+        "issuerKind": "local-test"
+      },
+      "privacy": "synthetic-subject",
+      "files": [
+        {
+          "path": "fixtures/material/philsys/local-test/synthetic-legacy-qr.json",
+          "sha256": "e5038e6cf520743f507a25bc446c12605bbfd1ed4159c21240dddb103fccd584"
+        },
+        {
+          "path": "fixtures/material/philsys/local-test/synthetic-issuer-key.json",
+          "sha256": "d987e513295845e33f7f28f6a6c6734f076b21866e82d8eb6e5936a3374969f7"
+        },
+        {
+          "path": "fixtures/material/philsys/local-test/verified-witness.json",
+          "sha256": "16997bd489f96efc16d5b985b47975bdb88edb96244426b892aad6374c286d84"
+        },
+        {
+          "path": "fixtures/material/philsys/local-test/enrollment-witness.json",
+          "sha256": "5f5e5935b7a5e3c34c06f7bbbeae509e91fa16c35d042a84175003d9f3b8a3e0"
+        }
+      ],
+      "trust": {
+        "role": "Faithful legacy issuer serialization plus explicit local enrollment/status attestor and holder roots. Never PSA-issued.",
+        "algorithms": [
+          "Ed25519 strict prime-subgroup",
+          "P256 SHA256"
+        ],
+        "rotationRevocation": "Local public test-only material; never enroll in production. Status assurance is configured relying-party statement, not cryptographic proof of biometric correctness.",
+        "authentication": "Exact synthetic root labels separate from official PSA key and rejected advisory illustration."
+      },
+      "verification": {
+        "method": "Synthetic issuer root only: independent host signature validation, solved final standalone witness bytecode-identical to counted circuit, provider12/12 and finalAztecTXE7/7. No genuine PSA-issued positive credential claimed.",
+        "verifier": "Node node:crypto plus Noble1.2.0 and nargo 1.0.0-rc.3",
+        "commands": [
+          "node scripts/fixtures/generate-philsys-local.mjs",
+          "node --test packages/credential-proofs-inputs/tests/dist/ed25519.test.js packages/credential-proofs-inputs/tests/dist/philsys.test.js"
+        ],
+        "result": "local-relation-executed",
+        "evidence": []
+      }
+    }
+  ],
+  "acquisitionNotes": [
+    {
+      "category": "provider-test",
+      "reason": "Published advisory illustration is NOT a confirmed valid signed positive. Both preserved transcriptions fail current official key. Faithful local issuer fixtures will be separately labelled.",
+      "checkedSources": [
+        "https://www.bsp.gov.ph/Regulations/Issuances/2021/M-2021-057.pdf",
+        "https://verify.philsys.gov.ph/static/scripts/main.js"
+      ]
+    },
+    {
+      "category": "provider-public",
+      "reason": "Newer COSE/ePhilID and Digital National ID use server APIs in public clients; current issuer algorithm/key profile is not assumed from legacy Ed25519. PSA relying-party public documentation/key distribution remains a distinct acquisition requirement.",
+      "checkedSources": [
+        "https://verify.philsys.gov.ph/",
+        "https://everify.gov.ph/check"
+      ]
+    }
+  ]
+}

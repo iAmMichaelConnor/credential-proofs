@@ -1,0 +1,37 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "passkey",
+  "use_case": "account-authorisation",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/passkey.mjs",
+      "--instance",
+      "account-authorisation/passkey",
+      "--action",
+      "13d5ef8ffb3cf6c86d105ebcdfea7bdb5a08d68bf6b28af2abc7f40dbda977af"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "aztec/use-cases dependencies @noble/curves p256 (RFC 6979, low s)"
+  },
+  "inputs": {
+    "aztec/use-cases/scripts/fixtures/generators/account.mjs": "10696a752f75b6d3b4d6f5cc69f4b3ac4e69993ef83e16abfb36ede40bd0fd56",
+    "aztec/use-cases/scripts/fixtures/generators/passkey.mjs": "6edfc7dc8dde345d2560a60f32a03e0d4135b84bdb8b27f5f3b5a9db8f5fbc44"
+  },
+  "key_provenance": "P-256 keys derived as sha256('credential-proofs synthetic passkey account key v1') and '... other key v1'; public seeds, not authenticator keys. Anyone can sign with them.",
+  "claims": {
+    "rp_id": "example.com",
+    "origin": "https://example.com",
+    "flags": "0x05 (UP, UV)",
+    "sign_count": 1,
+    "client_data_json": "{\"type\":\"webauthn.get\",\"challenge\":\"E9Xvj_s89shtEF683-p721oI1ov2soryq8f0Db2pd68\",\"origin\":\"https://example.com\",\"crossOrigin\":false}"
+  },
+  "notes": [
+    "The action is the instance's action hash at the TXE shell; the test fixture_action_is_the_action fails with the value to use when it changes.",
+    "Negative cases mutate this fixture in src/test.nr."
+  ],
+  "outputs": {
+    "src/fixture.nr": "3213c735b2a6b2a146d42d70907ebf15b63b7e16f6681a9d31b755d95a61a4ff"
+  }
+}

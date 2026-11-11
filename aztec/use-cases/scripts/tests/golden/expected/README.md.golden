@@ -1,0 +1,17 @@
+# Golden project
+
+<!-- use-case-grid:start -->
+Generated from [use-cases.json](use-cases.json) by
+[scripts/generate.py](scripts/generate.py). Each category lists its implemented instances.
+
+| Use case | Instances | Statement |
+| --- | ---: | --- |
+| [account-authorisation](account-authorisation/README.md) | 1 | The account owner approved this exact payload. |
+| [login-link](login-link/README.md) | 2 | A challenge-bound login, or explicitly accepted bearer evidence, links an identity. |
+| [attribute-gating](attribute-gating/README.md) | 2 | A credential with attribute A was presented; a fixed effect happens. |
+| [uniqueness](uniqueness/README.md) | 1 | This person has not done this in this app before; a fixed effect happens. |
+| [payment-settlement](payment-settlement/README.md) | 1 | A payment matching this order happened; the order's fixed effect happens once. |
+| [event-proof](event-proof/README.md) | 1 | This external event happened; a fixed effect happens once per event. |
+<!-- use-case-grid:end -->
+
+Text after the grid stays.

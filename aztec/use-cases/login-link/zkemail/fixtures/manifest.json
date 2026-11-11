@@ -1,0 +1,44 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "zkemail",
+  "use_case": "login-link",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/login_link.mjs",
+      "--instance",
+      "login-link/zkemail",
+      "--challenge",
+      "14a7a5900605edb20f7836506da8ce7d1459fddff984aa6b10e56600c7798cd3"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "node:crypto RSA-SHA256 PKCS#1 v1.5 over the adapter's DKIM signing input"
+  },
+  "key_provenance": "Public synthetic RS256 test key committed in fixtures/data; not a DKIM key of any mail domain. Anyone can sign with it.",
+  "claims": {
+    "domain": "mail.example",
+    "selector": "s1",
+    "sender": "alice@mail.example",
+    "recipient": "link@app.example",
+    "subject": "Link my mailbox",
+    "body": "CRED-PROOF-LINK:14a7a5900605edb20f7836506da8ce7d1459fddff984aa6b10e56600c7798cd3\r\n",
+    "body_hash_base64": "dkWeL0uEvGNWXbBhuh8dezVXBY8X19968Inxmc68FWA=",
+    "signed_at": 3999999940,
+    "signing_input": "from:alice@mail.example\r\nto:link@app.example\r\nsubject:Link my mailbox\r\ndkim-signature:v=1; a=rsa-sha256; c=relaxed/relaxed; d=mail.example; s=s1; t=3999999940; h=from:to:subject; bh=dkWeL0uEvGNWXbBhuh8dezVXBY8X19968Inxmc68FWA=; b="
+  },
+  "notes": [
+    "The signed value is observed at the instance's TXE shell; the test fixture_signs_the_challenge fails with the value to pass when it changes.",
+    "The issue time is 60 s before --now.",
+    "Negative cases mutate this fixture in src/test.nr."
+  ],
+  "inputs": {
+    "fixtures/data/synthetic-rs256-private.pem": "181021221b11334ea6ed4f36bcb38439613f5fc56eeda12cb192f4ef0b420d66",
+    "fixtures/data/synthetic-rs256-public.pem": "2b7dfcaec8fd468aab2b54441e8ac408d02375c81c48f2dba4d27205b72035ac",
+    "aztec/use-cases/scripts/fixtures/generators/login_link.mjs": "1e8579707fc6586013c781bd5c63a4b5f481435b41731780ee3905dbbc891dd7",
+    "aztec/use-cases/scripts/fixtures/generators/event.mjs": "ee042da71aab4fa4d529f8d22a039f5f94b2420fb202da0ce6270cbd4f675387"
+  },
+  "outputs": {
+    "src/fixture.nr": "887b405b80f5de53f4b57fe098cab6445ac3cb62c928687e870e3651f1a122d5"
+  }
+}

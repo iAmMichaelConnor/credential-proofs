@@ -1,0 +1,53 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "zupass",
+  "use_case": "account-authorisation",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/zupass.mjs",
+      "--instance",
+      "account-authorisation/zupass",
+      "--account",
+      "032e5526167f27ff386e28e4c5e862135348ab8d12e6d80d77a6a01b82f13546",
+      "--action",
+      "24b72d37be59925e44c9a4feb27f227a7d68fd72589beed8cb04930094713e7b"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "packages/credential-proofs-inputs/src/zupass.ts podToCircuitWitness, signHolderApproval and holderApprovalWitness; @pcd/pod 0.5.1 POD.sign and signPODRoot"
+  },
+  "inputs": {
+    "packages/credential-proofs-inputs/src/zupass.ts": "1e27c9ddc80d9ca39241742db34585b2698016c89d176fc47829473b6451f08f",
+    "aztec/use-cases/scripts/fixtures/generators/account.mjs": "10696a752f75b6d3b4d6f5cc69f4b3ac4e69993ef83e16abfb36ede40bd0fd56",
+    "aztec/use-cases/scripts/fixtures/generators/zupass.mjs": "5aceca5ba971c9b40929e134500f508eabefecc03443435bda4a2bc9c83cdf19"
+  },
+  "key_provenance": "EdDSA-Poseidon keys sha256('credential-proofs synthetic zupass account issuer key v1'), '... holder key v1', '... other holder key v1' and '... other issuer key v1'; public seeds, not Zupass keys. Anyone can sign with them.",
+  "claims": {
+    "entry": "owner",
+    "holder_public_key": "hGnjpUik7A9Toi9+JM6jdcu//Z9lY+JySLhr88YGdAw",
+    "issuer_public_key": "jEG6oGkcLgzSRAagJNohqs6UPZmhsD9tAdL6sFPmRBc",
+    "content_id": "20670674637429438148937486403317694516167066894210068196973620713755864683111",
+    "holder_approval": {
+      "entries": {
+        "_aztec_auth_v1_account": {
+          "cryptographic": "0x32e5526167f27ff386e28e4c5e862135348ab8d12e6d80d77a6a01b82f13546"
+        },
+        "_aztec_auth_v1_action": {
+          "cryptographic": "0x24b72d37be59925e44c9a4feb27f227a7d68fd72589beed8cb04930094713e7b"
+        },
+        "_aztec_auth_v1_expires": 4102444800
+      },
+      "signature": "IwDw9xl0A0zli87z4St2U9d5F5rQfw5M0zki8AwQiqgyuPhfje2mr90hEjiwDfBEQz62VbtOwy1xt5sj4x43AA",
+      "signerPublicKey": "hGnjpUik7A9Toi9+JM6jdcu//Z9lY+JySLhr88YGdAw"
+    }
+  },
+  "notes": [
+    "The action is the instance's action hash at the TXE shell; the test fixture_action_is_the_action fails with the value to use when it changes.",
+    "Negative cases mutate this fixture in src/test.nr.",
+    "The holder signs a holder approval POD with the account, action and expires entries; the raw action signature is a negative case."
+  ],
+  "outputs": {
+    "src/fixture.nr": "b2841f036dbba969a55befb2b8f7a0bd579c47d66fa8a447fe3e038daa35db27"
+  }
+}

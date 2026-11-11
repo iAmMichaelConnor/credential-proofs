@@ -1,0 +1,14 @@
+[package]
+name = "uc_adapter_zkemail"
+type = "lib"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"
+
+[dependencies]
+aztec = { git = "https://github.com/aztec-labs-eng/aztec-nr", tag = "v6.0.0", directory = "aztec" }
+uc_attribute_gate = { path = "../../attribute-gating/common" }
+uc_event_proof = { path = "../../event-proof/common" }
+uc_login_link = { path = "../../login-link/common" }
+uc_trust = { path = "../../trust" }
+zkemail = { path = "../../../../noir/zkemail" }
+sha256 = { tag = "v0.3.0", git = "https://github.com/noir-lang/sha256" }

@@ -1,0 +1,47 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "zkemail",
+  "use_case": "attribute-gating",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/login_link.mjs",
+      "--instance",
+      "attribute-gating/zkemail",
+      "--binding",
+      "2a1a4766baa7ebcd5157158ec3568a59f3e03dee367ca68fe77c990310a83917"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "node:crypto RSA-SHA256 PKCS#1 v1.5 over the adapter's DKIM signing input"
+  },
+  "key_provenance": "Public synthetic RS256 test key committed in fixtures/data; not a DKIM key of any mail domain. Anyone can sign with it.",
+  "claims": {
+    "domain": "mail.example",
+    "selector": "s1",
+    "sender": "alice@mail.example",
+    "recipient": "link@app.example",
+    "subject": "Link my mailbox",
+    "body": "CRED-PROOF-GATE:2a1a4766baa7ebcd5157158ec3568a59f3e03dee367ca68fe77c990310a83917\r\n",
+    "body_hash_base64": "dLiR07uZpwdlnKeBsa3zMO+JJ3cx9pw0alGseHUA7L8=",
+    "signed_at": 3999999940,
+    "signing_input": "from:alice@mail.example\r\nto:link@app.example\r\nsubject:Link my mailbox\r\ndkim-signature:v=1; a=rsa-sha256; c=relaxed/relaxed; d=mail.example; s=s1; t=3999999940; h=from:to:subject; bh=dLiR07uZpwdlnKeBsa3zMO+JJ3cx9pw0alGseHUA7L8=; b=",
+    "choice": 7,
+    "purpose": "GATE",
+    "link_purpose_signing_input": "from:alice@mail.example\r\nto:link@app.example\r\nsubject:Link my mailbox\r\ndkim-signature:v=1; a=rsa-sha256; c=relaxed/relaxed; d=mail.example; s=s1; t=3999999940; h=from:to:subject; bh=ATQzHwDiiYYArN/WkA8VrXGYvZcrdBP58f9Bq+kQHS0=; b="
+  },
+  "notes": [
+    "The signed caller-and-choice binding is observed at the keyless TXE shell; fixture_signs_the_caller_and_choice prints the value to regenerate when it changes.",
+    "The issue time is 60 s before --now.",
+    "Negative cases mutate this fixture in src/test.nr."
+  ],
+  "inputs": {
+    "fixtures/data/synthetic-rs256-private.pem": "181021221b11334ea6ed4f36bcb38439613f5fc56eeda12cb192f4ef0b420d66",
+    "fixtures/data/synthetic-rs256-public.pem": "2b7dfcaec8fd468aab2b54441e8ac408d02375c81c48f2dba4d27205b72035ac",
+    "aztec/use-cases/scripts/fixtures/generators/login_link.mjs": "1e8579707fc6586013c781bd5c63a4b5f481435b41731780ee3905dbbc891dd7",
+    "aztec/use-cases/scripts/fixtures/generators/event.mjs": "ee042da71aab4fa4d529f8d22a039f5f94b2420fb202da0ce6270cbd4f675387"
+  },
+  "outputs": {
+    "src/fixture.nr": "1465de13b3b237a919b4ca33b0847a65ba442bdfb2d239f650b1382074cf69f6"
+  }
+}

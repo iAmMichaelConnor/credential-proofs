@@ -1,0 +1,8 @@
+[package]
+name = "university_auth"
+type = "lib"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"
+[dependencies]
+oidc = { path = "../oidc" }
+canonical_bytes = { path = "../canonical_bytes" }

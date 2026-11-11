@@ -1,0 +1,11 @@
+{
+  "algorithm": "Ed25519",
+  "publicKeyBase64": "vD3czlgHEpf2sxGcri6iTm4zeEEA+jfd9tTq9S8zxe8=",
+  "rawKeySha256": "6506e70b9ab004e7b91964af6dfff8d6710035c041e39ae3c5d6435360df64d2",
+  "sourceUrl": "https://verify.philsys.gov.ph/static/scripts/main.js",
+  "retrievedAt": "2026-10-22",
+  "certificateChain": "Not a certificate: raw Ed25519 key distributed by official verifier.",
+  "validity": "No expiry or key identifier published in client code; snapshot does not establish current revocation status.",
+  "spkiSha256": "d4ccd1a5c0098c9bef66f44499fa08781d2a8771a2834baf0fbb3d5b00c54262",
+  "keyProfile": "Canonical nonidentity Ed25519 point in prime-order subgroup; host validation via Noble1.2.0. This does not verify a credential."
+}

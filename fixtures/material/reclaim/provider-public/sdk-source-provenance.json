@@ -1,0 +1,10 @@
+{
+  "package": "@reclaimprotocol/verifier-solidity-sdk",
+  "version": "1.0.4",
+  "sourceUrl": "https://registry.npmjs.org/@reclaimprotocol/verifier-solidity-sdk/-/verifier-solidity-sdk-1.0.4.tgz",
+  "obtainedAt": "2026-10-22T19:32:48.621511+00:00",
+  "publishedIntegrity": "sha512-Kl7nyAtufxHKjp7tMrDe5Y0VWEtLSZi9offnhxRdfJ7exTzmRpdOVdPYiXToADrnPZb1ft49AlmIlke4T+sP7A==",
+  "tarballIntegrityMatched": true,
+  "addressesFileSha256": "27abfc198642200c128a1b3d2096eac0013b648c770567bde53e5e87e519ce37",
+  "trustLimit": "Published SDK contract addresses only, not attestor public keys/current epoch registry proof. SDK release and current documentation may differ; never infer automatic production enrollment."
+}

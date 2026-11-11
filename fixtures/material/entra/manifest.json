@@ -1,0 +1,167 @@
+{
+  "schemaVersion": 1,
+  "scheme": "entra",
+  "materials": [
+    {
+      "id": "entra-common-public-jwks",
+      "category": "provider-public",
+      "kind": "jwks",
+      "environment": "production",
+      "provenance": {
+        "origin": "official-public-distribution",
+        "sourceUrls": [
+          "https://login.microsoftonline.com/common/discovery/v2.0/keys"
+        ],
+        "obtainedAt": "2026-10-22T17:26:36.061205+00:00",
+        "issuerKind": "identity-provider"
+      },
+      "privacy": "public-key-only",
+      "files": [
+        {
+          "path": "fixtures/data/public-trust/entra/jwks.json",
+          "sha256": "4358c0acaf923335bc07d2a4d053abc2cd664148d7c21fe40027c8a611910775"
+        },
+        {
+          "path": "fixtures/data/public-trust/entra/provenance.json",
+          "sha256": "691a8f2d701eed467d19e8e07f91c0e3f5d48103c92b5cef1dcd74c54a07900b"
+        }
+      ],
+      "trust": {
+        "role": "Microsoft Entra public ID-token key snapshot",
+        "algorithms": [
+          "RS256 RSA2048"
+        ],
+        "rotationRevocation": "Refresh fixed official discovery endpoint and review key changes before enrollment; snapshot does not imply perpetual authorization.",
+        "authentication": "HTTPS official distribution. Common endpoint alone does not bind a tenant; verifier pins exact tenant-specific issuer and account key.",
+        "keys": [
+          {
+            "kid": "dgvSDvK8A5KyKyppw1dAwTXD3CA",
+            "kty": "RSA",
+            "alg": null,
+            "use": "sig",
+            "spkiSha256": "3bd197b82a2f54d62803e7596b98bd74a505747871a90d78fbb00521c8665b9d",
+            "asymmetricKeyType": "rsa",
+            "modulusLength": 2048
+          },
+          {
+            "kid": "vEgXMKRi8IHKwAboBItSiOApgqo",
+            "kty": "RSA",
+            "alg": null,
+            "use": "sig",
+            "spkiSha256": "e175e7c1afbdb095fe6f05d2525b155cab81535c84338a40068b562cda00497b",
+            "asymmetricKeyType": "rsa",
+            "modulusLength": 2048
+          },
+          {
+            "kid": "ryBx-65jNoxH4FQH_6zarNjaNf4",
+            "kty": "RSA",
+            "alg": null,
+            "use": "sig",
+            "spkiSha256": "69100e1ebad249428d2f621ba152cf93a921f9fda7394ea4dd9c65dfeb1b8f02",
+            "asymmetricKeyType": "rsa",
+            "modulusLength": 2048
+          },
+          {
+            "kid": "8YVc_ILzh3C3q96H1GVXnuKL8QQ",
+            "kty": "RSA",
+            "alg": null,
+            "use": "sig",
+            "spkiSha256": "fa36162efb1dea575ea713257b5a5a1720632fb1f80d6e346e467e0f9d146b04",
+            "asymmetricKeyType": "rsa",
+            "modulusLength": 2048
+          },
+          {
+            "kid": "7zs6zYTk9g5j_b7e7ItWW-HaAL4",
+            "kty": "RSA",
+            "alg": null,
+            "use": "sig",
+            "spkiSha256": "a0fc74d6b9f7234c8292e1e8c02f0ffb503e2753d57543b0f6b794b307fe019c",
+            "asymmetricKeyType": "rsa",
+            "modulusLength": 2048
+          },
+          {
+            "kid": "MYL4YuBdtqTrz0Wdxkl7_XDVJfE",
+            "kty": "RSA",
+            "alg": null,
+            "use": "sig",
+            "spkiSha256": "7b4e16bc5f964eae4806332089c3f31a628a3f4b0d4819730b89756d588a3851",
+            "asymmetricKeyType": "rsa",
+            "modulusLength": 2048
+          },
+          {
+            "kid": "84cJE_AjkQHp4Vee5OaZIAlvWuU",
+            "kty": "RSA",
+            "alg": null,
+            "use": "sig",
+            "spkiSha256": "28c6965d2ff1aa5edb6073481df01034db979fb840315f74bbc0629025956122",
+            "asymmetricKeyType": "rsa",
+            "modulusLength": 2048
+          },
+          {
+            "kid": "myOHS_wwkWumGXDcirfbRWoslv4",
+            "kty": "RSA",
+            "alg": null,
+            "use": "sig",
+            "spkiSha256": "502a2cbb30ec1ffc23f2e443f593d0f6c9da004c8fae7144bd4f1602e6feb25e",
+            "asymmetricKeyType": "rsa",
+            "modulusLength": 2048
+          }
+        ]
+      },
+      "verification": {
+        "method": "Parse public JWKS and derive SPKI fingerprints",
+        "verifier": "Node.js public-key parsing and SPKI fingerprint derivation",
+        "commands": [
+          "node scripts/snapshot-trust-material.mjs entra"
+        ],
+        "result": "public-material-parsed",
+        "evidence": []
+      }
+    },
+    {
+      "id": "entra-synthetic-signed-token",
+      "category": "local-test",
+      "kind": "fixture-input",
+      "environment": "local-test",
+      "provenance": {
+        "origin": "local-synthetic",
+        "sourceUrls": [],
+        "obtainedAt": "2026-10-22T17:26:36.061205+00:00",
+        "issuerKind": "local-test"
+      },
+      "privacy": "synthetic-subject",
+      "files": [
+        {
+          "path": "noir/entra_slow_tests/src/known_answer_tests.nr"
+        }
+      ],
+      "trust": {
+        "role": "Synthetic issuer RSA token and exact action nonce for circuit validation",
+        "algorithms": [
+          "RS256 RSA2048"
+        ],
+        "rotationRevocation": "Synthetic test key only; no Microsoft authority.",
+        "authentication": "Locally generated test key and synthetic subject; never genuine tenant enrollment."
+      },
+      "verification": {
+        "method": "Run the maintained credential relation with the pinned toolchain.",
+        "verifier": "Current pinned toolchain validation is not recorded.",
+        "commands": [
+          "nargo test --program-dir noir --package entra_slow_tests entra_"
+        ],
+        "result": "not-yet-verified",
+        "evidence": []
+      }
+    }
+  ],
+  "acquisitionNotes": [
+    {
+      "category": "provider-test",
+      "reason": "No universal public signed tenant ID token with reusable private signing authority is published in reviewed Microsoft docs. App registration / login capture is optional interoperability validation, not library engineering prerequisite.",
+      "checkedSources": [
+        "https://learn.microsoft.com/en-us/entra/identity-platform/id-token-claims-reference",
+        "https://learn.microsoft.com/en-us/entra/identity-platform/v2-protocols-oidc"
+      ]
+    }
+  ]
+}

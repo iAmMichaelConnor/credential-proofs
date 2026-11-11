@@ -1,0 +1,10 @@
+[package]
+name = "reclaim_auth"
+type = "lib"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"
+
+[dependencies]
+ethereum_auth = { path = "../ethereum_auth" }
+keccak256 = { tag = "main", git = "https://github.com/noir-lang/keccak256" }
+canonical_bytes = { path = "../canonical_bytes" }

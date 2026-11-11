@@ -1,0 +1,11 @@
+{
+  "provider": "http",
+  "parameters": "{}",
+  "context": "{\"contextAddress\":\"0x024f5c1d89829e76dccfd24409640b66f04b55471026fd65b9235f830cd2d214\",\"contextMessage\":\"02d331feb1b1ffd6bc96d585f1f4631b50cd40cfb22f1898c25d08d07c9b9e75\",\"extractedParameters\":{\"username\":\"test_user\"},\"providerHash\":\"0x2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a\",\"reclaimSessionId\":\"session-1\"}",
+  "identifier": "0x9193035c824673366514c8514c1635b334183ecb9bf0e705b74f48c687fbceac",
+  "owner": "0x0000000000000000000000000000000000000000",
+  "timestamp": 1900000000,
+  "epoch": 1,
+  "signature": "0xb98bf9cd5ee07aa0620a5ac8e95c9a9764b7d1f31785fbbbd162cc84a726de9e5578421ce0ffc14b5a4035934caf7579b92cd5ff64216e9f72c1591fedaf889d1c",
+  "signer": "0x7E5F4552091A69125d5DfCb7b8C2659029395Bdf"
+}

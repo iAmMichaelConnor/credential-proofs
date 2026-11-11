@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "scheme": "alipay",
+  "materials": [
+    {
+      "id": "local-relation-fixture",
+      "category": "local-test",
+      "kind": "fixture-input",
+      "environment": "local-test",
+      "provenance": {
+        "origin": "local-synthetic",
+        "sourceUrls": [],
+        "obtainedAt": "2026-10-22T17:25:08.000059+00:00",
+        "generator": "Existing repository fixture generation paths; files retained by reference",
+        "issuerKind": "local-test"
+      },
+      "privacy": "synthetic-subject",
+      "files": [
+        {
+          "path": "fixtures/data/alipay/synthetic-v3.json",
+          "sha256": "baa55c715086498ebc17d68f28c1b123cee8ddd0faadb6a9d843c5034487ca6d"
+        }
+      ],
+      "trust": {
+        "role": "Alipay application/environment signing key or certificate must be obtained through official application configuration. Local v3 fixture is not provider-issued.",
+        "algorithms": [
+          "RSA2048/SHA256"
+        ],
+        "rotationRevocation": "Fixture only; deployed credential/attestor holder keys must follow enrolled protocol policy.",
+        "authentication": "Explicitly local synthetic test material; never authenticate a production issuer through this fixture."
+      },
+      "verification": {
+        "method": "Exact local RSA HTTP envelope signature and two mutation negatives pass; signed bytes/key/signature match executed Noir Prover values. Full current constrained witness separately solved.",
+        "verifier": "Node crypto RSA PKCS1v1.5/SHA256 and nargo 1.0.0-rc.3, source-bound refresh report",
+        "commands": [
+          "node scripts/fixtures/material/verify-http-fixture.mjs fixtures/data/alipay/synthetic-v3.json target/kat/alipay_v3/Prover.toml",
+          "nargo test --program-dir noir --package alipay alipay_v3_"
+        ],
+        "result": "local-relation-executed",
+        "evidence": []
+      }
+    },
+    {
+      "id": "official-sdk-recorded-v2-response",
+      "category": "provider-test",
+      "kind": "credential",
+      "environment": "provider-test",
+      "provenance": {
+        "origin": "upstream-public-fixture",
+        "sourceUrls": [
+          "https://raw.githubusercontent.com/alipay/alipay-sdk-nodejs-all/e1676390871eb7a69b4f81aa15de8327ac15738a/test/alipay.test.ts"
+        ],
+        "obtainedAt": "2026-10-22T17:29:17.244Z",
+        "issuerKind": "upstream-maintainer"
+      },
+      "privacy": "no-subject",
+      "files": [
+        {
+          "path": "fixtures/data/alipay/upstream-v2-file-upload.json",
+          "sha256": "83b0952010f8f16ae3985f500e9dbc23da70a41ca9c3f0cc0fdbd3ff267a9f49"
+        }
+      ],
+      "trust": {
+        "role": "Alipay official SDK published test key/recorded upload response; not an identity credential and not independently authenticated production platform trust.",
+        "algorithms": [
+          "RSA2048/PKCS1v1.5/SHA256"
+        ],
+        "rotationRevocation": "Pinned historical official SDK test response; never a production trust registry.",
+        "authentication": "Source fetched from official Alipay GitHub repository at exact published commit; collected signature checked against source; verification uses its paired published test key.",
+        "keys": [
+          {
+            "spkiSha256": "a5db33455aa4446a4b560beec42520647aab6ec8995415faa46d19c85cb0538c"
+          }
+        ]
+      },
+      "verification": {
+        "method": "Verify exact recorded body signature, reject altered body and unrelated local key.",
+        "verifier": "v24.12.0 node:crypto/OpenSSL 3.5.4",
+        "commands": [
+          "node scripts/fixtures/material/verify-alipay-public-sample.mjs"
+        ],
+        "result": "credential-signature-verified",
+        "evidence": []
+      }
+    }
+  ],
+  "acquisitionNotes": [
+    {
+      "category": "provider-public",
+      "reason": "Alipay application/environment signing key or certificate must be obtained through official application configuration. Local v3 fixture is not provider-issued. No authoritative global provider public key has been collected for this profile.",
+      "checkedSources": [
+        "https://github.com/alipay/alipay-sdk-nodejs-all/blob/master/README.md"
+      ]
+    }
+  ]
+}

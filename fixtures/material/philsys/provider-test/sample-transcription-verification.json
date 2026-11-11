@@ -1,0 +1,38 @@
+{
+  "source": "https://www.bsp.gov.ph/Regulations/Issuances/2021/M-2021-057.pdf",
+  "pdfPage": 20,
+  "transcriptionWarning": "Illustrative QR JSON transcribed from raster source. Uppercase I/l and sample spelling may be ambiguous; exact candidate strings preserved. Failure does not prove a particular cause or historical key rotation.",
+  "fields": {
+    "DateIssued": "31 May 2021",
+    "Issuer": "PSA",
+    "subject": {
+      "Suffix": "",
+      "lName": "Mingiz",
+      "fName": "Plasti",
+      "mName": "Empre",
+      "sex": "Female",
+      "BF": "[1,10]",
+      "DOB": "March 01, 1947",
+      "POB": "Bindoy (Payabon),Negros Oriental",
+      "PCN": "1234-6015-6789-5037"
+    },
+    "alg": "EDDSA"
+  },
+  "publicKeyBase64": "vD3czlgHEpf2sxGcri6iTm4zeEEA+jfd9tTq9S8zxe8=",
+  "publicKeyRawSha256": "6506e70b9ab004e7b91964af6dfff8d6710035c041e39ae3c5d6435360df64d2",
+  "messageHex": "7b0a20202244617465497373756564223a20223331204d61792032303231222c0a202022497373756572223a2022505341222c0a2020227375626a656374223a207b0a2020202022537566666978223a2022222c0a20202020226c4e616d65223a20224d696e67697a222c0a2020202022664e616d65223a2022506c61737469222c0a20202020226d4e616d65223a2022456d707265222c0a2020202022736578223a202246656d616c65222c0a20202020224246223a20225b312c31305d222c0a2020202022444f42223a20224d617263682030312c2031393437222c0a2020202022504f42223a202242696e646f79202850617961626f6e292c4e6567726f73204f7269656e74616c222c0a202020202250434e223a2022313233342d363031352d363738392d35303337220a20207d2c0a202022616c67223a20224544445341220a7d",
+  "candidates": [
+    {
+      "signatureBase64": "bvx1vw9QWx9V/CUISd0hED9+aZR9FEBk3GCfdwb2BOpan1nvLcst0AYCyF1ArBcaV0XFAJ5CMhRzyHUCeai6iDw==",
+      "decodedLength": 65,
+      "signatureVerified": false
+    },
+    {
+      "signatureBase64": "bvx1vw9QWx9V/CUlSd0hED9+aZR9FEBk3GCfdwb2BOpan1nvLcst0AYCyF1ArBcaV0XFAJ5CMhRzyHUCea6iDw==",
+      "decodedLength": 64,
+      "signatureVerified": false
+    }
+  ],
+  "result": "signature-rejected",
+  "positiveIssuerVector": false
+}

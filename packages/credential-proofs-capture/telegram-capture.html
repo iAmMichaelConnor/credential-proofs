@@ -1,0 +1,22 @@
+<!doctype html><meta charset="utf-8"><title>Telegram action token capture</title>
+<style>body{font:16px system-ui;max-width:44rem;margin:3rem auto}label{display:block;margin:1rem 0}input{width:100%;padding:.5rem}pre{white-space:pre-wrap}</style>
+<h1>Capture a Telegram ID token</h1>
+<p>Serve this page at a page URL and origin registered in BotFather &rarr; Login Widget &rarr; Allowed URLs. Select RS256 in Advanced. Paste the action nonce from the enrolled account and intended payload. The token remains in this browser until downloaded.</p>
+<label>Bot Client ID<input id="client" inputmode="numeric"></label>
+<label>Account action nonce (64 lowercase hexadecimal characters)<input id="nonce" maxlength="64"></label>
+<button id="login">Log in with Telegram</button><button id="save" disabled>Save id-token.jwt</button><pre id="status"></pre>
+<script src="https://oauth.telegram.org/js/telegram-login.js?6"></script>
+<script>
+let token;
+const el=id=>document.getElementById(id);
+el('login').onclick=()=>{
+ const client=el('client').value,nonce=el('nonce').value;
+ if(!/^[1-9][0-9]*$/.test(client)||!Number.isSafeInteger(Number(client))||!/^[0-9a-f]{64}$/.test(nonce)){el('status').textContent='Enter a valid Bot Client ID and exact account action nonce.';return;}
+ token=undefined;el('save').disabled=true;
+ Telegram.Login.auth({client_id:Number(client),nonce,scope:[]},result=>{
+  if(typeof result.id_token!=='string'){el('status').textContent=result.error||'No ID token returned';return;}
+  token=result.id_token;el('save').disabled=false;el('status').textContent='Token captured. Verify it with the credential CLI before use.';
+ });
+};
+el('save').onclick=()=>{const url=URL.createObjectURL(new Blob([token+'\n'],{type:'text/plain'}));const a=document.createElement('a');a.href=url;a.download='id-token.jwt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
+</script>

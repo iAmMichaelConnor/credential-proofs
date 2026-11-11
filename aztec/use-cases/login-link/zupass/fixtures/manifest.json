@@ -1,0 +1,42 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "zupass",
+  "use_case": "login-link",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/login_link.mjs",
+      "--instance",
+      "login-link/zupass",
+      "--challenge",
+      "2e25d416a37cc37da7547dcd15d35f9ca6367cf224a481aa8bad271b3a15a356"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "packages/credential-proofs-inputs/src/zupass.ts podToCircuitWitness, signHolderLogin and holderLoginWitness; @pcd/pod POD.sign and signPODRoot; @zkpassport/poseidon2 Poseidon2 (raw negative case)"
+  },
+  "key_provenance": "EdDSA-Poseidon keys sha256('credential-proofs synthetic zupass login-link issuer key v1'), '... holder key v1' and '... other holder key v1'; public seeds, not Zupass keys. Anyone can sign with them.",
+  "claims": {
+    "entry": "owner",
+    "holder_public_key": "QEfEUFmLjMvnFXtFHB8E5/uZdByXKk8ehBtXkazjpZE",
+    "issuer_public_key": "zK/YfHk7FrxX5tE8U1awGw3/W5ziODpxoAWc7XxxxCs",
+    "content_id": "14475863112277464393541001647467531646177427595195012535482116151892101774414",
+    "challenge": "0x2e25d416a37cc37da7547dcd15d35f9ca6367cf224a481aa8bad271b3a15a356",
+    "issued_at": 3999999940,
+    "login_content_id": "14642960057297468205109601909031866764110170660687955190703795886498807701569"
+  },
+  "notes": [
+    "The signed value is observed at the instance's TXE shell; the test fixture_signs_the_challenge fails with the value to pass when it changes.",
+    "The issue time is 60 s before --now.",
+    "The holder signs the holder login POD {_aztec_link_v1_challenge, _aztec_link_v1_issued_at}; the raw timed-challenge signature is a negative case.",
+    "Negative cases mutate this fixture in src/test.nr."
+  ],
+  "inputs": {
+    "packages/credential-proofs-inputs/src/zupass.ts": "1e27c9ddc80d9ca39241742db34585b2698016c89d176fc47829473b6451f08f",
+    "aztec/use-cases/scripts/fixtures/generators/login_link.mjs": "1e8579707fc6586013c781bd5c63a4b5f481435b41731780ee3905dbbc891dd7",
+    "aztec/use-cases/scripts/fixtures/generators/event.mjs": "ee042da71aab4fa4d529f8d22a039f5f94b2420fb202da0ce6270cbd4f675387"
+  },
+  "outputs": {
+    "src/fixture.nr": "adea38fdf297a35b396f140fbb5359c802b5ba4f5d3b0ecf430a8a364b896ed2"
+  }
+}

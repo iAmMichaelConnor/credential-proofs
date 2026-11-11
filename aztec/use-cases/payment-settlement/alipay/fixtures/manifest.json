@@ -1,0 +1,72 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "alipay",
+  "use_case": "payment-settlement",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/platform_payment.mjs",
+      "--instance",
+      "payment-settlement/alipay",
+      "--reference",
+      "18eec07a762dabbbe6667e24566b27c0a734d818acd29c4437214a5b36dd5bf9",
+      "--now",
+      "4000000000",
+      "--max-age",
+      "300"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "node:crypto RSA-SHA256 (PKCS#1 v1.5)"
+  },
+  "inputs": {
+    "fixtures/data/synthetic-rs256-private.pem": "181021221b11334ea6ed4f36bcb38439613f5fc56eeda12cb192f4ef0b420d66",
+    "fixtures/data/synthetic-rs256-public.pem": "2b7dfcaec8fd468aab2b54441e8ac408d02375c81c48f2dba4d27205b72035ac",
+    "aztec/use-cases/scripts/fixtures/generators/platform_payment.mjs": "b0c9201d0e806bf9b0634d434aff73896577cfabc9dd4c018c76d88b83a84d9a"
+  },
+  "key_provenance": "Public synthetic RS256 test key committed in fixtures/data; not a alipay platform key. Anyone can sign with it.",
+  "claims": {
+    "timestamp": "4000000000000",
+    "nonce": "synthetic-alipay-trade-query-nonce",
+    "responses": {
+      "payment": {
+        "trade_no": "2026102522001400000000000001",
+        "total": 2500,
+        "timestamp": "4000000000000",
+        "body": "{\"trade_no\":\"2026102522001400000000000001\",\"out_trade_no\":\"18eec07a762dabbbe6667e24566b27c0a734d818acd29c4437214a5b36dd5bf9\",\"buyer_logon_id\":\"159****0000\",\"trade_status\":\"TRADE_SUCCESS\",\"total_amount\":\"25.00\",\"buyer_pay_amount\":\"25.00\",\"send_pay_date\":\"2026-10-25 12:00:00\"}"
+      },
+      "other_transaction": {
+        "trade_no": "2026102522001400000000000002",
+        "total": 2500,
+        "timestamp": "4000000000000",
+        "body": "{\"trade_no\":\"2026102522001400000000000002\",\"out_trade_no\":\"18eec07a762dabbbe6667e24566b27c0a734d818acd29c4437214a5b36dd5bf9\",\"buyer_logon_id\":\"159****0000\",\"trade_status\":\"TRADE_SUCCESS\",\"total_amount\":\"25.00\",\"buyer_pay_amount\":\"25.00\",\"send_pay_date\":\"2026-10-25 12:00:00\"}"
+      },
+      "other_amount": {
+        "trade_no": "2026102522001400000000000003",
+        "total": 2499,
+        "timestamp": "4000000000000",
+        "body": "{\"trade_no\":\"2026102522001400000000000003\",\"out_trade_no\":\"18eec07a762dabbbe6667e24566b27c0a734d818acd29c4437214a5b36dd5bf9\",\"buyer_logon_id\":\"159****0000\",\"trade_status\":\"TRADE_SUCCESS\",\"total_amount\":\"24.99\",\"buyer_pay_amount\":\"24.99\",\"send_pay_date\":\"2026-10-25 12:00:00\"}"
+      },
+      "other_status": {
+        "trade_no": "2026102522001400000000000004",
+        "total": 2500,
+        "status": "WAIT_BUYER_PAY",
+        "timestamp": "4000000000000",
+        "body": "{\"trade_no\":\"2026102522001400000000000004\",\"out_trade_no\":\"18eec07a762dabbbe6667e24566b27c0a734d818acd29c4437214a5b36dd5bf9\",\"buyer_logon_id\":\"159****0000\",\"trade_status\":\"WAIT_BUYER_PAY\",\"total_amount\":\"25.00\",\"buyer_pay_amount\":\"25.00\",\"send_pay_date\":\"2026-10-25 12:00:00\"}"
+      },
+      "late_millisecond": {
+        "trade_no": "2026102522001400000000000005",
+        "total": 2500,
+        "timestamp": "4000000000999",
+        "body": "{\"trade_no\":\"2026102522001400000000000005\",\"out_trade_no\":\"18eec07a762dabbbe6667e24566b27c0a734d818acd29c4437214a5b36dd5bf9\",\"buyer_logon_id\":\"159****0000\",\"trade_status\":\"TRADE_SUCCESS\",\"total_amount\":\"25.00\",\"buyer_pay_amount\":\"25.00\",\"send_pay_date\":\"2026-10-25 12:00:00\"}"
+      }
+    }
+  },
+  "notes": [
+    "The reference is the instance's order reference observed in TXE; the instance test fails with the value to use when it changes.",
+    "Variants are separately signed responses for the wrong-term tests; other negative cases mutate a valid response in src/test.nr."
+  ],
+  "outputs": {
+    "src/fixture.nr": "4422fb04a0edb78c0333638e228cb5befe83063dd971280017e5220fd9cf619e"
+  }
+}

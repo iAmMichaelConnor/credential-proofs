@@ -1,0 +1,158 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "singpass",
+  "use_case": "attribute-gating",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/singpass.mjs",
+      "--instance",
+      "attribute-gating/singpass",
+      "--binding",
+      "268b215f591adc640083fd5e34ece4c8ee26037213b940a8586ee058f72787d0",
+      "--other-binding",
+      "1b44815c3afaca0d94649cc969f78c29bccdd4cbac14b7e1ed53bbb5e637b64a",
+      "--now",
+      "4000000000"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "@noble/curves p256 ES256 (RFC 6979, low s), checked with packages/credential-proofs-inputs/src/singpass.ts importVerifiedSingpass"
+  },
+  "inputs": {
+    "scripts/fixtures/lib/local-p256-key.mjs": "4fa67fca2359031df99b99cd3c8d776f5e148d37202a5e5c75af126201e3ae76",
+    "packages/credential-proofs-inputs/src/singpass.ts": "1522e7cdebcbf3b40e907d506085b58e16229e9eb09535163e117142ab746de3",
+    "packages/credential-proofs-inputs/src/es256.ts": "0e73568d8a92f24deb5af5fb929be6b079e8046c17db23462ed55fbf288b60b6",
+    "aztec/use-cases/scripts/fixtures/generators/singpass.mjs": "1534428f8ffd2b49f5ae3b14a391f372d69474dcd30772b8508945ce14bc2639"
+  },
+  "key_provenance": "Public local P-256 test scalars 42 and 43 (scripts/fixtures/lib/local-p256-key.mjs); not a Singpass key. Anyone can sign with them.",
+  "claims": {
+    "token": {
+      "iss": "https://id.singpass.gov.sg/fapi",
+      "aud": "local-synthetic-singpass-client",
+      "sub": "local-synthetic-singpass-user",
+      "nonce": "268b215f591adc640083fd5e34ece4c8ee26037213b940a8586ee058f72787d0",
+      "iat": 3999999940,
+      "exp": 4000000540,
+      "sub_type": "user",
+      "acr": "urn:singpass:authentication:loa:2",
+      "amr": [
+        "pwd",
+        "swk"
+      ],
+      "sub_attributes": {
+        "name": "SYNTHETIC LOCAL TEST"
+      }
+    },
+    "second_token": {
+      "iss": "https://id.singpass.gov.sg/fapi",
+      "aud": "local-synthetic-singpass-client",
+      "sub": "local-synthetic-singpass-user",
+      "nonce": "268b215f591adc640083fd5e34ece4c8ee26037213b940a8586ee058f72787d0",
+      "iat": 3999999970,
+      "exp": 4000000570,
+      "sub_type": "user",
+      "acr": "urn:singpass:authentication:loa:2",
+      "amr": [
+        "pwd",
+        "swk"
+      ],
+      "sub_attributes": {
+        "name": "SYNTHETIC LOCAL TEST"
+      }
+    },
+    "other_subject": {
+      "iss": "https://id.singpass.gov.sg/fapi",
+      "aud": "local-synthetic-singpass-client",
+      "sub": "local-synthetic-singpass-user-2",
+      "nonce": "268b215f591adc640083fd5e34ece4c8ee26037213b940a8586ee058f72787d0",
+      "iat": 3999999940,
+      "exp": 4000000540,
+      "sub_type": "user",
+      "acr": "urn:singpass:authentication:loa:2",
+      "amr": [
+        "pwd",
+        "swk"
+      ],
+      "sub_attributes": {
+        "name": "SYNTHETIC LOCAL TEST"
+      }
+    },
+    "assurance_3": {
+      "iss": "https://id.singpass.gov.sg/fapi",
+      "aud": "local-synthetic-singpass-client",
+      "sub": "local-synthetic-singpass-user",
+      "nonce": "268b215f591adc640083fd5e34ece4c8ee26037213b940a8586ee058f72787d0",
+      "iat": 3999999950,
+      "exp": 4000000550,
+      "sub_type": "user",
+      "acr": "urn:singpass:authentication:loa:3",
+      "amr": [
+        "pwd",
+        "swk"
+      ],
+      "sub_attributes": {
+        "name": "SYNTHETIC LOCAL TEST"
+      }
+    },
+    "staging": {
+      "iss": "https://stg-id.singpass.gov.sg/fapi",
+      "aud": "local-synthetic-singpass-client",
+      "sub": "local-synthetic-singpass-user",
+      "nonce": "268b215f591adc640083fd5e34ece4c8ee26037213b940a8586ee058f72787d0",
+      "iat": 3999999940,
+      "exp": 4000000540,
+      "sub_type": "user",
+      "acr": "urn:singpass:authentication:loa:1",
+      "amr": [
+        "pwd",
+        "swk"
+      ],
+      "sub_attributes": {
+        "name": "SYNTHETIC LOCAL TEST"
+      }
+    },
+    "other_key": {
+      "iss": "https://id.singpass.gov.sg/fapi",
+      "aud": "local-synthetic-singpass-client",
+      "sub": "local-synthetic-singpass-user",
+      "nonce": "268b215f591adc640083fd5e34ece4c8ee26037213b940a8586ee058f72787d0",
+      "iat": 3999999940,
+      "exp": 4000000540,
+      "sub_type": "user",
+      "acr": "urn:singpass:authentication:loa:2",
+      "amr": [
+        "pwd",
+        "swk"
+      ],
+      "sub_attributes": {
+        "name": "SYNTHETIC LOCAL TEST"
+      }
+    },
+    "other_contract": {
+      "iss": "https://id.singpass.gov.sg/fapi",
+      "aud": "local-synthetic-singpass-client",
+      "sub": "local-synthetic-singpass-user",
+      "nonce": "1b44815c3afaca0d94649cc969f78c29bccdd4cbac14b7e1ed53bbb5e637b64a",
+      "iat": 3999999940,
+      "exp": 4000000540,
+      "sub_type": "user",
+      "acr": "urn:singpass:authentication:loa:2",
+      "amr": [
+        "pwd",
+        "swk"
+      ],
+      "sub_attributes": {
+        "name": "SYNTHETIC LOCAL TEST"
+      }
+    }
+  },
+  "notes": [
+    "The bindings are the instance's caller bindings observed in TXE; the instance test fails with the values to use when they change.",
+    "iat is 60 s before --now (second_token 30 s and assurance_3 50 s before) and exp - iat is 600 s.",
+    "Variants are separately signed tokens; tampering cases mutate a valid token in src/test.nr."
+  ],
+  "outputs": {
+    "src/fixture.nr": "a44cb2f4ee6b3c927df24633875c249ebb844859ee36babe4218de716b30b216"
+  }
+}

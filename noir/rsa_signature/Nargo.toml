@@ -1,0 +1,10 @@
+[package]
+name = "rsa_signature"
+type = "lib"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"
+[dependencies]
+bignum = { tag = "v0.11.0-1", git = "https://github.com/zkpassport/noir-bignum" }
+rsa = { git = "https://github.com/iAmMichaelConnor/noir_rsa", tag = "v0.12.1-assert-messages.1" }
+sha256 = { tag = "v0.3.0", git = "https://github.com/noir-lang/sha256" }
+poseidon = { tag = "v0.4.0", git = "https://github.com/noir-lang/poseidon" }

@@ -1,0 +1,11 @@
+[package]
+name = "uc_adapter_jpki"
+type = "lib"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"
+
+[dependencies]
+aztec = { git = "https://github.com/aztec-labs-eng/aztec-nr", tag = "v6.0.0", directory = "aztec" }
+jpki_auth = { path = "../../../../noir/jpki_auth" }
+uc_login_link = { path = "../../login-link/common" }
+uc_trust = { path = "../../trust" }

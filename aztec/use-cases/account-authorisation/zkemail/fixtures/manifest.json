@@ -1,0 +1,39 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "zkemail",
+  "use_case": "account-authorisation",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/zkemail.mjs",
+      "--instance",
+      "account-authorisation/zkemail",
+      "--action",
+      "11ef24f4bf8859b342bb58f2ca66f32174d308b5e9b660cb601e43bde2f6f9cf"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "node:crypto RSA-SHA256 PKCS#1 v1.5 over the DKIM signing input of the account's profile.nr"
+  },
+  "inputs": {
+    "fixtures/data/synthetic-rs256-private.pem": "181021221b11334ea6ed4f36bcb38439613f5fc56eeda12cb192f4ef0b420d66",
+    "fixtures/data/synthetic-rs256-public.pem": "2b7dfcaec8fd468aab2b54441e8ac408d02375c81c48f2dba4d27205b72035ac",
+    "aztec/use-cases/scripts/fixtures/generators/account.mjs": "10696a752f75b6d3b4d6f5cc69f4b3ac4e69993ef83e16abfb36ede40bd0fd56",
+    "aztec/use-cases/scripts/fixtures/generators/zkemail.mjs": "1077418d98423f91fb3aabe7129d8971307b5d730062920c67f3e1376201b82a"
+  },
+  "key_provenance": "Public synthetic RS256 test key committed in fixtures/data; not a mail domain's DKIM key. Anyone can sign with it.",
+  "claims": {
+    "from": "alice@service.example",
+    "d": "service.example",
+    "s": "s1",
+    "body": "CRED-PROOF-ACTION:11ef24f4bf8859b342bb58f2ca66f32174d308b5e9b660cb601e43bde2f6f9cf\r\n",
+    "signing_input": "from:alice@service.example\r\ndkim-signature:v=1; a=rsa-sha256; c=simple/simple; d=service.example; s=s1; h=from; bh=iXwVPjf09OcMUWzeiBoVxi0Osn+UmoCAJOz5Wgys26Y=; b="
+  },
+  "notes": [
+    "The action is the instance's action hash at the TXE shell; the test fixture_action_is_the_action fails with the value to use when it changes.",
+    "Negative cases mutate this fixture in src/test.nr."
+  ],
+  "outputs": {
+    "src/fixture.nr": "c3e3aeb5201ffcfa4c4ec0038852cd60245553bf1a33b0f0f9696317658ab459"
+  }
+}

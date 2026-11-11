@@ -1,0 +1,1 @@
+{"keys":[{"kty":"EC","x":"UvCrDA787u1dqmb6GfqsAxU1apUCjdIZB_HwdaGIYP4","y":"L0_o7WQJqail_XSl_J1VJFpQBrxZXJNlsTQghQOGihU","crv":"P-256","kid":"alias/prd-sp-auth-api-id-token-signing-key-kms-asymmetric-key-alias","use":"sig"}]}

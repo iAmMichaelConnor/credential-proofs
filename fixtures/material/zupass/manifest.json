@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "scheme": "zupass",
+  "materials": [
+    {
+      "id": "local-relation-fixture",
+      "category": "local-test",
+      "kind": "fixture-input",
+      "environment": "local-test",
+      "provenance": {
+        "origin": "local-synthetic",
+        "sourceUrls": [],
+        "obtainedAt": "2026-10-22T17:25:08.000059+00:00",
+        "generator": "Existing repository fixture generation paths; files retained by reference",
+        "issuerKind": "local-test"
+      },
+      "privacy": "synthetic-subject",
+      "files": [
+        {
+          "path": "fixtures/data/generated/zupass.synthetic.toml.pod.json",
+          "sha256": "efeebca017aae7517c30fdfee1c424895728e9d507138cb8f15092278f82afff"
+        }
+      ],
+      "trust": {
+        "role": "POD issuer signing key must be authenticated by enrollment/application policy. Zupass package support is not a universal central issuer key.",
+        "algorithms": [
+          "BabyJubJub/EdDSA/Poseidon"
+        ],
+        "rotationRevocation": "Fixture only; deployed credential/attestor holder keys must follow enrolled protocol policy.",
+        "authentication": "Explicitly local synthetic test material; never authenticate a production issuer through this fixture."
+      },
+      "verification": {
+        "method": "Host verifies exact referenced signature and signed inputs; altered signed bytes/entry reject. No provider identity or physical authenticator claim.",
+        "verifier": "Node node:crypto/P256 or @pcd/pod0.5.1 through shared importer; exact versions in report",
+        "commands": [
+          "node scripts/fixtures/material/verify-original-public-fixtures.mjs"
+        ],
+        "result": "credential-signature-verified",
+        "evidence": []
+      }
+    }
+  ],
+  "acquisitionNotes": [
+    {
+      "category": "provider-public",
+      "reason": "POD issuer signing key must be authenticated by enrollment/application policy. Zupass package support is not a universal central issuer key. No authoritative global provider public key has been collected for this profile.",
+      "checkedSources": [
+        "https://github.com/proofcarryingdata/zupass"
+      ]
+    },
+    {
+      "category": "provider-test",
+      "reason": "No published provider-test credential has yet been verified for this inventory; existing synthetic relation fixture remains local-test.",
+      "checkedSources": [
+        "https://github.com/proofcarryingdata/zupass"
+      ]
+    }
+  ]
+}

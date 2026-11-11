@@ -1,0 +1,82 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "entra",
+  "use_case": "attribute-gating",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/oidc.mjs",
+      "--instance",
+      "attribute-gating/entra",
+      "--binding",
+      "2e2642ad9331f1f2c9cfc32a1f577f5b0cd934b910205d8dc611375b87ce96da",
+      "--other-binding",
+      "305ed0d213fae0e5eabe16fee8f7a01dc829e27f2161e2845d60a90764da7386",
+      "--now",
+      "4000000000"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "packages/credential-proofs-inputs/src/entra.ts importVerifiedEntra (signed with node:crypto)"
+  },
+  "inputs": {
+    "fixtures/data/synthetic-rs256-private.pem": "181021221b11334ea6ed4f36bcb38439613f5fc56eeda12cb192f4ef0b420d66",
+    "fixtures/data/synthetic-rs256-public.pem": "2b7dfcaec8fd468aab2b54441e8ac408d02375c81c48f2dba4d27205b72035ac",
+    "packages/credential-proofs-inputs/src/entra.ts": "fc3716b726a3f6a64a0a984d66cdafd6bb448e829032ac56b1b80545b48bfe4f",
+    "packages/credential-proofs-inputs/src/oidc.ts": "aea6e0218724a1e3acb3d752c805574ecba8c789c0bf5e09b8dee19f5544c8ce",
+    "aztec/use-cases/scripts/fixtures/generators/oidc.mjs": "3bf84f629c58e2597012f3486133bd2d5f215bae759daeb725aea7fbf1c80279",
+    "aztec/use-cases/scripts/fixtures/generators/x509.py": "2a03fa13717c8a96bb79adb48a83beef156bb224a9084dd0a08e12e3e5d9854e"
+  },
+  "key_provenance": "Public synthetic RS256 test key committed in fixtures/data; not a entra key. Anyone can sign with it.",
+  "claims": {
+    "token": {
+      "nonce": "2e2642ad9331f1f2c9cfc32a1f577f5b0cd934b910205d8dc611375b87ce96da",
+      "iss": "https://login.microsoftonline.com/12345678-1234-1234-1234-123456789abc/v2.0",
+      "aud": "credential-proofs-use-case-client",
+      "sub": "100000000000000000001",
+      "iat": 3999999940,
+      "exp": 4000003540,
+      "tid": "12345678-1234-1234-1234-123456789abc",
+      "ver": "2.0"
+    },
+    "second_token": {
+      "nonce": "2e2642ad9331f1f2c9cfc32a1f577f5b0cd934b910205d8dc611375b87ce96da",
+      "iss": "https://login.microsoftonline.com/12345678-1234-1234-1234-123456789abc/v2.0",
+      "aud": "credential-proofs-use-case-client",
+      "sub": "100000000000000000001",
+      "iat": 3999999941,
+      "exp": 4000003540,
+      "tid": "12345678-1234-1234-1234-123456789abc",
+      "ver": "2.0"
+    },
+    "other_subject": {
+      "nonce": "2e2642ad9331f1f2c9cfc32a1f577f5b0cd934b910205d8dc611375b87ce96da",
+      "iss": "https://login.microsoftonline.com/12345678-1234-1234-1234-123456789abc/v2.0",
+      "aud": "credential-proofs-use-case-client",
+      "sub": "1000000000000000000012",
+      "iat": 3999999940,
+      "exp": 4000003540,
+      "tid": "12345678-1234-1234-1234-123456789abc",
+      "ver": "2.0"
+    },
+    "other_contract": {
+      "nonce": "305ed0d213fae0e5eabe16fee8f7a01dc829e27f2161e2845d60a90764da7386",
+      "iss": "https://login.microsoftonline.com/12345678-1234-1234-1234-123456789abc/v2.0",
+      "aud": "credential-proofs-use-case-client",
+      "sub": "100000000000000000001",
+      "iat": 3999999940,
+      "exp": 4000003540,
+      "tid": "12345678-1234-1234-1234-123456789abc",
+      "ver": "2.0"
+    }
+  },
+  "notes": [
+    "The bindings are the instance's caller bindings observed in TXE; the instance test fails with the values to use when they change.",
+    "iat of token() is 60 s before --now and exp - iat is 3600 s; variants keep the exp and move iat by the offset in their description.",
+    "other_key_signature() signs the fixture token under the key from the seed label 'uc login-link other rs256-2048 key v1' (x509.py seeded_key), whose modulus exceeds the fixture key's. The importer checks every token.",
+    "Tampering cases mutate these tokens in src/test.nr."
+  ],
+  "outputs": {
+    "src/fixture.nr": "baeb56865284a4db36c49ca5178c2adf7317a2f91ac06859a009bb359b8bdd5d"
+  }
+}

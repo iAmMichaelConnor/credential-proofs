@@ -1,0 +1,17 @@
+{
+  "mode": "v3",
+  "timestamp": "1900000000",
+  "nonce": "synthetic-wechatpay-query-nonce",
+  "body": "{\"appid\":\"wx123456\",\"mchid\":\"1900000001\",\"trade_state\":\"SUCCESS\",\"transaction_id\":\"4200000000202410100000000001\",\"attach\":\"0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef\",\"payer\":{\"openid\":\"test-openid-001\"},\"amount\":{\"total\":2500,\"payer_total\":2500,\"currency\":\"CNY\"}}",
+  "nowSeconds": "1900000001",
+  "maxAgeSeconds": "60",
+  "expectedAppid": "wx123456",
+  "expectedMchid": "1900000001",
+  "expectedTransactionId": "4200000000202410100000000001",
+  "expectedOpenid": "test-openid-001",
+  "expectedAttach": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+  "expectedTotal": "2500",
+  "provenance": "Synthetic protocol fixture signed with the intentionally public local test RSA key. Not issued by WeChat and not an actual payment.",
+  "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsr78W4b0MSKYnMa+JWwj\ntuo7BOQEFxso4wqWLaGei9kaceWar7i+E10oiE6vpi3o93fuw9smYCL6sgfiIBiq\n6TXuzxTiXdtoCgSJ3SEYd2Y+fX1HauDiLldc0gqxn7iiUCCZHHjPxJjRlE/FLyq0\nEl+AhqHdu95fcpn92ak6Gv4SQ1PMwAkwpk0jb67No3vc5nr0Pc/ZQJS7dQdaC29A\n4YxEFYAVir3Z0T51IDd6cHFoffE8LKKw4Ark8X9lssvnzFSDpsxdAbYxCBI0lZ/U\nGkL+fsnguSPt/nBw/2idhRwVjduEINZyQtzfFRXb78Hf14RNx3mN1oJ9MVWpssWo\nLwIDAQAB\n-----END PUBLIC KEY-----\n",
+  "signature": "ZWevSrzhaP6ZGhAuwUwtY5FSD/obi0LAVuDRc0mqV6XUd3wzVe3CQgxOBt05dNzxuLOkVKZwFJVFt2MtFzViUpi+/qhzr118kA3AMAYrHWH0HjaA2rsQMteuSqs15yLgMpIC5uz7P+Nstz2KY0N7y8zR+IYpDKoe+yXF5jCaMYeHnVZca2e0ueMv3ps64fGtjhi81MmUkvDe9o2fX83vkiqF/gEOkbfgQNv9iyfpYQLeZfkiODW48Hq3seHf0G8iueXX0nsoEW+PrX8NaRvrt7trpntryWkexKcCdOmmu65OGhqOZvfSdqDmjSgBXLsguFhZji6ukfDODuUMu0eWgg=="
+}

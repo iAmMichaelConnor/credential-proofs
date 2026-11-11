@@ -1,0 +1,379 @@
+{
+  "schemaVersion": 1,
+  "scheme": "jpki",
+  "materials": [
+    {
+      "id": "jpki-user-authentication-ca03",
+      "category": "provider-public",
+      "kind": "certificate",
+      "environment": "production",
+      "provenance": {
+        "origin": "official-public-distribution",
+        "sourceUrls": [
+          "https://www.jpki.go.jp/ca/pdf/authca03.cer",
+          "https://www.jpki.go.jp/ca/pdf/auth_fingerprint.pdf",
+          "https://www.jpki.go.jp/ca/ca_rules4.html"
+        ],
+        "obtainedAt": "2026-10-22T17:26:36.061205+00:00",
+        "issuerKind": "certificate-authority"
+      },
+      "privacy": "public-key-only",
+      "files": [
+        {
+          "path": "fixtures/data/jpki/public-authorities/authca03.cer",
+          "sha256": "64114f29620c24ed2631d46476a040e7ee740d956089c00b036a6a8118c322b5"
+        },
+        {
+          "path": "fixtures/data/jpki/public-authorities/authca03.pem",
+          "sha256": "2c7b5a13af26bae14e7262f39e722e6430a3b21105ee6990921e9e61083cbbc3"
+        }
+      ],
+      "trust": {
+        "role": "JPKI user-authentication CA root3, not signature CA or mobile profile",
+        "algorithms": [
+          "RSA2048 exponent65537",
+          "sha256WithRSAEncryption"
+        ],
+        "rotationRevocation": "CA valid 2023-07-16T01:01:04Z through 2033-07-15T14:59:59Z; root rotation reviewed against official publication and compromise notices. Holder status separately requires signed fresh OCSP/CRL.",
+        "authentication": "DER SHA256 matches independently published official JPKI fingerprint PDF; selfsignature alone is not trust authentication.",
+        "certificate": {
+          "subject": "C=JP,O=JPKI,OU=JPKI for user authentication,OU=Japan Agency for Local Authority Information Systems",
+          "issuer": "same as subject",
+          "notBefore": "2023-07-16T01:01:04Z",
+          "notAfter": "2033-07-15T14:59:59Z",
+          "purpose": "Issue My Number card user-authentication certificates",
+          "independentAnchor": "JPKI official published fingerprint table, entry3, retrieved via HTTPS web tool 2026-10-22",
+          "chainVerification": "Current pinned-toolchain relation validation is not recorded.",
+          "keyUsage": "critical keyCertSign,cRLSign",
+          "basicConstraints": "critical CA:TRUE",
+          "policies": "Root has no certificatePolicies extension; holder card policy independently checked.",
+          "chainRole": "self-signed authenticated root"
+        },
+        "keys": [
+          {
+            "type": "_RSAPublicKey",
+            "bits": 2048,
+            "spkiSha256": "22fc93a11eb272bcb3d2586a8f2db8d2aa60c7c2a2e7621a03dbab0c8e5ab57a"
+          }
+        ]
+      },
+      "verification": {
+        "method": "Official fingerprint comparison and independent OpenSSL selfsignature validation",
+        "verifier": "OpenSSL 3",
+        "commands": [
+          "openssl x509 -in authca03.pem -text -noout",
+          "openssl verify -CAfile authca03.pem -check_ss_sig authca03.pem"
+        ],
+        "result": "public-material-parsed",
+        "evidence": []
+      }
+    },
+    {
+      "id": "jpki-user-authentication-ca02",
+      "category": "provider-public",
+      "kind": "certificate",
+      "environment": "production",
+      "provenance": {
+        "origin": "official-public-distribution",
+        "sourceUrls": [
+          "https://www.jpki.go.jp/ca/pdf/authca02.cer",
+          "https://www.jpki.go.jp/ca/pdf/auth_fingerprint.pdf",
+          "https://www.jpki.go.jp/ca/ca_rules4.html"
+        ],
+        "obtainedAt": "2026-10-22T17:26:36.061205+00:00",
+        "issuerKind": "certificate-authority"
+      },
+      "privacy": "public-key-only",
+      "files": [
+        {
+          "path": "fixtures/data/jpki/public-authorities/authca02.cer",
+          "sha256": "0d98de47fc11b7f67126874b7028b6026a803d2638d6edfe53176953961fade6"
+        },
+        {
+          "path": "fixtures/data/jpki/public-authorities/authca02.pem",
+          "sha256": "47a0ef5427ae6e276e2788d8bc2fc1cb011134c3c3804f925eadffbfc6785feb"
+        }
+      ],
+      "trust": {
+        "role": "JPKI user-authentication CA root2, not signature CA or mobile profile",
+        "algorithms": [
+          "RSA2048 exponent65537",
+          "sha256WithRSAEncryption"
+        ],
+        "rotationRevocation": "CA02 valid2019-09-14T23:41:59Z through2029-09-14T14:59:59Z. Pin verified official fingerprint, review rotation/compromise and require separate signed current holder status.",
+        "authentication": "DER SHA256 matches independently published official JPKI fingerprint PDF; selfsignature alone is not trust authentication.",
+        "certificate": {
+          "subject": "C=JP,O=JPKI,OU=JPKI for user authentication,OU=Japan Agency for Local Authority Information Systems",
+          "issuer": "same as subject",
+          "notBefore": "2019-09-14T23:41:59Z",
+          "notAfter": "2029-09-14T14:59:59Z",
+          "purpose": "Issue My Number card user-authentication certificates",
+          "independentAnchor": "Official JPKI fingerprint PDF entry2 SHA2560d98de47fc11b7f67126874b7028b6026a803d2638d6edfe53176953961fade6; downloaded DER independently matches.",
+          "chainVerification": "Current pinned-toolchain relation validation is not recorded.",
+          "keyUsage": "critical keyCertSign,cRLSign",
+          "basicConstraints": "critical CA:TRUE",
+          "policies": "Root has no certificatePolicies extension; holder card policy independently checked.",
+          "chainRole": "self-signed authenticated root"
+        },
+        "keys": [
+          {
+            "type": "_RSAPublicKey",
+            "bits": 2048,
+            "spkiSha256": "7cafb046dca6d458982d2b9683ebae9b024d9b37832adb3c2e3f4a44cac30912"
+          }
+        ]
+      },
+      "verification": {
+        "method": "Official fingerprint comparison and independent OpenSSL selfsignature validation",
+        "verifier": "OpenSSL 3",
+        "commands": [
+          "openssl x509 -in authca02.pem -text -noout",
+          "openssl verify -CAfile authca02.pem -check_ss_sig authca02.pem"
+        ],
+        "result": "public-material-parsed",
+        "evidence": []
+      }
+    },
+    {
+      "id": "jpki-local-root",
+      "category": "local-test",
+      "kind": "certificate",
+      "environment": "local-test",
+      "provenance": {
+        "origin": "local-synthetic",
+        "issuerKind": "local-test",
+        "sourceUrls": [],
+        "obtainedAt": "2026-10-22T18:37:51.922752+00:00",
+        "generator": "scripts/fixtures/generate-x509-fixtures.py jpki"
+      },
+      "privacy": "synthetic-subject",
+      "files": [
+        {
+          "path": "fixtures/material/jpki/local-test/root.der",
+          "sha256": "9d4cb638e8e210158f88f6ce312c5fd4929aed4ebfc9aac524fbb8e40efbadf2"
+        }
+      ],
+      "trust": {
+        "role": "Synthetic test trust anchor",
+        "algorithms": [
+          "RSA2048 SHA256 PKCS1v1.5"
+        ],
+        "rotationRevocation": "Fixed synthetic clock and explicit anchor class1. Mandatory synthetic signed OCSP for holder. Never enroll as official root.",
+        "authentication": "Locally generated synthetic issuer and subjects, explicitly separate from production roots.",
+        "certificate": {
+          "subject": "CN=Not JPKI - Local Test Root,O=SYNTHETIC TEST AUTHORITY,C=JP",
+          "issuer": "CN=Not JPKI - Local Test Root,O=SYNTHETIC TEST AUTHORITY,C=JP",
+          "notBefore": "2025-01-01T00:00:00Z",
+          "notAfter": "2033-01-01T00:00:00Z",
+          "purpose": "CA signing; no JPKI authority",
+          "independentAnchor": "Explicit local test policy only; no public identity authority.",
+          "chainVerification": "Current pinned-toolchain relation validation is not recorded.",
+          "keyUsage": "keyCertSign,cRLSign",
+          "basicConstraints": "CA:TRUE",
+          "policies": "No certificate policy assertion",
+          "chainRole": "Synthetic test trust anchor"
+        },
+        "keys": [
+          {
+            "type": "_RSAPublicKey",
+            "bits": 2048,
+            "spkiSha256": "cd378506ff4928ba2f3e174e25f4bfae79f6df3946894e72eb54e3ceb468ed28"
+          }
+        ]
+      },
+      "verification": {
+        "method": "Run the maintained credential relation with the pinned toolchain.",
+        "verifier": "Current pinned toolchain validation is not recorded.",
+        "commands": [
+          "nargo test --program-dir noir --package jpki_auth jpki_"
+        ],
+        "result": "not-yet-verified",
+        "evidence": []
+      }
+    },
+    {
+      "id": "jpki-local-holder",
+      "category": "local-test",
+      "kind": "certificate",
+      "environment": "local-test",
+      "provenance": {
+        "origin": "local-synthetic",
+        "issuerKind": "local-test",
+        "sourceUrls": [],
+        "obtainedAt": "2026-10-22T18:37:51.922752+00:00",
+        "generator": "scripts/fixtures/generate-x509-fixtures.py jpki"
+      },
+      "privacy": "synthetic-subject",
+      "files": [
+        {
+          "path": "fixtures/material/jpki/local-test/holder.der",
+          "sha256": "cb78de95a0c60a2f3d7ae666e460e5b6e0d59dd2afbbabc65d7788952b2ac514"
+        }
+      ],
+      "trust": {
+        "role": "Synthetic authentication holder",
+        "algorithms": [
+          "RSA2048 SHA256 PKCS1v1.5"
+        ],
+        "rotationRevocation": "Fixed synthetic clock and explicit anchor class1. Mandatory synthetic signed OCSP for holder. Never enroll as official root.",
+        "authentication": "Locally generated synthetic issuer and subjects, explicitly separate from production roots.",
+        "certificate": {
+          "subject": "CN=Synthetic holder no personal identity,O=SYNTHETIC TEST AUTHORITY,C=JP",
+          "issuer": "CN=Not JPKI - Local Test Root,O=SYNTHETIC TEST AUTHORITY,C=JP",
+          "notBefore": "2025-01-01T00:00:00Z",
+          "notAfter": "2033-01-01T00:00:00Z",
+          "purpose": "Digital signature with JPKI card authentication policy 1.2.392.200149.8.5.1.3.30",
+          "independentAnchor": "Explicit local test policy only; no public identity authority.",
+          "chainVerification": "Current pinned-toolchain relation validation is not recorded.",
+          "keyUsage": "digitalSignature",
+          "basicConstraints": "CA:FALSE",
+          "policies": "1.2.392.200149.8.5.1.3.30",
+          "chainRole": "Synthetic authentication holder"
+        },
+        "keys": [
+          {
+            "type": "_RSAPublicKey",
+            "bits": 2048,
+            "spkiSha256": "6f9d239dfc3e9518cb866c220131e6e8577c4437b4af0f81b13e93c1ff2dfe90"
+          }
+        ]
+      },
+      "verification": {
+        "method": "Run the maintained credential relation with the pinned toolchain.",
+        "verifier": "Current pinned toolchain validation is not recorded.",
+        "commands": [
+          "nargo test --program-dir noir --package jpki_auth jpki_"
+        ],
+        "result": "not-yet-verified",
+        "evidence": []
+      }
+    },
+    {
+      "id": "jpki-local-responder",
+      "category": "local-test",
+      "kind": "certificate",
+      "environment": "local-test",
+      "provenance": {
+        "origin": "local-synthetic",
+        "issuerKind": "local-test",
+        "sourceUrls": [],
+        "obtainedAt": "2026-10-22T18:37:51.922752+00:00",
+        "generator": "scripts/fixtures/generate-x509-fixtures.py jpki"
+      },
+      "privacy": "synthetic-subject",
+      "files": [
+        {
+          "path": "fixtures/material/jpki/local-test/responder.der",
+          "sha256": "f4f80afb7a8ccb40fd94b27b434d72fd12235f5c42c85472c6f5f58413f39e51"
+        }
+      ],
+      "trust": {
+        "role": "Synthetic delegated OCSP responder",
+        "algorithms": [
+          "RSA2048 SHA256 PKCS1v1.5"
+        ],
+        "rotationRevocation": "Fixed synthetic clock and explicit anchor class1. Mandatory synthetic signed OCSP for holder. Never enroll as official root.",
+        "authentication": "Locally generated synthetic issuer and subjects, explicitly separate from production roots.",
+        "certificate": {
+          "subject": "CN=Synthetic delegated OCSP responder,O=SYNTHETIC TEST AUTHORITY,C=JP",
+          "issuer": "CN=Not JPKI - Local Test Root,O=SYNTHETIC TEST AUTHORITY,C=JP",
+          "notBefore": "2025-01-01T00:00:00Z",
+          "notAfter": "2033-01-01T00:00:00Z",
+          "purpose": "Digital signature, OCSPSigning EKU and OCSP no-check",
+          "independentAnchor": "Explicit local test policy only; no public identity authority.",
+          "chainVerification": "Current pinned-toolchain relation validation is not recorded.",
+          "keyUsage": "digitalSignature",
+          "basicConstraints": "CA:FALSE",
+          "policies": "No certificate policy assertion",
+          "chainRole": "Synthetic delegated OCSP responder"
+        },
+        "keys": [
+          {
+            "type": "_RSAPublicKey",
+            "bits": 2048,
+            "spkiSha256": "b822b72222a1b447ecaf0aad29857bdfa1ddf0692baf440df86115c7378d1c35"
+          }
+        ]
+      },
+      "verification": {
+        "method": "Run the maintained credential relation with the pinned toolchain.",
+        "verifier": "Current pinned toolchain validation is not recorded.",
+        "commands": [
+          "nargo test --program-dir noir --package jpki_auth jpki_"
+        ],
+        "result": "not-yet-verified",
+        "evidence": []
+      }
+    },
+    {
+      "id": "jpki-local-signed-status-and-challenge",
+      "category": "local-test",
+      "kind": "fixture-input",
+      "environment": "local-test",
+      "provenance": {
+        "origin": "local-synthetic",
+        "issuerKind": "local-test",
+        "sourceUrls": [],
+        "obtainedAt": "2026-10-22T18:37:51.922752+00:00",
+        "generator": "scripts/fixtures/generate-x509-fixtures.py jpki"
+      },
+      "privacy": "synthetic-subject",
+      "files": [
+        {
+          "path": "fixtures/material/jpki/local-test/good.ocsp.der",
+          "sha256": "0d0f0185e7c199ebd1ede01e394cbde6bcba9d440c3235608b698db03e4b0729"
+        },
+        {
+          "path": "fixtures/material/jpki/local-test/challenge.bin",
+          "sha256": "d4c10770ebec2493289b1d050f85dbff9062fd137673ed40c98dc7de012e8f33"
+        },
+        {
+          "path": "fixtures/material/jpki/local-test/holder-signature.bin",
+          "sha256": "4811f448284baaa1010575652893b160c8d5f00e359464c6d836f2b96c72fadc"
+        },
+        {
+          "path": "fixtures/material/jpki/local-test/fixture.json",
+          "sha256": "24840f9ce5bc2999a7c1c10f528dfcffdfda85ddbe364ab6e6a5720de1f80eb4"
+        },
+        {
+          "path": "noir/jpki_auth/src/known_answer_tests.nr"
+        }
+      ],
+      "trust": {
+        "role": "Synthetic holder action signature and delegated signed OCSP good status",
+        "algorithms": [
+          "RSA2048 SHA256 PKCS1v1.5",
+          "SHA1 CertID identifiers only"
+        ],
+        "rotationRevocation": "Fixed synthetic time1900000000; independently signed good response, mandatory exact serial/issuer/time checks.",
+        "authentication": "Local test root class1 only; private test keys remain outside repository."
+      },
+      "verification": {
+        "method": "Run the maintained credential relation with the pinned toolchain.",
+        "verifier": "Current pinned toolchain validation is not recorded.",
+        "commands": [
+          "nargo test --program-dir noir --package jpki_auth jpki_"
+        ],
+        "result": "not-yet-verified",
+        "evidence": []
+      }
+    }
+  ],
+  "acquisitionNotes": [
+    {
+      "category": "provider-test",
+      "reason": "Reviewed public CPS and CA distribution expose authentic public roots but no holder private test key/certificate and matching signed good OCSP response. Detailed certificate/OCSP technical profiles require separate JPKI operator material. Synthetic standards-faithful chains will remain explicitly test-root scoped.",
+      "checkedSources": [
+        "https://www.jpki.go.jp/ca/ca_rules4.html",
+        "https://www.jpki.go.jp/ca/pdf/auth_cps.pdf"
+      ]
+    },
+    {
+      "category": "provider-test",
+      "reason": "Optional personal card and genuine signed status interoperability is not tested; engineering uses authenticated public roots plus explicitly synthetic certificate/status chains.",
+      "checkedSources": [
+        "https://www.jpki.go.jp/ca/pdf/auth_cps.pdf"
+      ]
+    }
+  ]
+}

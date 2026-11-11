@@ -1,0 +1,8 @@
+{
+  "manifest": "../manifest.json",
+  "category": "provider-public",
+  "materialIds": [
+    "jpki-user-authentication-ca03",
+    "jpki-user-authentication-ca02"
+  ]
+}

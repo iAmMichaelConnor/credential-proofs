@@ -1,0 +1,9 @@
+[package]
+name = "world_id3_gate_tests"
+type = "lib"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"
+
+[dependencies]
+aztec = { git = "https://github.com/aztec-labs-eng/aztec-nr", tag = "v6.0.0", directory = "aztec" }
+world = { path = "../contract" }

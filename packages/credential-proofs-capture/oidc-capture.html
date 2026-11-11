@@ -1,0 +1,74 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Capture a Google or Apple ID token</title>
+<style>
+body{font:16px system-ui;max-width:45rem;margin:3rem auto;padding:0 1rem}
+label{display:block;margin:1rem 0}input,select{display:block;width:100%;box-sizing:border-box;padding:.6rem}
+button{padding:.6rem 1rem;margin:.3rem .3rem .3rem 0}pre{white-space:pre-wrap;overflow-wrap:anywhere}
+</style>
+<h1>Capture an ID token</h1>
+<p>Use an app registered with your provider. The token stays in this browser
+until you save it to a local file. Use the credential CLI to verify and import it.</p>
+<label>Provider<select id="provider"><option value="google">Google</option><option value="apple">Apple</option></select></label>
+<label>Client ID / Apple Services ID<input id="client" autocomplete="off"></label>
+<label>Expected nonce (paste the account action nonce, or use this random login nonce)<input id="nonce" autocomplete="off"></label>
+<label>Apple registered return URL<input id="redirect" type="url" placeholder="https://your-registered-domain.example/callback"></label>
+<button id="configure">Configure sign-in</button>
+<div id="google-button"></div>
+<button id="apple-button" hidden>Sign in with Apple</button>
+<button id="save" disabled>Save id-token.jwt</button>
+<pre id="status" role="status"></pre>
+<script type="module">
+const el = id => document.getElementById(id);
+const random = () => [...crypto.getRandomValues(new Uint8Array(32))].map(x => x.toString(16).padStart(2,'0')).join('');
+el('nonce').value = random();
+let token, expected, consumed = false;
+const status = message => { el('status').textContent = message; };
+async function load(url) {
+  await new Promise((resolve,reject) => { const script=document.createElement('script');
+    script.src=url;script.onload=resolve;script.onerror=() => reject(new Error('Provider SDK could not load.'));document.head.append(script); });
+}
+function receive(raw) {
+  if (consumed) throw new Error('This login session already received a token. Reload for another action.');
+  const parts=raw.split('.');if(parts.length!==3)throw new Error('Expected an ID token.');
+  const bytes=Uint8Array.from(atob(parts[1].replaceAll('-','+').replaceAll('_','/')),c=>c.charCodeAt(0));
+  const claims=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));
+  const issuers=expected.provider==='google'?['https://accounts.google.com','accounts.google.com']:['https://appleid.apple.com'];
+  if(claims.nonce!==expected.nonce || claims.aud!==expected.client || !issuers.includes(claims.iss))throw new Error('Token does not match this login request.');
+  if(typeof claims.sub!=='string' || !claims.sub || !(claims.exp>Date.now()/1000))throw new Error('Token is expired or has no subject.');
+  token=raw;consumed=true;el('save').disabled=false;
+  // This display is not signature verification. The CLI authenticates the JWKS
+  // and verifies the token; the Noir consumer independently checks the relation.
+  status(`Token captured. Import it with the CLI and your trusted key policy.\nProvider: ${expected.provider}\nAudience: ${expected.client}\nSubject: ${claims.sub}\nNonce: ${expected.nonce}`);
+}
+el('configure').onclick=async()=>{
+  try {
+    expected={provider:el('provider').value,client:el('client').value.trim(),nonce:el('nonce').value,state:random()};
+    if(!expected.client || !expected.nonce)throw new Error('Client ID and nonce are required.');
+    el('configure').disabled=true;
+    for(const id of ['provider','client','nonce','redirect'])el(id).disabled=true;
+    if(expected.provider==='google'){
+      await load('https://accounts.google.com/gsi/client');
+      google.accounts.id.initialize({client_id:expected.client,nonce:expected.nonce,auto_select:false,
+        callback:result=>{try{receive(result.credential);}catch(error){status(error.message);}}});
+      google.accounts.id.renderButton(el('google-button'),{theme:'outline',size:'large'});
+    }else{
+      const redirect=new URL(el('redirect').value);
+      if(redirect.protocol!=='https:')throw new Error('Apple requires a registered HTTPS return URL.');
+      await load('https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js');
+      AppleID.auth.init({clientId:expected.client,redirectURI:redirect.href,state:expected.state,nonce:expected.nonce,usePopup:true});
+      el('apple-button').hidden=false;
+    }
+    status('Ready. Complete sign-in using the provider button.');
+  }catch(error){status(error.message+' Reload to change configuration.');}
+};
+el('apple-button').onclick=async()=>{
+  try{const result=await AppleID.auth.signIn();
+    if(result.authorization.state!==expected.state)throw new Error('Apple response state does not match this session.');
+    receive(result.authorization.id_token);
+  }catch(error){status(error.message ?? 'Apple sign-in did not complete.');}
+};
+el('save').onclick=()=>{const url=URL.createObjectURL(new Blob([token+'\n'],{type:'text/plain'}));
+  const link=document.createElement('a');link.href=url;link.download='id-token.jwt';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
+</script>

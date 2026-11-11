@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "public-jwks",
+  "provider": "university-cilogon",
+  "url": "https://cilogon.org/oauth2/certs",
+  "issuer": "https://cilogon.org",
+  "purpose": "CILogon broker signing keys. Institutional login additionally requires independently trusted exact signed original idp; affiliation may be cached.",
+  "rotation": "Review kid/SPKI changes at the fixed official endpoint and update enrolled policy explicitly. No intrinsic JWKS expiry or freshness guarantee.",
+  "fetchedAt": "2026-10-22T18:15:40.403Z",
+  "responseSha256": "2f524a5a03bcfeb620843a17b03e1f480adc428964980b283af4915fe0ddaac1",
+  "keys": [
+    {
+      "kid": "244B235F6B28E34108D101EAC7362C4E",
+      "kty": "RSA",
+      "alg": "RS256",
+      "use": "sig",
+      "spkiSha256": "ece1a597d7657955f5b7a15a8b2ec9d1e9ba6b127c3cfca59278763b69a3d7bd",
+      "asymmetricKeyType": "rsa",
+      "modulusLength": 2048
+    },
+    {
+      "kid": "F3F243BEB3B3286E1D14A29C42290393",
+      "kty": "RSA",
+      "alg": "RS512",
+      "use": "sig",
+      "spkiSha256": "7bc87684aa5b5d1a9275841c85cd62b698a9c326f09f923c7f49e0237dd594d3",
+      "asymmetricKeyType": "rsa",
+      "modulusLength": 2048
+    },
+    {
+      "kid": "BD6B721690DE665196068F073CFACC5C",
+      "kty": "RSA",
+      "alg": "RS384",
+      "use": "sig",
+      "spkiSha256": "2e33347ee583156b8e3eb735fb1d1f6de989551b3993977030e8a06aaf99aee2",
+      "asymmetricKeyType": "rsa",
+      "modulusLength": 2048
+    }
+  ],
+  "authentication": "Retrieved from an explicitly configured official HTTPS URL using the host trust store; no JWT jku/x5u resolution. JWKS has no intrinsic expiry. Snapshot is provenance, not permanent authorization.",
+  "evidenceLimit": "Authentic public issuer keys only; no genuine credential or successful issuer-signature vector is implied."
+}

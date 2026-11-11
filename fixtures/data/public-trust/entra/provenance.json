@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "kind": "public-jwks",
+  "provider": "entra",
+  "url": "https://login.microsoftonline.com/common/discovery/v2.0/keys",
+  "issuer": "https://login.microsoftonline.com/{tenantid}/v2.0",
+  "purpose": "Public ID-token signature verification key. Account policy must independently enroll the exact key and issuer/audience/subject. Entra common keys alone do not authenticate a tenant.",
+  "rotation": "Refresh only this fixed official endpoint; review kid/SPKI changes and explicitly update enrolled account policy. Existing key snapshot is not a perpetual trust guarantee.",
+  "fetchedAt": "2026-10-22T17:22:51.167Z",
+  "responseSha256": "4358c0acaf923335bc07d2a4d053abc2cd664148d7c21fe40027c8a611910775",
+  "keys": [
+    {
+      "kid": "dgvSDvK8A5KyKyppw1dAwTXD3CA",
+      "kty": "RSA",
+      "alg": null,
+      "use": "sig",
+      "spkiSha256": "3bd197b82a2f54d62803e7596b98bd74a505747871a90d78fbb00521c8665b9d",
+      "asymmetricKeyType": "rsa",
+      "modulusLength": 2048
+    },
+    {
+      "kid": "vEgXMKRi8IHKwAboBItSiOApgqo",
+      "kty": "RSA",
+      "alg": null,
+      "use": "sig",
+      "spkiSha256": "e175e7c1afbdb095fe6f05d2525b155cab81535c84338a40068b562cda00497b",
+      "asymmetricKeyType": "rsa",
+      "modulusLength": 2048
+    },
+    {
+      "kid": "ryBx-65jNoxH4FQH_6zarNjaNf4",
+      "kty": "RSA",
+      "alg": null,
+      "use": "sig",
+      "spkiSha256": "69100e1ebad249428d2f621ba152cf93a921f9fda7394ea4dd9c65dfeb1b8f02",
+      "asymmetricKeyType": "rsa",
+      "modulusLength": 2048
+    },
+    {
+      "kid": "8YVc_ILzh3C3q96H1GVXnuKL8QQ",
+      "kty": "RSA",
+      "alg": null,
+      "use": "sig",
+      "spkiSha256": "fa36162efb1dea575ea713257b5a5a1720632fb1f80d6e346e467e0f9d146b04",
+      "asymmetricKeyType": "rsa",
+      "modulusLength": 2048
+    },
+    {
+      "kid": "7zs6zYTk9g5j_b7e7ItWW-HaAL4",
+      "kty": "RSA",
+      "alg": null,
+      "use": "sig",
+      "spkiSha256": "a0fc74d6b9f7234c8292e1e8c02f0ffb503e2753d57543b0f6b794b307fe019c",
+      "asymmetricKeyType": "rsa",
+      "modulusLength": 2048
+    },
+    {
+      "kid": "MYL4YuBdtqTrz0Wdxkl7_XDVJfE",
+      "kty": "RSA",
+      "alg": null,
+      "use": "sig",
+      "spkiSha256": "7b4e16bc5f964eae4806332089c3f31a628a3f4b0d4819730b89756d588a3851",
+      "asymmetricKeyType": "rsa",
+      "modulusLength": 2048
+    },
+    {
+      "kid": "84cJE_AjkQHp4Vee5OaZIAlvWuU",
+      "kty": "RSA",
+      "alg": null,
+      "use": "sig",
+      "spkiSha256": "28c6965d2ff1aa5edb6073481df01034db979fb840315f74bbc0629025956122",
+      "asymmetricKeyType": "rsa",
+      "modulusLength": 2048
+    },
+    {
+      "kid": "myOHS_wwkWumGXDcirfbRWoslv4",
+      "kty": "RSA",
+      "alg": null,
+      "use": "sig",
+      "spkiSha256": "502a2cbb30ec1ffc23f2e443f593d0f6c9da004c8fae7144bd4f1602e6feb25e",
+      "asymmetricKeyType": "rsa",
+      "modulusLength": 2048
+    }
+  ],
+  "authentication": "Retrieved from an explicitly configured official HTTPS URL using the host trust store; no JWT jku/x5u resolution. JWKS has no intrinsic expiry. Snapshot is provenance, not permanent authorization.",
+  "evidenceLimit": "Authentic public issuer keys only; no genuine credential or successful issuer-signature vector is implied."
+}

@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "scheme": "peer_v4",
+  "materials": [
+    {
+      "id": "pinned-peer-contract-and-adjacent-registry-provenance",
+      "category": "provider-public",
+      "kind": "provenance-report",
+      "environment": "production",
+      "provenance": {
+        "origin": "official-public-distribution",
+        "issuerKind": "upstream-maintainer",
+        "sourceUrls": [
+          "https://github.com/zkp2p/zkp2p-contracts/tree/f1402703f8f73782203da49cb38a4d74abe40967",
+          "https://mainnet.base.org"
+        ],
+        "obtainedAt": "2026-10-22T19:33:32.364860+00:00"
+      },
+      "privacy": "public-key-only",
+      "files": [
+        {
+          "path": "fixtures/material/peer_v4/provider-public/MultiAttestationVerifier.sol",
+          "sha256": "a4ba3e5e4535a266f62fcf6d164bbebd310fb388e671bd3308619a389111e7cc"
+        },
+        {
+          "path": "fixtures/material/peer_v4/provider-public/SimpleAttestationVerifier.sol",
+          "sha256": "9ec2cf45215b0b8d1fddff075e9cf3eb3ba0bc4039179654422ed8bcb318882c"
+        },
+        {
+          "path": "fixtures/material/peer_v4/provider-public/UnifiedPaymentVerifierV4.sol",
+          "sha256": "65befca839ee556094c48c6be9e4f16347f6779b2fd712e8ece182590d452024"
+        },
+        {
+          "path": "fixtures/material/peer_v4/provider-public/published-deployment-summary.json",
+          "sha256": "b317b44b61c89e57b39934ad55615f87c2747dfef2e936569fd20634541b322f"
+        }
+      ],
+      "trust": {
+        "role": "Pinned implementedV4 source schema plus adjacent Simple/Multi attestor andV3 registry snapshots. No matchingV4 verifyingContract/domain or attestor authority inferred.",
+        "algorithms": [
+          "secp256k1/EIP712"
+        ],
+        "rotationRevocation": "Witness membership/threshold and verifier address are mutable on-chain. Enroll exactmatchingprotocol/chain/domain/key policy with fresh authenticated state.",
+        "authentication": "HTTPS to official Base RPC; pinned block number/hash and exact eth_call bytes retained. Not an independently verified light-client/storage proof.",
+        "keys": [
+          {
+            "contract": "0xED6C0C34c3964D239e7a315C55E620fafE5Ae3AC",
+            "method": "witness()",
+            "returned": "0xDB4Ed7FAF170F0f6493E3adaaCaaFaF47092c754"
+          },
+          {
+            "contract": "0x9Fe920b24e50e6a6362BA71a1BeB502A99c402d5",
+            "method": "witnesses()",
+            "returned": [
+              "0xDB4Ed7FAF170F0f6493E3adaaCaaFaF47092c754",
+              "0xE078D93bFdd87A8c5C5cCA5905DCbA0Dd7A1F0BD"
+            ]
+          },
+          {
+            "contract": "0x9Fe920b24e50e6a6362BA71a1BeB502A99c402d5",
+            "method": "requiredSignatures()",
+            "returned": "1"
+          },
+          {
+            "contract": "0xC6F4a193576C60892a47e111Bb5706c30162502B",
+            "method": "attestationVerifier()",
+            "returned": "0x9Fe920b24e50e6a6362BA71a1BeB502A99c402d5"
+          }
+        ]
+      },
+      "verification": {
+        "method": "Retain pinned source/deployment metadata; query exactregistry reads at explicitBaseblock/hash, preserving call/return bytes and runtimecodehash. AdjacentV3 is not V4authority.",
+        "verifier": "viem2.57.8; official Base HTTPS RPC, not independentconsensus proof",
+        "commands": [
+          "node scripts/fixtures/material/snapshot-peer-public-trust.mjs"
+        ],
+        "result": "public-material-parsed",
+        "evidence": [
+          {
+            "path": "fixtures/material/peer_v4/provider-public/chain-snapshot.json",
+            "sha256": "36aa14b963a2a83dd205e29a9a82e04466225a9fb8797984494956ea62e3dac3"
+          }
+        ]
+      }
+    },
+    {
+      "id": "local-payment-attestor-fixture",
+      "category": "local-test",
+      "kind": "fixture-input",
+      "environment": "local-test",
+      "provenance": {
+        "origin": "local-synthetic",
+        "issuerKind": "local-test",
+        "sourceUrls": [],
+        "obtainedAt": "2026-10-22T20:33:35.479751+00:00",
+        "generator": "scripts/fixtures/generate-peer-v4-standalone-local.mjs; reuses the exact synthetic-payment.json signature and verifies EIP712/dataHash"
+      },
+      "privacy": "synthetic-subject",
+      "files": [
+        {
+          "path": "fixtures/data/peer-v4-synthetic-payment.json",
+          "sha256": "f3f9b24f63cfe009fc8a2c5995e9f1af96448c684e0cba63f5209347439f56a0"
+        },
+        {
+          "path": "noir/peer_v4_auth/src/known_answer_tests.nr"
+        },
+        {
+          "path": "scripts/fixtures/generate-peer-v4-standalone-local.mjs"
+        }
+      ],
+      "trust": {
+        "role": "Local synthetic attestor payment credential, distinct from holder action authorization; enrolled public test scalar1 is never production issuer trust.",
+        "algorithms": [
+          "secp256k1/EIP712",
+          "keccak256"
+        ],
+        "rotationRevocation": "Public test scalar1 only; applications independently enroll exact supported V4 verifier domain and authorized attestor key.",
+        "authentication": "Existing local synthetic fixture, not provider-issued or a live Peer payment."
+      },
+      "verification": {
+        "method": "Host viem verifyTypedData plus exact existing dataHash/signature comparison; full Noir runtime attestor-payment relation solves same canonical544byte payload. No holder action proof is claimed.",
+        "verifier": "viem2.57.8 and pinned nargo rc3; no proof generated",
+        "commands": [
+          "node scripts/fixtures/generate-peer-v4-standalone-local.mjs",
+          "nargo test --program-dir noir --package peer_v4_auth peer_v4_"
+        ],
+        "result": "local-relation-executed",
+        "evidence": []
+      }
+    }
+  ],
+  "acquisitionNotes": [
+    {
+      "category": "provider-test",
+      "reason": "Pinned f1402703 V4 source/tests examined. Tests generate signatures using local testkeys; no reusable provider-issued signedV4 payment fixture located. Published Base metadata inspected and queried belongs to adjacentV3/Simple/Multi versions, so its current witnesses are not silently reused as V4authority. Existing local V4 fixture remains explicitly synthetic.",
+      "checkedSources": [
+        "https://github.com/zkp2p/zkp2p-contracts/blob/f1402703f8f73782203da49cb38a4d74abe40967/contracts/unifiedVerifier/UnifiedPaymentVerifierV4.sol",
+        "https://github.com/zkp2p/zkp2p-contracts/blob/f1402703f8f73782203da49cb38a4d74abe40967/test-foundry/deterministic/verifiers/UnifiedPaymentVerifierV4.t.sol",
+        "https://github.com/zkp2p/zkp2p-contracts/tree/f1402703f8f73782203da49cb38a4d74abe40967/deployments/base"
+      ]
+    }
+  ]
+}

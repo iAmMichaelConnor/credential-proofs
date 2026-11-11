@@ -1,0 +1,50 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "university",
+  "use_case": "account-authorisation",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/oidc_account.mjs",
+      "--instance",
+      "account-authorisation/university",
+      "--action",
+      "2c7c61ccb5f2b6b1f5b4ef1e63fba2dc7b2b71026e071a26e8c00e5a1dbf6629"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "packages/credential-proofs-inputs/dist/src/oidc.js rsaKeyToCircuit; jose SignJWT (RS256)"
+  },
+  "inputs": {
+    "fixtures/material/university/local-test/id-token.txt": "36775509e7985ece5e9f33666a9884607b7c11dd3c6c1375dea739be4330b151",
+    "fixtures/material/university/local-test/issuer-key.json": "46054a337bf901c9230c5b196778fe8fcd52c83d2dfe8ad6534fdb65de000d81",
+    "fixtures/material/university/local-test/policy.json": "05a81e7db59e536460e6cd61085ae8ae222317ed70eda9f05c25560153c8e2e9",
+    "fixtures/data/synthetic-rs256-private.pem": "181021221b11334ea6ed4f36bcb38439613f5fc56eeda12cb192f4ef0b420d66",
+    "packages/credential-proofs-inputs/src/oidc.ts": "aea6e0218724a1e3acb3d752c805574ecba8c789c0bf5e09b8dee19f5544c8ce",
+    "aztec/use-cases/scripts/fixtures/generators/oidc_account/university.mjs": "2d6dfcc07dd511d15f13fce98bcd261bec30c790bd37c1b273720b8bd55bd390",
+    "aztec/use-cases/scripts/fixtures/generators/oidc_account/rs256.mjs": "66af721576b1cbbe45be2188bb27701acfdfa57afa685a5ec216b10b4db9a3f4",
+    "aztec/use-cases/scripts/fixtures/generators/account.mjs": "10696a752f75b6d3b4d6f5cc69f4b3ac4e69993ef83e16abfb36ede40bd0fd56",
+    "aztec/use-cases/scripts/fixtures/generators/oidc_account.mjs": "dde9617ba9be38effa6fe3364cf854bc94b63afc48fadcf7a683794cd8241071"
+  },
+  "key_provenance": "Public synthetic RS256 test key committed in fixtures/data; not a CILogon key. Anyone can sign with it.",
+  "claims": {
+    "iss": "https://cilogon.org",
+    "aud": "cilogon:/client_id/local-synthetic-university",
+    "sub": "http://cilogon.org/serverA/users/local-synthetic-university",
+    "nonce": "2c7c61ccb5f2b6b1f5b4ef1e63fba2dc7b2b71026e071a26e8c00e5a1dbf6629",
+    "iat": 1899999940,
+    "exp": 1900003600,
+    "idp": "urn:mace:incommon:uiuc.edu",
+    "affiliation": "student@example.edu;member@example.edu",
+    "groups": [
+      "synthetic-group"
+    ]
+  },
+  "notes": [
+    "The action is the instance's action hash at the TXE shell; the test fixture_action_is_the_action fails with the value to use when it changes.",
+    "Negative cases mutate this fixture in src/test.nr."
+  ],
+  "outputs": {
+    "src/fixture.nr": "5f2754fae13cab833759a5e6ff3796a90fa0e30d29e1b137b7a5c59d8025624f"
+  }
+}

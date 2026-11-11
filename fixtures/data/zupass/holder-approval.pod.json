@@ -1,0 +1,13 @@
+{
+  "entries": {
+    "_aztec_auth_v1_account": {
+      "cryptographic": "0x148b58fdfcc923b74113b42606eeac6e3e3e76b111f2bf07ac6dfde9256380"
+    },
+    "_aztec_auth_v1_action": {
+      "cryptographic": "0xf25f10d31c97998bf1d251bff0a976aff315ca9a9166739e23ef2614f519ff"
+    },
+    "_aztec_auth_v1_expires": 4102444800
+  },
+  "signature": "g4DoqQUnFN6O+ZreefBM37Mq0xnvFh7+gNgn+K94Bhu4G8LM1ppbpiWpxAeLGJtvNxE3PllIfVfSwtHWMVfbAg",
+  "signerPublicKey": "RzMsRQpLPoyTigkVYtYZ5x8171ob8lTvtiwJLM98jY8"
+}

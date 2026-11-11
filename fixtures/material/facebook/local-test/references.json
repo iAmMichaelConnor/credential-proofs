@@ -1,0 +1,6 @@
+{
+  "manifest": "../manifest.json",
+  "materialIds": [
+    "synthetic-limited-login-fixture"
+  ]
+}

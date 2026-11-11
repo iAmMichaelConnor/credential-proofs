@@ -1,0 +1,48 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "zupass",
+  "use_case": "attribute-gating",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/login_link.mjs",
+      "--instance",
+      "attribute-gating/zupass",
+      "--binding",
+      "1fcbda96af27731de8dda6313053a4ccaaacfd48bd4b49e83aa92916da1a489d"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "packages/credential-proofs-inputs/src/zupass.ts podToCircuitWitness, signHolderLogin and holderLoginWitness; @pcd/pod POD.sign and signPODRoot; @zkpassport/poseidon2 Poseidon2 (raw negative case)"
+  },
+  "key_provenance": "EdDSA-Poseidon keys sha256('credential-proofs synthetic zupass login-link issuer key v1'), '... holder key v1' and '... other holder key v1'; public seeds, not Zupass keys. Anyone can sign with them.",
+  "claims": {
+    "entry": "owner",
+    "numeric_entry": "ticketId",
+    "numeric_value": "42",
+    "holder_entry": "owner",
+    "choice": 1,
+    "other_root_content_id": "3084301154079374124797589519903460339711008810276897223864233597241711600531",
+    "purpose": "GATE",
+    "holder_public_key": "QEfEUFmLjMvnFXtFHB8E5/uZdByXKk8ehBtXkazjpZE",
+    "issuer_public_key": "zK/YfHk7FrxX5tE8U1awGw3/W5ziODpxoAWc7XxxxCs",
+    "content_id": "14475863112277464393541001647467531646177427595195012535482116151892101774414",
+    "challenge": "0x1fcbda96af27731de8dda6313053a4ccaaacfd48bd4b49e83aa92916da1a489d",
+    "issued_at": 3999999940,
+    "login_content_id": "14322465246207014069914252203809560758217787428159872433860241311018635784082"
+  },
+  "notes": [
+    "The signed caller-and-choice binding is observed at the keyless TXE shell; fixture_signs_the_caller_and_choice prints the value to regenerate when it changes.",
+    "The issue time is 60 s before --now.",
+    "The holder signs the holder login POD {_aztec_link_v1_challenge, _aztec_link_v1_issued_at}; the raw timed-challenge signature is a negative case.",
+    "Negative cases mutate this fixture in src/test.nr."
+  ],
+  "inputs": {
+    "packages/credential-proofs-inputs/src/zupass.ts": "1e27c9ddc80d9ca39241742db34585b2698016c89d176fc47829473b6451f08f",
+    "aztec/use-cases/scripts/fixtures/generators/login_link.mjs": "1e8579707fc6586013c781bd5c63a4b5f481435b41731780ee3905dbbc891dd7",
+    "aztec/use-cases/scripts/fixtures/generators/event.mjs": "ee042da71aab4fa4d529f8d22a039f5f94b2420fb202da0ce6270cbd4f675387"
+  },
+  "outputs": {
+    "src/fixture.nr": "ea348d53e9c219d495076346677f41378f71bee1fcbb7148b40c634139810c72"
+  }
+}

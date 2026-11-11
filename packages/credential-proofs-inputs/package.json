@@ -1,0 +1,36 @@
+{
+  "name": "credential-proofs-inputs",
+  "version": "0.1.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "credential-proofs-inputs": "node dist/src/cli.js",
+    "test": "npm run build && npm run build --prefix tests/builders && tsc -p tests/tsconfig.json && node --test tests/dist/*.test.js"
+  },
+  "dependencies": {
+    "@noble/curves": "1.2.0",
+    "@pcd/pod": "0.5.1",
+    "jose": "6.2.13",
+    "viem": "2.57.8"
+  },
+  "devDependencies": {
+    "@types/node": "24.9.1",
+    "ajv": "8.20.0",
+    "typescript": "5.9.3",
+    "credential-proofs-test-builders": "file:tests/builders"
+  },
+  "exports": {
+    "./*": {
+      "types": "./dist/src/*.d.ts",
+      "default": "./dist/src/*.js"
+    }
+  },
+  "bin": {
+    "credential-proofs-inputs": "dist/src/cli.js"
+  }
+}

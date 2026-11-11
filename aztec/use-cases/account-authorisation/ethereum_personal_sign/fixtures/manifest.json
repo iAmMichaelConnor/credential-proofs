@@ -1,0 +1,37 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "ethereum_personal_sign",
+  "use_case": "account-authorisation",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/ethereum.mjs",
+      "--instance",
+      "account-authorisation/ethereum_personal_sign",
+      "--action",
+      "1c81059f0b187c9512790c3e14f08319fbba1cbc4c43b2387d9a5eb314b10598"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "aztec/use-cases dependencies viem privateKeyToAccount (EIP-191 signMessage, low s); @zkpassport/poseidon2 Poseidon2 (approval digest)"
+  },
+  "inputs": {
+    "aztec/use-cases/scripts/fixtures/generators/account.mjs": "10696a752f75b6d3b4d6f5cc69f4b3ac4e69993ef83e16abfb36ede40bd0fd56",
+    "aztec/use-cases/scripts/fixtures/generators/ethereum.mjs": "8e369e79f4559fb8ff5873ccbeb8dcb58f5807b6b28a257a339b0a17e21bfd4d"
+  },
+  "key_provenance": "secp256k1 keys sha256('credential-proofs synthetic ethereum account key v1') and '... other key v1'; public seeds, not wallet keys. Anyone can sign with them.",
+  "claims": {
+    "address": "0xA95d67749DbD0979ff870F99747dd54920A2E3A9",
+    "action": "0x1c81059f0b187c9512790c3e14f08319fbba1cbc4c43b2387d9a5eb314b10598",
+    "deadline": 4000000300,
+    "approval_domain": "poseidon2_hash_bytes(\"MIKE_AUTH_ETHEREUM_PERSONAL_SIGN_V1\")",
+    "message": "0x24c7cf5157cb165e413a38b28bc8b0f81f4cd7c97a8e17da9ae9ffa698d4505f"
+  },
+  "notes": [
+    "The action is the instance's action hash at the TXE shell; the test fixture_action_is_the_action fails with the value to use when it changes.",
+    "Negative cases mutate this fixture in src/test.nr."
+  ],
+  "outputs": {
+    "src/fixture.nr": "782261cd90557c784b8e29b495a4e4fa6a09ab36752fdb66961ebfb3d8276970"
+  }
+}

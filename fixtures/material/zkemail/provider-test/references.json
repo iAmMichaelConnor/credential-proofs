@@ -1,0 +1,6 @@
+{
+  "manifest": "../manifest.json",
+  "materialIds": [
+    "published-dkim-email-fixture"
+  ]
+}

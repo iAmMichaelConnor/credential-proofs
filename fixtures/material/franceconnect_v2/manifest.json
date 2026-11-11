@@ -1,0 +1,174 @@
+{
+  "schemaVersion": 1,
+  "scheme": "franceconnect_v2",
+  "materials": [
+    {
+      "id": "franceconnect_v2-jwks",
+      "category": "provider-public",
+      "kind": "jwks",
+      "environment": "production",
+      "provenance": {
+        "origin": "official-public-distribution",
+        "sourceUrls": [
+          "https://oidc.franceconnect.gouv.fr/api/v2/jwks"
+        ],
+        "obtainedAt": "2026-10-22T18:21:58.205Z",
+        "issuerKind": "identity-provider"
+      },
+      "privacy": "public-key-only",
+      "files": [
+        {
+          "path": "fixtures/data/public-trust/franceconnect_v2/jwks.json",
+          "sha256": "8403cdd6e21dfee55952ed33a92abd649231476096c06eb0f4fd186b2d61e23f"
+        }
+      ],
+      "trust": {
+        "role": "Public issuer JWS verification keys; exact platform issuer/key and identity must be separately enrolled.",
+        "algorithms": [
+          "ES256",
+          "RS256"
+        ],
+        "rotationRevocation": "Refresh only this fixed official endpoint; review kid/SPKI changes and explicitly update enrolled account policy. Existing key snapshot is not a perpetual trust guarantee.",
+        "authentication": "Retrieved from an explicitly configured official HTTPS URL using the host trust store; no JWT jku/x5u resolution. JWKS has no intrinsic expiry. Snapshot is provenance, not permanent authorization.",
+        "keys": [
+          {
+            "kid": "pkcs11:ES256:hsm",
+            "kty": "EC",
+            "alg": "ES256",
+            "use": "sig",
+            "spkiSha256": "840d0d7368fa2416b43b9514be103657af9ef4c27fbcfeec5de355fa8d4548dd",
+            "asymmetricKeyType": "ec",
+            "modulusLength": null
+          },
+          {
+            "kid": "k_V3m-ZnRlxh90aKUVGg2n2vey8hA1zZSldcS5gIrAw",
+            "kty": "RSA",
+            "alg": "RS256",
+            "use": "sig",
+            "spkiSha256": "ad7fa21ae54b836a2d1066ca1eb86f309981f4d0bff40a15f77f5ae460442b48",
+            "asymmetricKeyType": "rsa",
+            "modulusLength": 2048
+          }
+        ]
+      },
+      "verification": {
+        "method": "Parse official HTTPS JWKS and compute public SPKI fingerprints. This is not a provider credential verification.",
+        "verifier": "Node v24.12.0 node:crypto/createPublicKey; exact utility packages/credential-proofs-inputs/src/trust-material.ts",
+        "commands": [
+          "node scripts/fixtures/material/snapshot-trust-material.mjs franceconnect_v2"
+        ],
+        "result": "public-material-parsed",
+        "evidence": []
+      }
+    },
+    {
+      "id": "franceconnect_v2_sandbox-jwks",
+      "category": "provider-public",
+      "kind": "jwks",
+      "environment": "provider-test",
+      "provenance": {
+        "origin": "official-public-distribution",
+        "sourceUrls": [
+          "https://fcp-low.sbx.dev-franceconnect.fr/api/v2/jwks"
+        ],
+        "obtainedAt": "2026-10-22T18:21:58.366Z",
+        "issuerKind": "identity-provider"
+      },
+      "privacy": "public-key-only",
+      "files": [
+        {
+          "path": "fixtures/data/public-trust/franceconnect_v2_sandbox/jwks.json",
+          "sha256": "7a25043bd0b166e3a51ba2e804522f3e8ea7ccbc2be8ce54004c3c2d942ede12"
+        }
+      ],
+      "trust": {
+        "role": "Public issuer JWS verification keys; exact platform issuer/key and identity must be separately enrolled.",
+        "algorithms": [
+          "ES256",
+          "RS256"
+        ],
+        "rotationRevocation": "Refresh only this fixed official endpoint; review kid/SPKI changes and explicitly update enrolled account policy. Existing key snapshot is not a perpetual trust guarantee.",
+        "authentication": "Retrieved from an explicitly configured official HTTPS URL using the host trust store; no JWT jku/x5u resolution. JWKS has no intrinsic expiry. Snapshot is provenance, not permanent authorization.",
+        "keys": [
+          {
+            "kid": "pkcs11:ES256:hsm",
+            "kty": "EC",
+            "alg": "ES256",
+            "use": "sig",
+            "spkiSha256": "e5416ff2a69c88d336a12560fc8ba76009529291881461ed6dd24a9a5fc6a2dd",
+            "asymmetricKeyType": "ec",
+            "modulusLength": null
+          },
+          {
+            "kid": "HMuKDQwiW6EIwiw2a59aulIMHqbQxlEZrokhW2E-hiM",
+            "kty": "RSA",
+            "alg": "RS256",
+            "use": "sig",
+            "spkiSha256": "3872a335138fc33cdd6cf8ed9d65ada9a01de6762390916d0ec0660048ececf8",
+            "asymmetricKeyType": "rsa",
+            "modulusLength": 4096
+          }
+        ]
+      },
+      "verification": {
+        "method": "Parse official HTTPS JWKS and compute public SPKI fingerprints. This is not a provider credential verification.",
+        "verifier": "Node v24.12.0 node:crypto/createPublicKey; exact utility packages/credential-proofs-inputs/src/trust-material.ts",
+        "commands": [
+          "node scripts/fixtures/material/snapshot-trust-material.mjs franceconnect_v2_sandbox"
+        ],
+        "result": "public-material-parsed",
+        "evidence": []
+      }
+    },
+    {
+      "id": "synthetic-p256-fixture",
+      "category": "local-test",
+      "kind": "fixture-input",
+      "environment": "local-test",
+      "provenance": {
+        "origin": "local-synthetic",
+        "sourceUrls": [],
+        "obtainedAt": "2026-10-22T17:19:55.292999+00:00",
+        "generator": "packages/credential-proofs-inputs/scripts/generate-franceconnect-fixture.mjs; public test-only scalar42",
+        "issuerKind": "local-test"
+      },
+      "privacy": "synthetic-subject",
+      "files": [
+        {
+          "path": "fixtures/data/franceconnect_v2.synthetic.json",
+          "sha256": "5c6ecab9f354a68fc54c795a32c28b7bf14bff835ecbe43a9f3b534129c31561"
+        },
+        {
+          "path": "noir/franceconnect_slow_tests/src/known_answer_tests.nr"
+        }
+      ],
+      "trust": {
+        "role": "Public repository test key and synthetic ID-token witness only. Never authentic provider-issued evidence.",
+        "algorithms": [
+          "ES256",
+          "P-256"
+        ],
+        "rotationRevocation": "No production use; deterministically regenerate local fixtures.",
+        "authentication": "Public local test scalar42 only; never enroll as production trust."
+      },
+      "verification": {
+        "method": "Exact token/witness generated and cryptographically imported through shared verifier; Noir witness evidence linked when available.",
+        "verifier": "jose6.2.13; nargo 1.0.0-rc.3",
+        "commands": [
+          "nargo test --program-dir noir --package franceconnect_slow_tests franceconnect_v2_"
+        ],
+        "result": "not-yet-verified",
+        "evidence": []
+      }
+    }
+  ],
+  "acquisitionNotes": [
+    {
+      "category": "provider-test",
+      "reason": "Official protocol and public keys were searched; no reusable complete provider-issued test ID token has been collected. Local signed vectors are synthetic.",
+      "checkedSources": [
+        "https://docs.partenaires.franceconnect.gouv.fr/fs/fs-technique/fs-technique-oidc-fc-plus/"
+      ]
+    }
+  ]
+}

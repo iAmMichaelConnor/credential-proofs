@@ -1,0 +1,7 @@
+// old generated header
+    // BEGIN HAND-WRITTEN items
+    global KEPT: Field = 1;
+    // END HAND-WRITTEN items
+        // BEGIN HAND-WRITTEN effect
+        let _ = KEPT;
+        // END HAND-WRITTEN effect

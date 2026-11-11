@@ -1,0 +1,52 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "franceconnect_v2",
+  "use_case": "account-authorisation",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/oidc_account.mjs",
+      "--instance",
+      "account-authorisation/franceconnect_v2",
+      "--action",
+      "2d42ec219bfcb929ab13e38e0d539b882bb623b1426c9badae9c0c3faf128bbe"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "packages/credential-proofs-inputs/tests/builders/src/synthetic-es256.ts signSyntheticEs256 (P-256 scalar 42, RFC 6979)"
+  },
+  "inputs": {
+    "packages/credential-proofs-inputs/tests/builders/src/synthetic-es256.ts": "91bcdaa036b99477805ebf7e43f71bfc20aa259b12c0f830b166020698362b7c",
+    "aztec/use-cases/scripts/fixtures/generators/oidc_account/franceconnect_v2.mjs": "4588dce99c1b525a1c65bd89a028bb97df8b3e2d1cf2c7c59a21013278aaddbb",
+    "aztec/use-cases/scripts/fixtures/generators/oidc_account/es256.mjs": "0ab282ef09b2ec6fe591f18b42f1744215c4eeb630d2cad034b0ac0b55fbf92c",
+    "aztec/use-cases/scripts/fixtures/generators/account.mjs": "10696a752f75b6d3b4d6f5cc69f4b3ac4e69993ef83e16abfb36ede40bd0fd56",
+    "aztec/use-cases/scripts/fixtures/generators/oidc_account.mjs": "dde9617ba9be38effa6fe3364cf854bc94b63afc48fadcf7a683794cd8241071"
+  },
+  "key_provenance": "Public synthetic P-256 scalar 42 (packages/credential-proofs-inputs/tests/builders/src/synthetic-es256.ts); not a franceconnect_v2 key. Anyone can sign with it.",
+  "claims": {
+    "header": {
+      "alg": "ES256",
+      "typ": "JWT",
+      "kid": "repository-synthetic-p256"
+    },
+    "iss": "https://oidc.franceconnect.gouv.fr/api/v2",
+    "aud": "synthetic-fcplus-client",
+    "sub": "synthetic-pairwise-service-subject",
+    "nonce": "2d42ec219bfcb929ab13e38e0d539b882bb623b1426c9badae9c0c3faf128bbe",
+    "iat": 1899999940,
+    "auth_time": 1899999940,
+    "exp": 1900000060,
+    "acr": "eidas1",
+    "amr": [
+      "fc",
+      "pwd"
+    ]
+  },
+  "notes": [
+    "The action is the instance's action hash at the TXE shell; the test fixture_action_is_the_action fails with the value to use when it changes.",
+    "Negative cases mutate this fixture in src/test.nr."
+  ],
+  "outputs": {
+    "src/fixture.nr": "4f00c0b24a43de7c30c0f7a7dab53cc5ce5fcadd0cb8137dc54b3343d6c45abb"
+  }
+}

@@ -1,0 +1,9 @@
+[package]
+name = "entra_slow_tests"
+type = "lib"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"
+
+[dependencies]
+entra = { path = "../entra" }
+oidc = { path = "../oidc" }

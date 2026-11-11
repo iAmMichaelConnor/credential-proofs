@@ -1,0 +1,9 @@
+[package]
+name = "world_id4_gate"
+type = "contract"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"
+
+[dependencies]
+aztec = { git = "https://github.com/aztec-labs-eng/aztec-nr", tag = "v6.0.0", directory = "aztec" }
+uniqueness = { path = "../../../noir/world_id_uniqueness" }

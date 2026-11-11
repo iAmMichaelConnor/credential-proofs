@@ -1,0 +1,285 @@
+{
+  "schema_version": 1,
+  "about": "Golden-test manifest for scripts/generate.py: one instance per template and variant. Not the project manifest.",
+  "base_packages": [
+    "trust",
+    "account-authorisation/common"
+  ],
+  "testing_packages": [
+    "testing/terms_shell"
+  ],
+  "use_cases": {
+    "account-authorisation": {
+      "title": "Account authorisation",
+      "taxonomy": "U1",
+      "statement": "The account owner approved this exact payload.",
+      "core": "uc_account",
+      "template": "account-authorisation",
+      "package_suffix": "auth_account",
+      "contract_suffix": "Account",
+      "entrypoint": "entrypoint",
+      "required_tests": [
+        "valid",
+        "replay_rejected",
+        "wrong_issuer_rejected",
+        "wrong_action_rejected",
+        "wrong_policy_rejected",
+        "expired_rejected"
+      ]
+    },
+    "login-link": {
+      "title": "Login link",
+      "taxonomy": "U2",
+      "statement": "Whoever controls this external identity just logged in, bound to this caller.",
+      "core": "uc_login_link",
+      "template": "login-link",
+      "package_suffix": "login_link",
+      "contract_suffix": "LoginLink",
+      "entrypoint": "link",
+      "required_tests": [
+        "valid",
+        "replay_rejected",
+        "wrong_issuer_rejected",
+        "wrong_challenge_rejected",
+        "stale_rejected"
+      ]
+    },
+    "attribute-gating": {
+      "title": "Attribute gating",
+      "taxonomy": "U3 + U1b",
+      "statement": "A credential with attribute A was presented; a fixed effect happens.",
+      "core": "uc_attribute_gate",
+      "template": "attribute-gating",
+      "package_suffix": "attribute_gate",
+      "contract_suffix": "AttributeGate",
+      "entrypoint": "act",
+      "required_tests": [
+        "valid",
+        "replay_rejected",
+        "wrong_issuer_rejected",
+        "predicate_false_rejected",
+        "wrong_binding_rejected",
+        "stale_rejected",
+        "second_use_rejected"
+      ]
+    },
+    "uniqueness": {
+      "title": "Uniqueness",
+      "taxonomy": "U4 + U1b",
+      "statement": "This person has not done this in this app before; a fixed effect happens.",
+      "core": "uc_uniqueness",
+      "template": "uniqueness",
+      "package_suffix": "uniqueness",
+      "contract_suffix": "Uniqueness",
+      "entrypoint": "act_once",
+      "required_tests": [
+        "valid",
+        "replay_rejected",
+        "wrong_issuer_rejected",
+        "wrong_person_kind_rejected",
+        "wrong_binding_rejected",
+        "stale_rejected",
+        "second_use_rejected"
+      ]
+    },
+    "payment-settlement": {
+      "title": "Payment settlement",
+      "taxonomy": "U5",
+      "statement": "A payment matching this order happened; the order's fixed effect happens once.",
+      "core": "uc_payment_settlement",
+      "template": "payment-settlement",
+      "package_suffix": "payment_settlement",
+      "contract_suffix": "Settlement",
+      "entrypoint": "settle",
+      "required_tests": [
+        "valid",
+        "replay_rejected",
+        "wrong_issuer_rejected",
+        "wrong_amount_rejected",
+        "wrong_payee_rejected",
+        "wrong_reference_rejected",
+        "order_reused_rejected"
+      ]
+    },
+    "event-proof": {
+      "title": "Event proof",
+      "taxonomy": "U5",
+      "statement": "This external event happened; a fixed effect happens once per event.",
+      "core": "uc_event_proof",
+      "template": "event-proof",
+      "package_suffix": "event_proof",
+      "contract_suffix": "EventProof",
+      "entrypoint": "on_event",
+      "required_tests": [
+        "valid",
+        "replay_rejected",
+        "wrong_issuer_rejected",
+        "wrong_kind_rejected",
+        "stale_rejected"
+      ]
+    }
+  },
+  "adapters": {
+    "oidc": {
+      "path": "adapters/oidc",
+      "crate": "uc_family_oidc",
+      "kind": "family",
+      "wrappers": {
+        "account-authorisation": "OidcAccount",
+        "login-link": "OidcLink",
+        "attribute-gating": "OidcAttribute",
+        "uniqueness": "OidcUniqueness"
+      },
+      "bearer_wrappers": {
+        "login-link": "OidcBearerLink"
+      }
+    },
+    "google": {
+      "path": "adapters/google",
+      "crate": "uc_adapter_google",
+      "kind": "provider",
+      "family": "oidc",
+      "input": "GoogleIdToken",
+      "use_cases": [
+        "account-authorisation",
+        "login-link"
+      ]
+    },
+    "linkedin": {
+      "path": "adapters/linkedin",
+      "crate": "uc_adapter_linkedin",
+      "kind": "provider",
+      "family": "oidc",
+      "input": "LinkedinIdToken",
+      "use_cases": [],
+      "bearer_use_cases": [
+        "login-link"
+      ]
+    },
+    "wechatpay": {
+      "path": "adapters/wechatpay",
+      "crate": "uc_adapter_wechatpay",
+      "kind": "scheme",
+      "types": {
+        "payment-settlement": "WechatpayPayment"
+      }
+    },
+    "anon_aadhaar": {
+      "path": "adapters/anon_aadhaar",
+      "crate": "uc_adapter_anon_aadhaar",
+      "kind": "scheme",
+      "types": {
+        "attribute-gating": "AadhaarAge",
+        "uniqueness": "AadhaarPerson"
+      }
+    },
+    "govbr": {
+      "path": "adapters/govbr",
+      "crate": "uc_adapter_govbr",
+      "kind": "provider",
+      "family": "oidc",
+      "input": "GovbrIdTokenWithAssuranceLevel",
+      "use_cases": [
+        "account-authorisation",
+        "login-link",
+        "attribute-gating",
+        "uniqueness"
+      ]
+    },
+    "reclaim": {
+      "path": "adapters/reclaim",
+      "crate": "uc_adapter_reclaim",
+      "kind": "scheme",
+      "types": {
+        "event-proof": "ReclaimObservation"
+      }
+    }
+  },
+  "instances": [
+    {
+      "use_case": "account-authorisation",
+      "scheme": "google",
+      "scheme_title": "Google",
+      "category": 3,
+      "adapter": "google",
+      "input": "AuthInput",
+      "input_in_crate": true,
+      "package": "google_auth_account",
+      "contract": "GoogleAccount",
+      "dependencies": {
+        "oidc": "noir/oidc"
+      }
+    },
+    {
+      "use_case": "login-link",
+      "scheme": "google",
+      "scheme_title": "Google",
+      "category": 3,
+      "adapter": "google",
+      "txe": true
+    },
+    {
+      "use_case": "login-link",
+      "scheme": "linkedin",
+      "scheme_title": "LinkedIn",
+      "category": 3,
+      "adapter": "linkedin",
+      "bearer": true,
+      "skip_tests": {
+        "wrong_challenge_rejected": "bearer: the token carries no challenge"
+      },
+      "notes": [
+        "Bearer: any holder of a copy of the token can link the subject to their own address (`ALSO_IDP | ALSO_COPY_HOLDER`) until the bearer ceiling or the token's expiry.",
+        "`sub` is treated as pairwise."
+      ]
+    },
+    {
+      "use_case": "attribute-gating",
+      "scheme": "anon_aadhaar",
+      "scheme_title": "Anon Aadhaar",
+      "category": 6,
+      "adapter": "anon_aadhaar"
+    },
+    {
+      "use_case": "attribute-gating",
+      "scheme": "govbr",
+      "scheme_title": "gov.br",
+      "category": 3,
+      "adapter": "govbr",
+      "choice": true
+    },
+    {
+      "use_case": "uniqueness",
+      "scheme": "anon_aadhaar",
+      "scheme_title": "Anon Aadhaar",
+      "category": 6,
+      "adapter": "anon_aadhaar",
+      "choice": true
+    },
+    {
+      "use_case": "payment-settlement",
+      "scheme": "wechatpay",
+      "scheme_title": "WeChat Pay",
+      "category": 5,
+      "adapter": "wechatpay",
+      "contract": "WechatpaySettlement"
+    },
+    {
+      "use_case": "event-proof",
+      "scheme": "reclaim",
+      "scheme_title": "Reclaim",
+      "adapter": "reclaim",
+      "txe": true
+    }
+  ],
+  "template_checks": [
+    {
+      "use_case": "attribute-gating",
+      "directory": "testing/template_attribute_gate",
+      "package": "template_attribute_gate",
+      "contract": "TemplateAttributeGate",
+      "adapter": "anon_aadhaar",
+      "choice": true
+    }
+  ]
+}

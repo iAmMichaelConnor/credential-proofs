@@ -1,0 +1,8 @@
+[package]
+name = "uc_adapter_wechatpay"
+type = "lib"
+authors = ["Michael Connor"]
+
+[dependencies]
+aztec = { git = "https://github.com/aztec-labs-eng/aztec-nr", tag = "v6.0.0", directory = "aztec" }
+wechatpay = { path = "../../../../noir/wechatpay" }

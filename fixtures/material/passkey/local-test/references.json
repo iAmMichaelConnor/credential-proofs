@@ -1,0 +1,6 @@
+{
+  "manifest": "../manifest.json",
+  "materialIds": [
+    "chromium-virtual-authenticator-assertion"
+  ]
+}

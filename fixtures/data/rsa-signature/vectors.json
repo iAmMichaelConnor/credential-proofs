@@ -1,0 +1,23 @@
+[
+  {
+    "bits": 1024,
+    "message": "test",
+    "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDjM8fgEZC8RiZW+nnvYd1G90OZ\nXzUJJRJD6WoEd+UIFFWU+d9EeyVgp4L9Ccm/bSBxso2wIrUBKl4ZMe4mU/w0CNM3\nnQIOpl7uTJw0jg1QRAoB4v+uYWkQaqQFjiJ9Wf1e4joiBfWqlmVp0nLkirwaa3hF\nXT+D5XUIHN5cmBfDsQIDAQAB\n-----END PUBLIC KEY-----\n",
+    "signatureBase64": "grueYGAya/iZuY3iwn8QlanqACLh1YCDmYyykvyww2vQHxsEP1t7hDsgtwOY69Rb99/zYjVcbIYl7dNyOXpxxhX4n3NOpIidX43B+UGRH379Jt2P2jfiiRsIWotA6+mK3XXDKYuw4t3BmJmAQk35UsolkFQmkaBxTpjdpDjqF60=",
+    "keyRole": "Explicitly public synthetic local-test key only"
+  },
+  {
+    "bits": 2048,
+    "message": "test",
+    "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsr78W4b0MSKYnMa+JWwj\ntuo7BOQEFxso4wqWLaGei9kaceWar7i+E10oiE6vpi3o93fuw9smYCL6sgfiIBiq\n6TXuzxTiXdtoCgSJ3SEYd2Y+fX1HauDiLldc0gqxn7iiUCCZHHjPxJjRlE/FLyq0\nEl+AhqHdu95fcpn92ak6Gv4SQ1PMwAkwpk0jb67No3vc5nr0Pc/ZQJS7dQdaC29A\n4YxEFYAVir3Z0T51IDd6cHFoffE8LKKw4Ark8X9lssvnzFSDpsxdAbYxCBI0lZ/U\nGkL+fsnguSPt/nBw/2idhRwVjduEINZyQtzfFRXb78Hf14RNx3mN1oJ9MVWpssWo\nLwIDAQAB\n-----END PUBLIC KEY-----\n",
+    "signatureBase64": "WmSHoM7YD+T5pIoCWpmU4Rz6oHC7+0TUZsVx9m3G6W1T80SJlmhFRWuGGyHPOvh4REHeEoq2Sdk+ZlTsWw+JIK0zEAfJ8/9FnofHEoHLX1SDkXpGRe5sJcxxU0Tknz1/JnhjQwK6UFR7OaxFBD3A9bfZ9qFMc5Z9q4LFsTGa/fzmO0czn5xzrzLMHg5DdCWstZkuF8TjOObvi90m9lOwRDWKcQtuurA9wPeRDZR+pU1ZzcWjVZPY6+4qWaHBy1FW92ewYsmihqPBdfp9qH3p8ZbFBn0YB1V1VoloQ+eUdrKPFD1C+IVjEtwrFbGmLsybhbxXvv+r/UjIZuzghhgEsg==",
+    "keyRole": "Explicitly public synthetic local-test key only"
+  },
+  {
+    "bits": 4096,
+    "message": "test",
+    "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA110cIUfeMoZ+k3Ld0MM1\nx3Gm8TDBqr6GX3dIwB5Mxb9w1KWrP9bxIrf6ScbvNrWNbdxTznU/epY8E+1I8nQ9\nShjyVJmx2NRcTW2CKVHiHAoZ4wYrjnql8mxNGQNzKaeHG7hU+T401r6ktEWGSST1\nGFjmuKKFqaQnMASKBGsB0699wAfxE+4WYvqqesrBqk+Hko9KqWa6VcEMtdD9oCty\nc/hgKVIccRu9blVy91VaOuRgK5Atr7hmcwrvwfaUpipctywTgt1lXExWifTEiUnZ\nSig4boTKeZQr7CZOQhstTozn1RNYsokVaWQCsJqzxACm42gpgTOkx60LAhe/R2Og\nnCa+QyZk9MyZyqiqUpxCXM5zo/kcqs4wwYAZIW9f5kmncNAw/zJQvR/iigiq1NHm\naPMNzpCMVWVsYrZYazheXFVs7xf2yyH/P+KBFWaLpnQsfU77ecxtz65oCSG//0Xc\n7YFLScx6vbl+btL1y9uwQ0+mJDp0hu7aNKpmSx01sAUi0qVWROcVxJP8KHflgZf3\nQkWMkSvaYXDXuZZxrNBck2RG4GrvyOMGD0jHSey+M/8g0RVKhfGwg1wrLIB14wNh\nhUq3Js8CC23qyZjDbEK5Ka0AWQODJHslSbWgQaz7rKQ+eXQcq4ArXgifN/zDjXJ5\nygCOgdUAqdmgbYzKTdXH08ECAwEAAQ==\n-----END PUBLIC KEY-----\n",
+    "signatureBase64": "bPzT9N/lGc3qb3g+KRe5k90jskjJmvpKRjJKwzdkC/Htja92DJQiUTD3oMI9nXu6VqdhIsfnPZSPWPIoKl7P5Dot2GAhDAWZwQi3YGU2kOsjjpHG8ts7mTNMLrxx+Xy1WLyxcHnYsWlGV2UzeleG8BRgsvFD0eabf25FGKTfOXYalO4s5yNcmJ83nyvzVvO3rdZ7C5oq8E0KzTbC3JpEnpgJs2ZGlFyoxqrEILk9ry7uRZy1J7DUZWr7mFItvhmF0FvimAPyzOk63CtWOqdM/nO5bE74XLlPVtcbMlkt6CEIRdnwup48TPxwO4Tk5lfsf4sHoDc1XO11CkeLLPIqys7Vits/D1yCav8IG0leNBzgptYkr8FI7yF9ddTNL5ZkcSkHWRgVnDkW5o+WRQRwSjKcj8P6ecALVThNBnHynSamOZNo/ogkTuAZejsoiuAPbBHeHruZufWerFcU1pkrLK7akFTYJPEGND0WiTAIceaPAH5VsEa46EgPeeNgVHiJgylpLAZEFI+LOiBOUu8CYujXjU7/Pf4tuZ46xG7atzRlh7tg0gqhrCTR0JOGF3LoCiho0ALXXZ2JCOwUa0xZpHc32VW3XwltSPGroM0A4tAHl6zMn2DcaNmXH+SuMvCC8DRSmOD46874OOeHz/MIPwQwv9/O/3HMVELrg5qIeVw=",
+    "keyRole": "Explicitly public synthetic local-test key only"
+  }
+]

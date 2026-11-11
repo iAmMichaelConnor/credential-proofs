@@ -1,0 +1,12 @@
+{
+  "mode": "v3",
+  "timestamp": "1900000000000",
+  "nonce": "synthetic-alipay-response-nonce",
+  "body": "{\"user_id\":\"2088123412341234\",\"open_id\":\"synthetic-open-id\",\"nick_name\":\"测试用户\"}",
+  "nowMs": "1900000001000",
+  "maxAgeMs": "60000",
+  "expectedUserId": "2088123412341234",
+  "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsr78W4b0MSKYnMa+JWwj\ntuo7BOQEFxso4wqWLaGei9kaceWar7i+E10oiE6vpi3o93fuw9smYCL6sgfiIBiq\n6TXuzxTiXdtoCgSJ3SEYd2Y+fX1HauDiLldc0gqxn7iiUCCZHHjPxJjRlE/FLyq0\nEl+AhqHdu95fcpn92ak6Gv4SQ1PMwAkwpk0jb67No3vc5nr0Pc/ZQJS7dQdaC29A\n4YxEFYAVir3Z0T51IDd6cHFoffE8LKKw4Ark8X9lssvnzFSDpsxdAbYxCBI0lZ/U\nGkL+fsnguSPt/nBw/2idhRwVjduEINZyQtzfFRXb78Hf14RNx3mN1oJ9MVWpssWo\nLwIDAQAB\n-----END PUBLIC KEY-----\n",
+  "provenance": "Synthetic protocol fixture signed by the intentionally public local test key. Not issued by Alipay.",
+  "signature": "slceH1Wb/7PnAVu277jl0q7Y7oeB+pg8dt8uETvhCt28thRQBXNg2ml0uJoEFeXdxiVi73Kw9eV2aXXgJc9YWEqZhiZeqEOU2dX1sMmSN2PgaWGqMzYxRcSljF2//cOzpGYKXV1Hl1VC+DAZ3R58LSNs8EWH3y1dpiV17y5BsU7cvLWuMPFe/g9jaHSDfnQ/wdZqOKyMNLWd0FL/EUjVlwWzVjd7ZMjydCHkHzPIDkS5Nww+2jHYhY/HqH0fgKmZJxmZE4iz0FB4E2kwFQa3mpDWsYdkYM3pEpTMfWwA1lQrcnmSd08PJaEkUlGWCXbSrY6vV1r4tII6oIzDv5vAOA=="
+}

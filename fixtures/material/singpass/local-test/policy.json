@@ -1,0 +1,8 @@
+{
+  "environment": "production",
+  "minimumAssurance": 2,
+  "audience": "local-synthetic-singpass-client",
+  "subject": "local-synthetic-singpass-user",
+  "nonce": "0000000000000000000000000000000000000000000000000000000000000000",
+  "now": 1900000000
+}

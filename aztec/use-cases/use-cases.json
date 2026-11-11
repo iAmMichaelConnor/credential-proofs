@@ -1,0 +1,1232 @@
+{
+  "schema_version": 1,
+  "about": "Source for scripts/generate.py (ARCHITECTURE.md, Generated files). Edit instance metadata here, then run `python3 scripts/generate.py` and commit the output. `--check` fails on drift.",
+  "base_packages": [
+    "trust",
+    "account-authorisation/common",
+    "login-link/common",
+    "attribute-gating/common",
+    "uniqueness/common",
+    "payment-settlement/common",
+    "event-proof/common"
+  ],
+  "testing_packages": [
+    "testing/core_tests",
+    "testing/dispatch_target",
+    "testing/family_oidc_tests",
+    "testing/terms_shell"
+  ],
+  "use_cases": {
+    "account-authorisation": {
+      "title": "Account authorisation",
+      "taxonomy": "U1",
+      "statement": "The account owner approved this exact payload.",
+      "core": "uc_account",
+      "template": "account-authorisation",
+      "package_suffix": "auth_account",
+      "contract_suffix": "Account",
+      "entrypoint": "entrypoint",
+      "required_tests": [
+        "valid",
+        "replay_rejected",
+        "wrong_issuer_rejected",
+        "wrong_action_rejected",
+        "wrong_policy_rejected",
+        "expired_rejected"
+      ]
+    },
+    "login-link": {
+      "title": "Login link",
+      "taxonomy": "U2",
+      "statement": "Whoever controls this external identity just logged in, bound to this caller.",
+      "core": "uc_login_link",
+      "template": "login-link",
+      "package_suffix": "login_link",
+      "contract_suffix": "LoginLink",
+      "entrypoint": "link",
+      "required_tests": [
+        "valid",
+        "wrong_challenge_rejected",
+        "stale_rejected"
+      ]
+    },
+    "attribute-gating": {
+      "title": "Attribute gating",
+      "taxonomy": "U3 + U1b",
+      "statement": "A credential with attribute A was presented; a fixed effect happens.",
+      "core": "uc_attribute_gate",
+      "template": "attribute-gating",
+      "package_suffix": "attribute_gate",
+      "contract_suffix": "AttributeGate",
+      "entrypoint": "act",
+      "required_tests": [
+        "valid",
+        "predicate_false_rejected",
+        "wrong_binding_rejected",
+        "stale_rejected",
+        "second_use_rejected"
+      ]
+    },
+    "uniqueness": {
+      "title": "Uniqueness",
+      "taxonomy": "U4 + U1b",
+      "statement": "This person has not done this in this app before; a fixed effect happens.",
+      "core": "uc_uniqueness",
+      "template": "uniqueness",
+      "package_suffix": "uniqueness",
+      "contract_suffix": "Uniqueness",
+      "entrypoint": "act_once",
+      "required_tests": [
+        "valid",
+        "wrong_person_kind_rejected",
+        "wrong_binding_rejected",
+        "stale_rejected",
+        "second_use_rejected"
+      ]
+    },
+    "payment-settlement": {
+      "title": "Payment settlement",
+      "taxonomy": "U5",
+      "statement": "A payment matching this order happened; the order's fixed effect happens once.",
+      "core": "uc_payment_settlement",
+      "template": "payment-settlement",
+      "package_suffix": "payment_settlement",
+      "contract_suffix": "Settlement",
+      "entrypoint": "settle",
+      "required_tests": [
+        "valid",
+        "wrong_amount_rejected",
+        "wrong_payee_rejected",
+        "wrong_reference_rejected",
+        "order_reused_rejected"
+      ]
+    },
+    "event-proof": {
+      "title": "Event proof",
+      "taxonomy": "U5",
+      "statement": "This external event happened; a fixed effect happens once per event.",
+      "core": "uc_event_proof",
+      "template": "event-proof",
+      "package_suffix": "event_proof",
+      "contract_suffix": "EventProof",
+      "entrypoint": "on_event",
+      "required_tests": [
+        "valid",
+        "wrong_kind_rejected",
+        "stale_rejected"
+      ]
+    }
+  },
+  "adapters": {
+    "oidc": {
+      "path": "adapters/oidc",
+      "crate": "uc_family_oidc",
+      "kind": "family",
+      "wrappers": {
+        "account-authorisation": "OidcAccount",
+        "login-link": "OidcLink",
+        "attribute-gating": "OidcAttribute",
+        "uniqueness": "OidcUniqueness"
+      },
+      "bearer_wrappers": {
+        "login-link": "OidcBearerLink"
+      }
+    },
+    "google": {
+      "path": "adapters/google",
+      "crate": "uc_adapter_google",
+      "kind": "provider",
+      "family": "oidc",
+      "input": "GoogleIdToken",
+      "use_cases": [
+        "account-authorisation",
+        "login-link"
+      ]
+    },
+    "apple": {
+      "path": "adapters/apple",
+      "crate": "uc_adapter_apple",
+      "kind": "provider",
+      "family": "oidc",
+      "input": "AppleIdToken",
+      "use_cases": [
+        "account-authorisation",
+        "login-link"
+      ]
+    },
+    "entra": {
+      "path": "adapters/entra",
+      "crate": "uc_adapter_entra",
+      "kind": "provider",
+      "family": "oidc",
+      "input": "EntraIdToken",
+      "use_cases": [
+        "account-authorisation",
+        "login-link",
+        "attribute-gating"
+      ]
+    },
+    "facebook": {
+      "path": "adapters/facebook",
+      "crate": "uc_adapter_facebook",
+      "kind": "provider",
+      "family": "oidc",
+      "input": "FacebookIdToken",
+      "use_cases": [
+        "account-authorisation",
+        "login-link"
+      ]
+    },
+    "govbr": {
+      "path": "adapters/govbr",
+      "crate": "uc_adapter_govbr",
+      "kind": "provider",
+      "family": "oidc",
+      "input": "GovbrIdToken",
+      "use_cases": [
+        "account-authorisation",
+        "login-link",
+        "attribute-gating"
+      ]
+    },
+    "kakao": {
+      "path": "adapters/kakao",
+      "crate": "uc_adapter_kakao",
+      "kind": "provider",
+      "family": "oidc",
+      "input": "KakaoIdToken",
+      "use_cases": [
+        "account-authorisation",
+        "login-link"
+      ]
+    },
+    "linkedin": {
+      "path": "adapters/linkedin",
+      "crate": "uc_adapter_linkedin",
+      "kind": "provider",
+      "family": "oidc",
+      "input": "LinkedInIdToken",
+      "use_cases": [],
+      "bearer_use_cases": [
+        "login-link"
+      ]
+    },
+    "miargentina": {
+      "path": "adapters/miargentina",
+      "crate": "uc_adapter_miargentina",
+      "kind": "provider",
+      "family": "oidc",
+      "input": "MiArgentinaIdToken",
+      "use_cases": [
+        "account-authorisation",
+        "login-link"
+      ]
+    },
+    "telegram": {
+      "path": "adapters/telegram",
+      "crate": "uc_adapter_telegram",
+      "kind": "provider",
+      "family": "oidc",
+      "input": "TelegramIdToken",
+      "use_cases": [
+        "account-authorisation",
+        "login-link"
+      ]
+    },
+    "university": {
+      "path": "adapters/university",
+      "crate": "uc_adapter_university",
+      "kind": "provider",
+      "family": "oidc",
+      "input": "UniversityIdToken",
+      "types": {
+        "attribute-gating": "UniversityAffiliationToken"
+      },
+      "use_cases": [
+        "account-authorisation",
+        "login-link",
+        "attribute-gating"
+      ]
+    },
+    "line": {
+      "path": "adapters/line",
+      "crate": "uc_adapter_line",
+      "kind": "provider",
+      "family": "oidc",
+      "input": "LineIdToken",
+      "use_cases": [
+        "account-authorisation",
+        "login-link"
+      ]
+    },
+    "franceconnect": {
+      "path": "adapters/franceconnect",
+      "crate": "uc_adapter_franceconnect",
+      "kind": "provider",
+      "family": "oidc",
+      "input": "FranceConnectIdToken",
+      "types": {
+        "attribute-gating": "FranceConnectAssuranceToken"
+      },
+      "use_cases": [
+        "account-authorisation",
+        "login-link",
+        "attribute-gating"
+      ]
+    },
+    "passkey": {
+      "path": "adapters/passkey",
+      "crate": "uc_adapter_passkey",
+      "kind": "scheme",
+      "types": {
+        "login-link": "PasskeyLogin"
+      }
+    },
+    "ethereum_siwe": {
+      "path": "adapters/ethereum_siwe",
+      "crate": "uc_adapter_ethereum_siwe",
+      "kind": "scheme",
+      "types": {
+        "login-link": "SiweLogin"
+      }
+    },
+    "jpki": {
+      "path": "adapters/jpki",
+      "crate": "uc_adapter_jpki",
+      "kind": "scheme",
+      "types": {
+        "login-link": "JpkiLogin"
+      }
+    },
+    "wechatpay": {
+      "path": "adapters/wechatpay",
+      "crate": "uc_adapter_wechatpay",
+      "kind": "scheme",
+      "types": {
+        "payment-settlement": "WechatpayPayment"
+      }
+    },
+    "alipay": {
+      "path": "adapters/alipay",
+      "crate": "uc_adapter_alipay",
+      "kind": "scheme",
+      "types": {
+        "payment-settlement": "AlipayTradeQuery"
+      }
+    },
+    "peer_v4": {
+      "path": "adapters/peer_v4",
+      "crate": "uc_adapter_peer_v4",
+      "kind": "scheme",
+      "types": {
+        "payment-settlement": "PeerV4Payment"
+      }
+    },
+    "zkemail": {
+      "path": "adapters/zkemail",
+      "crate": "uc_adapter_zkemail",
+      "kind": "scheme",
+      "types": {
+        "attribute-gating": "ZkemailDomainEmail",
+        "event-proof": "ZkemailReceivedEmail",
+        "login-link": "ZkemailLoginEmail"
+      }
+    },
+    "twitter_reclaim": {
+      "path": "adapters/twitter_reclaim",
+      "crate": "uc_adapter_twitter_reclaim",
+      "kind": "scheme",
+      "types": {
+        "event-proof": "ReclaimObservation",
+        "login-link": "ReclaimHandleLogin"
+      }
+    },
+    "singpass": {
+      "path": "adapters/singpass",
+      "crate": "uc_adapter_singpass",
+      "kind": "provider",
+      "family": "oidc",
+      "input": "SingpassIdToken",
+      "use_cases": [
+        "attribute-gating",
+        "login-link"
+      ]
+    },
+    "aadhaar_secure_qr": {
+      "path": "adapters/aadhaar_secure_qr",
+      "crate": "uc_adapter_aadhaar_secure_qr",
+      "kind": "scheme",
+      "types": {
+        "attribute-gating": "AadhaarSecureQr"
+      }
+    },
+    "philsys": {
+      "path": "adapters/philsys",
+      "crate": "uc_adapter_philsys",
+      "kind": "scheme",
+      "types": {
+        "attribute-gating": "PhilsysQr"
+      }
+    },
+    "zupass": {
+      "path": "adapters/zupass",
+      "crate": "uc_adapter_zupass",
+      "kind": "scheme",
+      "types": {
+        "attribute-gating": "ZupassPodEntry",
+        "login-link": "ZupassHolderLogin"
+      }
+    },
+    "zupass_holder": {
+      "path": "adapters/zupass",
+      "crate": "uc_adapter_zupass",
+      "kind": "scheme",
+      "types": {
+        "attribute-gating": "ZupassHolderEntry"
+      }
+    },
+    "template": {
+      "path": "testing/test_adapter",
+      "crate": "uc_test_adapter",
+      "kind": "test",
+      "types": {
+        "login-link": "DummyEvidence",
+        "attribute-gating": "DummyEvidence",
+        "uniqueness": "DummyEvidence",
+        "payment-settlement": "DummyEvidence",
+        "event-proof": "DummyEvidence"
+      }
+    }
+  },
+  "instances": [
+    {
+      "use_case": "account-authorisation",
+      "scheme": "passkey",
+      "scheme_title": "Passkey",
+      "category": 1,
+      "input_in_crate": true,
+      "input": "AuthInput",
+      "dependencies": {
+        "passkey": "noir/passkey_auth"
+      },
+      "txe": true,
+      "skip_tests": {
+        "expired_rejected": "the credential has no expiry; the transaction nonce is the only replay guard"
+      },
+      "notes": [
+        "Blind signing: the authenticator shows the RP ID, not the action; a page on the pinned origin can request an assertion over any action.",
+        "The assertion has no expiry: an unused one stays valid until its transaction nonce is consumed."
+      ]
+    },
+    {
+      "use_case": "account-authorisation",
+      "scheme": "ethereum_personal_sign",
+      "scheme_title": "Ethereum personal_sign",
+      "category": 1,
+      "input_in_crate": true,
+      "input": "AuthInput",
+      "contract": "EthereumSignatureAccount",
+      "dependencies": {
+        "ethereum": "noir/ethereum_auth"
+      },
+      "txe": true,
+      "notes": [
+        "Blind signing: the wallet shows 32 opaque bytes, the shape many sites use for login nonces, so a phishing page can present an account action as a login and pick the deadline; prefer ethereum_siwe.",
+        "An unused approval stays valid until its deadline."
+      ]
+    },
+    {
+      "use_case": "account-authorisation",
+      "scheme": "ethereum_siwe",
+      "scheme_title": "Sign-In with Ethereum",
+      "category": 1,
+      "input_in_crate": true,
+      "input": "AuthInput",
+      "dependencies": {
+        "ethereum": "noir/ethereum_auth",
+        "time": "noir/auth_time"
+      },
+      "txe": true,
+      "notes": [
+        "The wallet shows the domain, URI and expiry, but the action only as a hex nonce.",
+        "No statement, request id, not-before or resources field; domain and URI are checked as visible ASCII, not parsed as RFC 3986.",
+        "`Issued At` after the anchor block is rejected: signers set it at or before the anchor block time."
+      ]
+    },
+    {
+      "use_case": "account-authorisation",
+      "scheme": "ethereum_secret_key",
+      "scheme_title": "Ethereum secret key",
+      "category": 1,
+      "input_in_crate": true,
+      "input": "AuthInput",
+      "dependencies": {
+        "ethereum": "noir/ethereum_auth"
+      },
+      "txe": true,
+      "skip_tests": {
+        "expired_rejected": "the credential has no expiry; the transaction nonce is the only replay guard",
+        "wrong_action_rejected": "no signed action: knowledge of the key authorises the transaction that the proof covers; new_nonce_accepted shows it"
+      },
+      "notes": [
+        "No signature: the secret key is a private input of the transaction proof, so a hardware wallet cannot use this account and anything that sees the prover inputs sees the key.",
+        "The key authorises any payload at every account that pins its address."
+      ]
+    },
+    {
+      "use_case": "account-authorisation",
+      "scheme": "zupass",
+      "scheme_title": "Zupass POD and holder key",
+      "category": 2,
+      "input_in_crate": true,
+      "input": "AuthInput",
+      "dependencies": {
+        "zupass": "noir/zupass"
+      },
+      "txe": true,
+      "notes": [
+        "The approval POD's action entry is an opaque hash. Software that signs, for another party, a POD with `_aztec_auth_v1_*` entries or a raw field (`signPODRoot`) with the holder key is a signing oracle for this account.",
+        "The policy pins one `content_id`, so another POD the issuer signs for another key does not count."
+      ]
+    },
+    {
+      "use_case": "account-authorisation",
+      "scheme": "jpki",
+      "scheme_title": "JPKI card",
+      "category": 2,
+      "input_in_crate": true,
+      "input": "AuthInput",
+      "dependencies": {
+        "jpki_auth": "noir/jpki_auth"
+      },
+      "txe": true,
+      "notes": [
+        "`anchor_class` 1 accepts any root the policy pins; only class 0 restricts it to the official JPKI roots.",
+        "The card signs an opaque challenge. The session nullifier is siloed by account, so one card session can serve another account of the same card if the card signs for it."
+      ]
+    },
+    {
+      "use_case": "account-authorisation",
+      "scheme": "zkemail",
+      "scheme_title": "zkEmail action email",
+      "category": 3,
+      "input_in_crate": true,
+      "input": "AuthInput",
+      "package": "dkim_auth_account",
+      "contract": "DkimAccount",
+      "modules": [
+        "profile"
+      ],
+      "dependencies": {
+        "zkemail": "noir/zkemail",
+        "uc_adapter_zkemail": "adapters/zkemail",
+        "sha256": {
+          "git": "https://github.com/noir-lang/sha256",
+          "tag": "v0.3.0"
+        }
+      },
+      "txe": true,
+      "skip_tests": {
+        "expired_rejected": "the DKIM signature carries no expiry in this profile; the transaction nonce is the only replay guard"
+      },
+      "notes": [
+        "The service that operates the pinned sender mailbox must send the action mail only at the mailbox owner's request; ownership is not inferred from `To`.",
+        "The mail has no expiry: only the transaction nonce stops a replay."
+      ]
+    },
+    {
+      "use_case": "account-authorisation",
+      "scheme": "twitter_reclaim",
+      "scheme_title": "Reclaim (X profile)",
+      "category": 4,
+      "input_in_crate": true,
+      "input": "AuthInput",
+      "dependencies": {
+        "reclaim_auth": "noir/reclaim_auth"
+      },
+      "txe": true,
+      "notes": [
+        "The attestor is a co-authority and the prover writes the context. The official X provider profile rejects every nonempty proof, so this account cannot be used with it; a field named `username` does not establish its provenance.",
+        "The session nullifier is siloed by account."
+      ]
+    },
+    {
+      "use_case": "account-authorisation",
+      "scheme": "google",
+      "scheme_title": "Google",
+      "category": 3,
+      "family": "oidc",
+      "input_in_crate": true,
+      "input": "AuthInput",
+      "dependencies": {
+        "oidc": "noir/oidc"
+      },
+      "txe": true
+    },
+    {
+      "use_case": "account-authorisation",
+      "scheme": "apple",
+      "scheme_title": "Apple",
+      "category": 3,
+      "family": "oidc",
+      "input_in_crate": true,
+      "input": "AuthInput",
+      "dependencies": {
+        "oidc": "noir/oidc"
+      },
+      "txe": true,
+      "notes": [
+        "Only `sub` (per developer team) is pinned; the private relay e-mail and real-user indicator are not checked."
+      ]
+    },
+    {
+      "use_case": "account-authorisation",
+      "scheme": "facebook",
+      "scheme_title": "Facebook Limited Login",
+      "category": 3,
+      "family": "oidc",
+      "input_in_crate": true,
+      "input": "AuthInput",
+      "dependencies": {
+        "facebook": "noir/facebook",
+        "oidc": "noir/oidc"
+      },
+      "txe": true,
+      "notes": [
+        "Limited Login proves control of the Facebook account at the app, not civil identity."
+      ]
+    },
+    {
+      "use_case": "account-authorisation",
+      "scheme": "telegram",
+      "scheme_title": "Telegram",
+      "category": 3,
+      "family": "oidc",
+      "input_in_crate": true,
+      "input": "AuthInput",
+      "dependencies": {
+        "oidc": "noir/oidc",
+        "telegram": "noir/telegram"
+      },
+      "txe": true
+    },
+    {
+      "use_case": "account-authorisation",
+      "scheme": "entra",
+      "scheme_title": "Microsoft Entra ID",
+      "category": 3,
+      "family": "oidc",
+      "input_in_crate": true,
+      "input": "AuthInput",
+      "dependencies": {
+        "entra": "noir/entra",
+        "oidc": "noir/oidc"
+      },
+      "txe": true,
+      "notes": [
+        "The issuer pins the tenant GUID; the tenant's administrators control its users and sign-in policy and are co-authorities. `sub` is pairwise per application."
+      ]
+    },
+    {
+      "use_case": "account-authorisation",
+      "scheme": "line",
+      "scheme_title": "LINE",
+      "category": 3,
+      "family": "oidc",
+      "input_in_crate": true,
+      "input": "AuthInput",
+      "dependencies": {
+        "line": "noir/line",
+        "oidc": "noir/oidc"
+      },
+      "txe": true
+    },
+    {
+      "use_case": "account-authorisation",
+      "scheme": "kakao",
+      "scheme_title": "Kakao®",
+      "category": 3,
+      "family": "oidc",
+      "input_in_crate": true,
+      "input": "AuthInput",
+      "dependencies": {
+        "kakao": "noir/kakao",
+        "oidc": "noir/oidc"
+      },
+      "txe": true
+    },
+    {
+      "use_case": "account-authorisation",
+      "scheme": "govbr",
+      "scheme_title": "gov.br",
+      "category": 3,
+      "family": "oidc",
+      "input_in_crate": true,
+      "input": "AuthInput",
+      "dependencies": {
+        "govbr": "noir/govbr",
+        "oidc": "noir/oidc"
+      },
+      "txe": true,
+      "notes": [
+        "gov.br tokens live 60 s, which bounds the inclusion window."
+      ]
+    },
+    {
+      "use_case": "account-authorisation",
+      "scheme": "miargentina",
+      "scheme_title": "Mi Argentina",
+      "category": 3,
+      "family": "oidc",
+      "input_in_crate": true,
+      "input": "AuthInput",
+      "contract": "MiArgentinaAccount",
+      "dependencies": {
+        "miargentina": "noir/miargentina",
+        "oidc": "noir/oidc"
+      },
+      "txe": true,
+      "notes": [
+        "No RENAPER SID biometric assertion is checked, and the subject semantics are unconfirmed."
+      ]
+    },
+    {
+      "use_case": "account-authorisation",
+      "scheme": "franceconnect",
+      "scheme_title": "FranceConnect+",
+      "category": 3,
+      "family": "oidc",
+      "input_in_crate": true,
+      "input": "AuthInput",
+      "contract": "FranceConnectAccount",
+      "dependencies": {
+        "franceconnect": "noir/franceconnect",
+        "oidc": "noir/oidc"
+      },
+      "txe": true,
+      "notes": [
+        "FranceConnect+ encrypts the ID token (JWE); the host decrypts it and the circuit verifies the inner signed token."
+      ]
+    },
+    {
+      "use_case": "account-authorisation",
+      "scheme": "franceconnect_v2",
+      "scheme_title": "FranceConnect v2",
+      "category": 3,
+      "family": "oidc",
+      "input_in_crate": true,
+      "input": "AuthInput",
+      "contract": "FranceConnectV2Account",
+      "dependencies": {
+        "franceconnect": "noir/franceconnect",
+        "oidc": "noir/oidc"
+      },
+      "txe": true,
+      "notes": [
+        "A policy with minimum level 1 accepts `eidas1`, a low-assurance login."
+      ]
+    },
+    {
+      "use_case": "account-authorisation",
+      "scheme": "singpass",
+      "scheme_title": "Singpass",
+      "category": 3,
+      "input_in_crate": true,
+      "input": "AuthInput",
+      "dependencies": {
+        "oidc": "noir/oidc",
+        "singpass": "noir/singpass_auth",
+        "uc_family_oidc": "adapters/oidc"
+      },
+      "txe": true,
+      "notes": [
+        "Production requires assurance level 2 or more. Singpass encrypts the ID token (JWE); the host decrypts it and the circuit verifies the inner signed token."
+      ]
+    },
+    {
+      "use_case": "account-authorisation",
+      "scheme": "university",
+      "scheme_title": "University (CILogon)",
+      "category": 3,
+      "input_in_crate": true,
+      "input": "AuthInput",
+      "dependencies": {
+        "oidc": "noir/oidc",
+        "university": "noir/university_auth",
+        "uc_family_oidc": "adapters/oidc"
+      },
+      "txe": true,
+      "notes": [
+        "Does not show current student or staff status: affiliation is not checked. CILogon reports the campus IdP and is a co-authority."
+      ]
+    },
+    {
+      "use_case": "login-link",
+      "scheme": "google",
+      "scheme_title": "Google",
+      "category": 3,
+      "adapter": "google",
+      "txe": true,
+      "notes": [
+        "`sub` is one per Google account, the same for every client."
+      ]
+    },
+    {
+      "use_case": "login-link",
+      "scheme": "apple",
+      "scheme_title": "Apple",
+      "category": 3,
+      "adapter": "apple",
+      "txe": true,
+      "notes": [
+        "`sub` is per developer team; one person can hold several Apple Accounts."
+      ]
+    },
+    {
+      "use_case": "login-link",
+      "scheme": "entra",
+      "scheme_title": "Microsoft Entra ID",
+      "category": 3,
+      "adapter": "entra",
+      "txe": true,
+      "notes": [
+        "`sub` is pairwise per application (not the tenant-wide `oid`). Tenant administrators can issue tokens for any of its accounts, and a guest's token is a tenant token too: a link shows no membership."
+      ]
+    },
+    {
+      "use_case": "login-link",
+      "scheme": "facebook",
+      "scheme_title": "Facebook Limited Login",
+      "category": 3,
+      "adapter": "facebook",
+      "txe": true,
+      "notes": [
+        "`sub` is an app-scoped user id: one per user per app."
+      ]
+    },
+    {
+      "use_case": "login-link",
+      "scheme": "govbr",
+      "scheme_title": "gov.br",
+      "category": 3,
+      "adapter": "govbr",
+      "txe": true,
+      "notes": [
+        "`sub` is the CPF (11 digits, national): anyone can compute the link nullifier of every CPF and learn which CPFs linked in this app, and when. Do not deploy where that is unacceptable; a keyed or blinded identity is needed.",
+        "Tokens live 60 s."
+      ]
+    },
+    {
+      "use_case": "login-link",
+      "scheme": "kakao",
+      "scheme_title": "Kakao®",
+      "category": 3,
+      "adapter": "kakao",
+      "txe": true,
+      "notes": [
+        "`sub` is the service-user id of the app."
+      ]
+    },
+    {
+      "use_case": "login-link",
+      "scheme": "linkedin",
+      "scheme_title": "LinkedIn®",
+      "category": 3,
+      "adapter": "linkedin",
+      "txe": true,
+      "bearer": true,
+      "skip_tests": {
+        "wrong_challenge_rejected": "LinkedIn® ID tokens have no nonce claim, so no challenge is bound; the claim is labelled bearer and needs allow_bearer"
+      },
+      "notes": [
+        "Bearer: LinkedIn® tokens have no nonce, so the link is not bound to the caller and any holder of a copy (LinkedIn®, the client, a log or proxy) can link the subject to their own address until the 4-hour ceiling or `exp`. Needs `allow_bearer`; prefer a provider with a nonce.",
+        "`sub` is treated as pairwise; unconfirmed with a provider token."
+      ]
+    },
+    {
+      "use_case": "login-link",
+      "scheme": "miargentina",
+      "scheme_title": "Mi Argentina",
+      "category": 3,
+      "adapter": "miargentina",
+      "txe": true,
+      "notes": [
+        "`sub` is opaque; its semantics are unconfirmed."
+      ]
+    },
+    {
+      "use_case": "login-link",
+      "scheme": "telegram",
+      "scheme_title": "Telegram",
+      "category": 3,
+      "adapter": "telegram",
+      "txe": true,
+      "notes": [
+        "`sub` is opaque; per bot or global is unconfirmed. If it is the integer user id, anyone can compute the link nullifier of every id, as with the gov.br CPF."
+      ]
+    },
+    {
+      "use_case": "login-link",
+      "scheme": "university",
+      "scheme_title": "University (CILogon)",
+      "category": 3,
+      "adapter": "university",
+      "txe": true,
+      "notes": [
+        "`sub` is one CILogon user, the same for every client; one person can hold several (one per upstream IdP). CILogon asserts the campus `idp`."
+      ]
+    },
+    {
+      "use_case": "login-link",
+      "scheme": "line",
+      "scheme_title": "LINE",
+      "category": 3,
+      "adapter": "line",
+      "txe": true,
+      "notes": [
+        "`sub` is one per LINE account per provider. ES256 only: web-login HS256 tokens are refused."
+      ]
+    },
+    {
+      "use_case": "login-link",
+      "scheme": "franceconnect",
+      "scheme_title": "FranceConnect+",
+      "category": 3,
+      "adapter": "franceconnect",
+      "txe": true,
+      "notes": [
+        "`sub` is a pairwise pivot subject per client; one per person is unconfirmed. The minimum eIDAS level is part of the issuer pin.",
+        "The host decrypts the JWE; the circuit verifies the inner signed token."
+      ]
+    },
+    {
+      "use_case": "login-link",
+      "scheme": "singpass",
+      "scheme_title": "Singpass",
+      "category": 3,
+      "adapter": "singpass",
+      "txe": true,
+      "notes": [
+        "`sub` is one Singpass account for the client; one per person is not established. Production requires assurance 2 or more.",
+        "The host decrypts the JWE; the circuit verifies the inner signed token."
+      ]
+    },
+    {
+      "use_case": "login-link",
+      "scheme": "passkey",
+      "scheme_title": "Passkey",
+      "category": 1,
+      "adapter": "passkey",
+      "txe": true,
+      "notes": [
+        "Identity: the P-256 key, one credential at one relying party. A synced passkey's sync provider also holds the key; no `ALSO_*` bit reports it. A software key can set any flags.",
+        "The issue time is holder-stated."
+      ]
+    },
+    {
+      "use_case": "login-link",
+      "scheme": "ethereum_siwe",
+      "scheme_title": "Sign-In with Ethereum",
+      "category": 1,
+      "adapter": "ethereum_siwe",
+      "txe": true,
+      "notes": [
+        "Identity: the Ethereum address, the same in every app. Contract wallets (EIP-1271) cannot link.",
+        "The holder's wallet states `Issued At` and `Expiration Time`. A message with a statement, request id, not-before or resources field does not verify."
+      ]
+    },
+    {
+      "use_case": "login-link",
+      "scheme": "jpki",
+      "scheme_title": "JPKI card",
+      "category": 2,
+      "adapter": "jpki",
+      "txe": true,
+      "notes": [
+        "Identity: the card's authentication key (SPKI hash), per card; a new card or renewed certificate links as another identity. The certificate carries no name.",
+        "Card middleware chooses the challenge and the card does not show it. The issue time is holder-stated; the OCSP window bounds use. Anchor class 1 is a local test root."
+      ]
+    },
+    {
+      "use_case": "login-link",
+      "scheme": "zupass",
+      "scheme_title": "Zupass POD and holder key",
+      "category": 2,
+      "adapter": "zupass",
+      "txe": true,
+      "notes": [
+        "Identity: the holder key, the same in every app. The issue time is holder-stated, and the POD has no expiry, so a revoked ticket still links.",
+        "A raw `signPODRoot` signer, or an app API that signs app-chosen entries, is a login oracle: holder software must not sign `_aztec_link_v1_` PODs for another party."
+      ]
+    },
+    {
+      "use_case": "login-link",
+      "scheme": "zkemail",
+      "scheme_title": "zkEmail login email",
+      "category": 3,
+      "adapter": "zkemail",
+      "txe": true,
+      "notes": [
+        "Identity: the From mailbox; the domain can reassign it and one person can hold several (aliases, `+tags`, provider spellings).",
+        "The profile signs only relaxed `from:to:subject`; providers that sign more headers do not verify. The recipient is not pinned: whoever gets the user to send another caller's challenge links the mailbox to that caller."
+      ]
+    },
+    {
+      "use_case": "login-link",
+      "scheme": "twitter_reclaim",
+      "scheme_title": "Reclaim (X handle)",
+      "category": 4,
+      "adapter": "twitter_reclaim",
+      "txe": true,
+      "notes": [
+        "Identity: the lowercased X handle at login time, not the account (renames, released handles).",
+        "The circuit cannot tell a sound template from an unsound one: no reviewed X template exists, and the fixture's `contains` rule is a synthetic illustration not to copy. The attestor does not check the prover-written `providerHash`."
+      ]
+    },
+    {
+      "use_case": "payment-settlement",
+      "scheme": "wechatpay",
+      "scheme_title": "WeChat Pay",
+      "category": 5,
+      "adapter": "wechatpay",
+      "txe": true,
+      "notes": [
+        "Reference: `attach`, set by the merchant: it shows what the merchant recorded, not what the payer approved.",
+        "`paid_at` is the response time, not `success_time`. A coupon payment settles at `amount.total`, which can exceed what the payer paid. Bodies over 1024 bytes fail closed."
+      ]
+    },
+    {
+      "use_case": "payment-settlement",
+      "scheme": "alipay",
+      "scheme_title": "Alipay",
+      "category": 5,
+      "adapter": "alipay",
+      "txe": true,
+      "notes": [
+        "Does not establish merchant or app identity: `payee` is a hash of the response-signing key, which can be shared across app ids, so a response from another merchant context with matching amount and `out_trade_no` settles. Not sufficient for merchant-bound settlement.",
+        "Reference: `out_trade_no`, set by the merchant. `paid_at` is the response time. Responses with nested values (for example `fund_bill_list`) fail closed; `TRADE_FINISHED` and service-provider (ISV) mode are unsupported."
+      ]
+    },
+    {
+      "use_case": "payment-settlement",
+      "scheme": "peer_v4",
+      "scheme_title": "Peer V4",
+      "category": 5,
+      "adapter": "peer_v4",
+      "txe": true,
+      "notes": [
+        "Reference: the Peer intent hash (`external_reference`), which does not name this contract: two orders that pin the same intent both settle one payment. Pin each intent in one order only.",
+        "The same attestation also releases the intent's escrow on Base. Fiat reversal and the intent's Base state are not checked. A multisig witness set needs a threshold-aware adapter."
+      ]
+    },
+    {
+      "use_case": "event-proof",
+      "scheme": "zkemail",
+      "scheme_title": "zkEmail received email",
+      "scheme_id": 8,
+      "category": 3,
+      "adapter": "zkemail",
+      "txe": true,
+      "notes": [
+        "DKIM shows the domain signed headers addressed to the recipient, not delivery. The kind pins the whole sender mailbox, which keeps other users of the domain out only if its mail service stops them sending as other mailboxes.",
+        "The body is not read unless `match_data` pins it."
+      ]
+    },
+    {
+      "use_case": "event-proof",
+      "scheme": "twitter_reclaim",
+      "scheme_title": "Reclaim attestor observation",
+      "scheme_id": 9,
+      "category": 4,
+      "adapter": "twitter_reclaim",
+      "txe": true,
+      "notes": [
+        "One effect per claim, not per fact: a claim with a new requester-chosen context is a new event unless the terms pin the context with `match_data`.",
+        "The official X provider profile cannot produce usable proofs today."
+      ]
+    },
+    {
+      "use_case": "attribute-gating",
+      "scheme": "aadhaar_secure_qr",
+      "scheme_title": "Aadhaar Secure QR (native)",
+      "scheme_id": 70,
+      "category": 6,
+      "adapter": "aadhaar_secure_qr",
+      "txe": true,
+      "notes": [
+        "Record-only effect; one use per signed QR, not per person: a new download passes again.",
+        "No authenticated UIDAI certificate is in the repository: the deployer must obtain and pin it, and pinning the published upstream test key accepts QRs made by anyone.",
+        "UIDAI logs downloads and can link each nullifier to a person. The adapter derives the expiry from the anchor and pinned values only, so it reveals nothing about issuance; pinned QR ages above 13800 s are refused. Anchor at the latest block."
+      ]
+    },
+    {
+      "use_case": "attribute-gating",
+      "scheme": "philsys",
+      "scheme_title": "PhilSys legacy PhilID QR",
+      "scheme_id": 71,
+      "category": 6,
+      "adapter": "philsys",
+      "txe": true,
+      "skip_tests": {
+        "stale_rejected": "the legacy QR carries no presentation time; the terms must set allow_undated, and undated_refused_without_allow_undated tests that"
+      },
+      "notes": [
+        "Undated (`allow_undated`): an old copy works as well as a new one. Proves issuer authenticity only, not the presenter, active status or revocation; one use per QR, not per person.",
+        "No authentic positive issuer vector exists: pinning a synthetic key accepts anyone's QRs. Legacy JSON QR only (not COSE ePhilID). The compiler reports an unresolved Brillig-coverage diagnostic in the upstream SHA-512 path."
+      ]
+    },
+    {
+      "use_case": "attribute-gating",
+      "scheme": "zupass_pod",
+      "scheme_title": "Zupass POD without a holder signature",
+      "scheme_id": 72,
+      "category": 6,
+      "adapter": "zupass",
+      "txe": true,
+      "skip_tests": {
+        "stale_rejected": "the adapter reads no time from the POD; the terms must set allow_undated, and undated_refused_without_allow_undated tests that"
+      },
+      "notes": [
+        "No holder signature: any copy holder can act first; record-only effect. Undated: revoked or expired tickets pass.",
+        "The entry type is not proven (`int`, `cryptographic`, `boolean` and `date` hash alike): the issuer's schema must make the pinned entry an `int`. Values above 2^63 - 1 are refused."
+      ]
+    },
+    {
+      "use_case": "attribute-gating",
+      "scheme": "singpass",
+      "scheme_title": "Singpass",
+      "scheme_id": 30,
+      "category": 3,
+      "adapter": "singpass",
+      "txe": true,
+      "notes": [
+        "The level is what Singpass reports for this login. `sub` is one Singpass account at this client, not one per person."
+      ]
+    },
+    {
+      "use_case": "attribute-gating",
+      "scheme": "govbr",
+      "scheme_title": "gov.br",
+      "scheme_id": 23,
+      "category": 3,
+      "adapter": "govbr",
+      "txe": true,
+      "notes": [
+        "`sub` is the CPF: anyone can compute the gate nullifier of every CPF and learn which CPFs used this app, as with the gov.br login link.",
+        "The level is what gov.br reports at login. Tokens live 60 s."
+      ]
+    },
+    {
+      "use_case": "attribute-gating",
+      "scheme": "entra",
+      "scheme_title": "Microsoft Entra ID",
+      "scheme_id": 13,
+      "category": 3,
+      "adapter": "entra",
+      "txe": true,
+      "notes": [
+        "The tenant is the issuing directory: B2B guests pass as well as members, so the gate shows no employment. `sub` is pairwise per application: one person with several accounts passes once per account."
+      ]
+    },
+    {
+      "use_case": "attribute-gating",
+      "scheme": "university",
+      "scheme_title": "University (CILogon)",
+      "scheme_id": 27,
+      "category": 3,
+      "adapter": "university",
+      "txe": true,
+      "notes": [
+        "The affiliation is as asserted (CILogon may pass a cached value), not current enrolment. The prover picks which listed entry to present; entries over 128 bytes or signed lists over 256 bytes are refused."
+      ]
+    },
+    {
+      "use_case": "attribute-gating",
+      "scheme": "zkemail",
+      "scheme_title": "zkEmail sender domain",
+      "scheme_id": 8,
+      "category": 3,
+      "adapter": "zkemail",
+      "choice": true,
+      "txe": true,
+      "notes": [
+        "Domain-authorised mailbox control, not employment or identity: the mail operator can choose the caller and the choice. A reassigned mailbox keeps the same subject. The recipient and subject text are not constrained."
+      ]
+    },
+    {
+      "use_case": "attribute-gating",
+      "scheme": "franceconnect",
+      "scheme_title": "FranceConnect+ signed eIDAS assurance",
+      "scheme_id": 26,
+      "category": 3,
+      "adapter": "franceconnect",
+      "txe": true,
+      "notes": [
+        "Reports the signed `acr` rank (2 or 3), never the configured minimum; `eidas1` is outside the FranceConnect+ domain. Needs `FranceConnectAssuranceToken`: `FranceConnectIdToken` reports no attribute."
+      ]
+    },
+    {
+      "use_case": "attribute-gating",
+      "scheme": "zupass",
+      "scheme_title": "Zupass holder-bound ticket entry",
+      "scheme_id": 7,
+      "category": 2,
+      "adapter": "zupass_holder",
+      "choice": true,
+      "txe": true,
+      "dependencies": {
+        "uc_login_link": "login-link/common"
+      },
+      "notes": [
+        "The nullifier subject is the ticket POD (`pod_id`), not the holder: one use per POD whatever the entry or choice.",
+        "The pinned numeric entry must mean a nonnegative `int` (POD `int`, `cryptographic`, `boolean` and `date` hash alike). The holder's signed time says nothing about ticket expiry or revocation."
+      ]
+    }
+  ],
+  "template_checks": [
+    {
+      "use_case": "account-authorisation",
+      "directory": "testing/template_account",
+      "package": "template_auth_account",
+      "contract": "TemplateAccount",
+      "input": "AuthInput",
+      "input_in_crate": true
+    },
+    {
+      "use_case": "login-link",
+      "directory": "testing/template_login_link",
+      "package": "template_login_link",
+      "contract": "TemplateLoginLink",
+      "adapter": "template"
+    },
+    {
+      "use_case": "attribute-gating",
+      "directory": "testing/template_attribute_gate",
+      "package": "template_attribute_gate",
+      "contract": "TemplateAttributeGate",
+      "adapter": "template"
+    },
+    {
+      "use_case": "uniqueness",
+      "directory": "testing/template_uniqueness",
+      "package": "template_uniqueness",
+      "contract": "TemplateUniqueness",
+      "adapter": "template",
+      "choice": true
+    },
+    {
+      "use_case": "payment-settlement",
+      "directory": "testing/template_payment_settlement",
+      "package": "template_payment_settlement",
+      "contract": "TemplateSettlement",
+      "adapter": "template"
+    },
+    {
+      "use_case": "event-proof",
+      "directory": "testing/template_event_proof",
+      "package": "template_event_proof",
+      "contract": "TemplateEventProof",
+      "adapter": "template"
+    }
+  ]
+}

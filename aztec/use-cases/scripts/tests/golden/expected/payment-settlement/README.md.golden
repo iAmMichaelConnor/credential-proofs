@@ -1,0 +1,11 @@
+# payment-settlement
+
+Hand-written text.
+
+<!-- use-case-instances:start -->
+Each instance is a contract in `<scheme>/src/main.nr`, entrypoint `settle(order, evidence)`, package `<scheme>_payment_settlement`, tested by `scripts/test-use-cases.sh payment-settlement/<scheme>` (no TXE tests for wechatpay). Its `src/test.nr` has the tests `valid`, `replay_rejected`, `wrong_issuer_rejected`, `wrong_amount_rejected`, `wrong_payee_rejected`, `wrong_reference_rejected`, `order_reused_rejected`; [use-cases.json](../use-cases.json) records each exception and its reason. The category is the evidence category of [ARCHITECTURE.md](../ARCHITECTURE.md#evidence-and-authority).
+
+| Instance | Category | Contract | Adapter | Residual risk and notes |
+| --- | --- | --- | --- | --- |
+| [wechatpay](wechatpay/src/main.nr) | 5 | `WechatpaySettlement` | [`uc_adapter_wechatpay`](../adapters/wechatpay/src/lib.nr) | - |
+<!-- use-case-instances:end -->

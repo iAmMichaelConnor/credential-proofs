@@ -1,0 +1,12 @@
+[package]
+name = "uc_adapter_zupass"
+type = "lib"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"
+
+[dependencies]
+aztec = { git = "https://github.com/aztec-labs-eng/aztec-nr", tag = "v6.0.0", directory = "aztec" }
+uc_attribute_gate = { path = "../../attribute-gating/common" }
+uc_login_link = { path = "../../login-link/common" }
+uc_trust = { path = "../../trust" }
+zupass = { path = "../../../../noir/zupass" }

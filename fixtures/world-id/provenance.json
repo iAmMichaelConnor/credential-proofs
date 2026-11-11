@@ -1,0 +1,48 @@
+{
+  "repositories": {
+    "world-id-contracts": "f959f725c3ee2dec1ed24944d5b9593b68c7b8a4",
+    "world-id-protocol": "46f6b43d231780e4fc0b5030bd71e846664532d1"
+  },
+  "sources": {
+    "world-id-contracts/src/test/data/InclusionProof.json": {
+      "sha256": "e7a0f202f89ae0d24616b63d98e608ac91c40156b41039dd1ad3550da1a95da5",
+      "url": "https://github.com/worldcoin/world-id-contracts/blob/f959f725c3ee2dec1ed24944d5b9593b68c7b8a4/src/test/data/InclusionProof.json"
+    },
+    "world-id-contracts/src/test/SemaphoreVerifier16.sol": {
+      "sha256": "69e905704fc35c930b49b551b9ae9193698eaae56b14d8d373d595fa47b98519",
+      "url": "https://github.com/worldcoin/world-id-contracts/blob/f959f725c3ee2dec1ed24944d5b9593b68c7b8a4/src/test/SemaphoreVerifier16.sol"
+    },
+    "world-id-protocol/contracts/test/core/Verifier.t.sol": {
+      "sha256": "87d34ab8a81061a1d34d4e7c1ba59b50ef263beab48d14f19d35dcc016071097",
+      "url": "https://github.com/worldcoin/world-id-protocol/blob/46f6b43d231780e4fc0b5030bd71e846664532d1/contracts/test/core/Verifier.t.sol"
+    },
+    "world-id-protocol/contracts/src/core/Verifier.sol": {
+      "sha256": "7d07b1e80772a5a53a9576929ffa2acbf7eb00147865cc143e55b12527129605",
+      "url": "https://github.com/worldcoin/world-id-protocol/blob/46f6b43d231780e4fc0b5030bd71e846664532d1/contracts/src/core/Verifier.sol"
+    }
+  },
+  "relations": {
+    "nullifier-v4-key.json": {
+      "circuit": "OPRFNullifierProof (src/main/OPRFNullifierProof.circom, world-id-protocol)",
+      "publicInputs": 15,
+      "compiler": "circom 2.2.3 (npm circom2 0.2.23) --r1cs --sym --wasm --O2",
+      "ceremonyR1csSha256": "6e590ca8afb21f81460b7208f0cd830fad0da7b99f6368cc41dc8cb838e58bec",
+      "ceremonyWasmSha256": "7b2abbd1ffc4075ca0380bd6890fb71a88431317f30f09f78f6ee90ef3fc7831",
+      "trustedSetupCommit": "189abeaf (abbreviated; full commit not recorded)",
+      "recordedPrefixes": {
+        "finalZkeySha256": "cef08ef1",
+        "arksZkeySha256": "4247e6bf",
+        "ceremonyVkeySha256": "25e6ae6c",
+        "transcriptCircuitHash": "8488f28e"
+      },
+      "keyEqualsCeremonyVkey": "alpha, beta, gamma, delta and all 16 IC points, per the reproduction"
+    },
+    "semaphore16-key.json": {
+      "circuit": "Semaphore v3.15.2 depth 16 (circomlib 2.0.2)",
+      "publicInputs": 4,
+      "zkeyAndWasmSha256": "fixtures/world-id/aztec-foundation.json (provenance.zkeySha256, provenance.wasmSha256)",
+      "npmPackages": "fixtures/world-id/aztec-foundation.json (provenance.packages)"
+    }
+  },
+  "notice": "Upstream test vectors, not production identity/root attestations. Semaphore fixture has depth 16. World ID 4 fixture uses 15-input nullifier circuit; it is a raw Groth16 vector (Verifier.t.sol testVerifyNullifier), not valid under the WorldIDVerifierV2 uniqueness policy (action top byte 0x15, non-Aztec signal, past expiry). Extraction un-negates Solidity G2 key Y coordinates; no trusted setup or proof is generated."
+}

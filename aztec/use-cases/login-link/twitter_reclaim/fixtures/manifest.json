@@ -1,0 +1,44 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "twitter_reclaim",
+  "use_case": "login-link",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/login_link.mjs",
+      "--instance",
+      "login-link/twitter_reclaim",
+      "--caller",
+      "0000000000000000000000000000000000000000000000000000000000000000",
+      "--challenge",
+      "0e0525c5b4494fa0f4cb11567e13814474242cfdab2500b065cf8964091bb6d7"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "viem (aztec/use-cases dependencies) keccak256 and EIP-191 signMessage over the Reclaim wire format"
+  },
+  "key_provenance": "Synthetic secp256k1 attestor keys: sha256 of the public seeds 'credential-proofs synthetic reclaim login-link attestor key v1' and '... other attestor key v1'. Not Reclaim attestor keys. Anyone can derive them.",
+  "claims": {
+    "provider": "http",
+    "parameters": "{\"method\":\"GET\",\"responseMatches\":[{\"type\":\"contains\",\"value\":\"\\\"screen_name\\\":\\\"Alice_1\\\"\"}],\"url\":\"https://api.x.com/1.1/account/verify_credentials.json?skip_status=true&include_entities=false\"}",
+    "context": "{\"contextAddress\":\"0x0000000000000000000000000000000000000000000000000000000000000000\",\"contextMessage\":\"0e0525c5b4494fa0f4cb11567e13814474242cfdab2500b065cf8964091bb6d7\",\"extractedParameters\":{\"username\":\"Alice_1\"},\"providerHash\":\"0x2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a\",\"reclaimSessionId\":\"session-1\"}",
+    "identifier": "0xe3643b9ae3b23b9917206d3f79b774220bc173af6ed6367b586875aa2e81a339",
+    "owner": "0x00000000000000000000000000000000000000aa",
+    "timestamp_s": 3999999940,
+    "epoch": 1,
+    "attestor_address": "0x75822A312A2e856EAb6903E4eCA9d2C1f292cf71"
+  },
+  "notes": [
+    "The signed value is observed at the instance's TXE shell; the test fixture_signs_the_challenge fails with the value to pass when it changes.",
+    "The issue time is 60 s before --now.",
+    "The parameters template is synthetic; X was not contacted and no attestor observed a response.",
+    "Negative cases mutate this fixture in src/test.nr."
+  ],
+  "inputs": {
+    "aztec/use-cases/scripts/fixtures/generators/login_link.mjs": "1e8579707fc6586013c781bd5c63a4b5f481435b41731780ee3905dbbc891dd7",
+    "aztec/use-cases/scripts/fixtures/generators/event.mjs": "ee042da71aab4fa4d529f8d22a039f5f94b2420fb202da0ce6270cbd4f675387"
+  },
+  "outputs": {
+    "src/fixture.nr": "70ae6e7099d7b34b8d86f62124965c528f297a11ee5b3e8297ac06ba1f8e3703"
+  }
+}

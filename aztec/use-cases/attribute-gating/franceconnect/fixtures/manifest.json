@@ -1,0 +1,106 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "franceconnect",
+  "use_case": "attribute-gating",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/oidc.mjs",
+      "--instance",
+      "attribute-gating/franceconnect",
+      "--binding",
+      "273113492f576417c416efc30472aed0edbc03b3f81e0be8ebd974d3d1c0531f",
+      "--other-binding",
+      "015d6f75de719f057c697f0a85e95806ad14ab6cf5efd7452b642a6bac195b89",
+      "--now",
+      "4000000000"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "packages/credential-proofs-inputs/tests/builders/src/synthetic-es256.ts signSyntheticEs256 (P-256 scalar 42, RFC 6979)"
+  },
+  "inputs": {
+    "packages/credential-proofs-inputs/tests/builders/src/synthetic-es256.ts": "91bcdaa036b99477805ebf7e43f71bfc20aa259b12c0f830b166020698362b7c",
+    "packages/credential-proofs-inputs/src/franceconnect.ts": "39fe0a19b8c30164fe1a273a3fe0a6ee1570845a0e78ec4482ddc4df16c52278",
+    "packages/credential-proofs-inputs/src/es256.ts": "0e73568d8a92f24deb5af5fb929be6b079e8046c17db23462ed55fbf288b60b6",
+    "aztec/use-cases/scripts/fixtures/generators/oidc.mjs": "3bf84f629c58e2597012f3486133bd2d5f215bae759daeb725aea7fbf1c80279",
+    "aztec/use-cases/scripts/fixtures/generators/x509.py": "2a03fa13717c8a96bb79adb48a83beef156bb224a9084dd0a08e12e3e5d9854e"
+  },
+  "key_provenance": "Public synthetic P-256 scalars 42 (fixture key, packages/credential-proofs-inputs/tests/builders/src/synthetic-es256.ts) and 43 (other key); not a franceconnect key. Anyone can sign with them.",
+  "claims": {
+    "token": {
+      "nonce": "273113492f576417c416efc30472aed0edbc03b3f81e0be8ebd974d3d1c0531f",
+      "iss": "https://auth.franceconnect.gouv.fr/api/v2",
+      "aud": "credential-proofs-use-case-client",
+      "sub": "synthetic-pairwise-service-subject",
+      "iat": 3999999940,
+      "exp": 4000000060,
+      "acr": "eidas2",
+      "amr": [
+        "fc",
+        "pwd"
+      ]
+    },
+    "second_token": {
+      "nonce": "273113492f576417c416efc30472aed0edbc03b3f81e0be8ebd974d3d1c0531f",
+      "iss": "https://auth.franceconnect.gouv.fr/api/v2",
+      "aud": "credential-proofs-use-case-client",
+      "sub": "synthetic-pairwise-service-subject",
+      "iat": 3999999941,
+      "exp": 4000000060,
+      "acr": "eidas2",
+      "amr": [
+        "fc",
+        "pwd"
+      ]
+    },
+    "other_subject": {
+      "nonce": "273113492f576417c416efc30472aed0edbc03b3f81e0be8ebd974d3d1c0531f",
+      "iss": "https://auth.franceconnect.gouv.fr/api/v2",
+      "aud": "credential-proofs-use-case-client",
+      "sub": "synthetic-pairwise-service-subject2",
+      "iat": 3999999940,
+      "exp": 4000000060,
+      "acr": "eidas2",
+      "amr": [
+        "fc",
+        "pwd"
+      ]
+    },
+    "other_contract": {
+      "nonce": "015d6f75de719f057c697f0a85e95806ad14ab6cf5efd7452b642a6bac195b89",
+      "iss": "https://auth.franceconnect.gouv.fr/api/v2",
+      "aud": "credential-proofs-use-case-client",
+      "sub": "synthetic-pairwise-service-subject",
+      "iat": 3999999940,
+      "exp": 4000000060,
+      "acr": "eidas2",
+      "amr": [
+        "fc",
+        "pwd"
+      ]
+    },
+    "assurance_3": {
+      "nonce": "273113492f576417c416efc30472aed0edbc03b3f81e0be8ebd974d3d1c0531f",
+      "iss": "https://auth.franceconnect.gouv.fr/api/v2",
+      "aud": "credential-proofs-use-case-client",
+      "sub": "synthetic-pairwise-service-subject",
+      "iat": 3999999950,
+      "exp": 4000000060,
+      "acr": "eidas3",
+      "amr": [
+        "fc",
+        "pwd"
+      ]
+    }
+  },
+  "notes": [
+    "The bindings are the instance's caller bindings observed in TXE; the instance test fails with the values to use when they change.",
+    "iat of token() is 60 s before --now and exp - iat is 120 s; variants keep the exp and move iat by the offset in their description.",
+    "other_key_signature() signs the fixture token under the public test scalar 43. The importer checks every token.",
+    "Tampering cases mutate these tokens in src/test.nr."
+  ],
+  "outputs": {
+    "src/fixture.nr": "1f65ebd9acbbed71c7032c57b0180e80ef63a54304bd2da5a13fad10f41dbf2c"
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "scheme": "anon_aadhaar",
+  "materials": [
+    {
+      "id": "official-v2-groth16-verification-key",
+      "category": "provider-public",
+      "kind": "verification-key",
+      "environment": "production",
+      "provenance": {
+        "origin": "official-public-distribution",
+        "sourceUrls": [
+          "https://anon-aadhaar-artifacts.s3.eu-central-1.amazonaws.com/v2.0.0/vkey.json",
+          "https://github.com/anon-aadhaar/anon-aadhaar"
+        ],
+        "obtainedAt": "2026-10-22T18:13:36.745416+00:00",
+        "issuerKind": "upstream-maintainer"
+      },
+      "privacy": "no-subject",
+      "files": [
+        {
+          "path": "fixtures/material/anon_aadhaar/provider-public/vkey.json",
+          "sha256": "40f2ea24b56ffe2b6e6e3578053cbda15e773cb560697bac883a404077fcf177"
+        }
+      ],
+      "trust": {
+        "role": "Fixed Groth16 circuit verification key, not UIDAI credential-signature key. Test vs production issuer hash is separately enforced by caller policy.",
+        "algorithms": [
+          "Groth16/BN254"
+        ],
+        "rotationRevocation": "A circuit/version/key change requires explicit fixed verifier regeneration and policy review.",
+        "authentication": "Re-fetched official v2 artifact matches archived key and independently exported matching proving-key verification key hash."
+      },
+      "verification": {
+        "method": "Exact official VK hash comparison with original export and prior pairing proof verification report; no repeated proof generated.",
+        "verifier": "Existing snarkjs/Noir Groth16 source-bound verification evidence",
+        "commands": [
+          "scripts/fixtures/anon-aadhaar/prepare-fixture.mjs",
+          "node scripts/fixtures/anon-aadhaar/generate-public-test-proof.mjs ACTION (inspect proof-result.json in ANON_AADHAAR_OUTPUT_DIR)"
+        ],
+        "result": "public-material-parsed",
+        "evidence": []
+      }
+    },
+    {
+      "id": "upstream-public-test-qr",
+      "category": "provider-test",
+      "kind": "credential",
+      "environment": "provider-test",
+      "provenance": {
+        "origin": "upstream-public-fixture",
+        "sourceUrls": [
+          "https://raw.githubusercontent.com/anon-aadhaar/anon-aadhaar/4dad918761cfb1d7d5ed9918dcd796d0cb23ae82/packages/circuits/assets/test.json",
+          "https://raw.githubusercontent.com/anon-aadhaar/anon-aadhaar/4dad918761cfb1d7d5ed9918dcd796d0cb23ae82/packages/circuits/assets/testCertificate.pem"
+        ],
+        "obtainedAt": "2026-10-22T18:13:36.745416+00:00",
+        "issuerKind": "upstream-maintainer"
+      },
+      "privacy": "published-test-subject",
+      "files": [
+        {
+          "path": "fixtures/material/anon_aadhaar/provider-test/test.json",
+          "sha256": "a72555c462606e3f8e4ac5a280bda95628bb99cac78f7f7910479a55ed7d90c2"
+        },
+        {
+          "path": "fixtures/material/anon_aadhaar/provider-test/testCertificate.pem",
+          "sha256": "a025f6e83f50885299d91a881ab667fe08aa8206062ea560e81d06a59bfdaae6"
+        }
+      ],
+      "trust": {
+        "role": "Explicit published Anon Aadhaar test QR/test certificate and locally generated derived proof, not a citizen production credential.",
+        "algorithms": [
+          "RSA/SHA256 inside Anon Aadhaar v2",
+          "Groth16/BN254"
+        ],
+        "rotationRevocation": "Fixed historical test dataset; production/test issuer hash cannot be interchanged.",
+        "authentication": "Pinned official project published test bytes match recorded hashes; derived proof validation retained with issuer policy tests."
+      },
+      "verification": {
+        "method": "Existing upstream public fixture proof verified with exact v2 VK; account evidence checked issuer/nullifier/action/age binding for a since-removed account (historical, stale). Raw test certificate is not independently treated as a production root.",
+        "verifier": "Source-bound original Groth16/SnarkJS proof verifier plus an Aztec 6.0.0 account-contract test suite",
+        "commands": [
+          "node scripts/fixtures/anon-aadhaar/generate-public-test-proof.mjs ACTION (inspect proof-result.json in ANON_AADHAAR_OUTPUT_DIR)"
+        ],
+        "result": "credential-signature-verified",
+        "evidence": []
+      }
+    }
+  ],
+  "acquisitionNotes": [
+    {
+      "category": "provider-public",
+      "reason": "Authentic UIDAI signing certificate acquisition attempted from official index. Current backend endpoint connection times out; legacy direct URL returns404 HTML. No verified production UIDAI signing certificate/chain collected, and Groth16 VK is not a substitute. Exact acquisition failures are retained in git history.",
+      "checkedSources": [
+        "https://uidai.gov.in/en/data-and-download",
+        "https://backend.uidai.gov.in/get/files/media/document/2026-07/uidai_offline_publickey_2026.cer",
+        "https://uidai.gov.in/images/uidai_12_06_18_cer.cer"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,171 @@
+name: Benchmarks
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  # The toolchain the README's headline numbers were measured with.
+  NOIR_VERSION: 1.0.0
+  # bbup -nv cannot resolve Noir 1.0.0 (no entry in bbup's bb-versions.json),
+  # so the matching bb release is named directly.
+  BB_VERSION: 6.0.0
+
+jobs:
+  benchmark:
+    name: Benchmark library
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Install Nargo
+        uses: noir-lang/noirup@bedac8fbe6a059177c35e565f9f76db54a795976 # v0.1.5
+        with:
+          toolchain: ${{ env.NOIR_VERSION }}
+
+      - name: Install bb
+        run: |
+          curl -L https://bbup.aztec.network | bash
+          ~/.bb/bbup -v ${{ env.BB_VERSION }}
+          sudo apt install -y libc++-dev
+
+      # A pull request measures the benchmark packages it can affect
+      # (scripts/changed-packages.sh), and its diffs cover those packages only; main
+      # measures every package. The largest exports need about 7 GB and up to 16
+      # minutes each, so two run at a time on a 16 GB runner.
+      - name: Select packages
+        id: packages
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            selection=$(./scripts/changed-packages.sh "origin/${{ github.base_ref }}")
+          else
+            selection=$(./scripts/changed-packages.sh --all)
+          fi
+          echo "packages=$(sed -n 's/^benchmarks=//p' <<<"$selection" | jq -r 'join(" ")')" >> "$GITHUB_OUTPUT"
+
+      - name: Generate gates report
+        if: steps.packages.outputs.packages != ''
+        run: ./scripts/build-gates-report.sh --jobs 2 ${{ steps.packages.outputs.packages }}
+        env:
+          BACKEND: /home/runner/.bb/bb
+
+      - name: Compare gates reports
+        id: gates_diff
+        if: steps.packages.outputs.packages != ''
+        uses: noir-lang/noir-gates-diff@4fbb881edf2977d43f44b1a877c235dda9e6e7ec # main, 2026-09-29 (no release tags)
+        with:
+          report: gates_report.json
+          summaryQuantile: 0.9 # only display the 10% most significant circuit size diffs in the summary (defaults to 20%)
+
+      - name: Store ACIR opcode benchmark result
+        if: steps.packages.outputs.packages != ''
+        uses: benchmark-action/github-action-benchmark@4322e5726e6334590d251fc4f92bec0efafc45dc # v1.22.2
+        with:
+          name: "ACIR Opcodes"
+          tool: "customSmallerIsBetter"
+          output-file-path: "benchmark-opcodes.json"
+          gh-pages-branch: "gh-pages"
+          benchmark-data-dir-path: "dev/bench"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          auto-push: ${{ github.ref == 'refs/heads/main' }}
+          comment-always: ${{ contains( github.event.pull_request.labels.*.name, 'bench-show') }}
+          comment-on-alert: true
+          alert-threshold: "101%"
+          fail-on-alert: false
+          max-items-in-chart: 50
+
+      - name: Store gates benchmark result
+        if: steps.packages.outputs.packages != ''
+        uses: benchmark-action/github-action-benchmark@4322e5726e6334590d251fc4f92bec0efafc45dc # v1.22.2
+        with:
+          name: "Circuit Size"
+          tool: "customSmallerIsBetter"
+          output-file-path: "benchmark-circuit.json"
+          gh-pages-branch: "gh-pages"
+          benchmark-data-dir-path: "dev/bench"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          auto-push: ${{ github.ref == 'refs/heads/main' }}
+          comment-always: ${{ contains( github.event.pull_request.labels.*.name, 'bench-show') }}
+          comment-on-alert: true
+          alert-threshold: "101%"
+          fail-on-alert: false
+          max-items-in-chart: 50
+          skip-fetch-gh-pages: true
+
+      - name: Add gates diff to sticky comment
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        uses: marocchino/sticky-pull-request-comment@5770ad5eb8f42dd2c4f34da00c94c5381e49af88 # v3.0.5
+        with:
+          header: gates-diff
+          # delete the comment when the change does not affect circuit sizes
+          delete: ${{ !steps.gates_diff.outputs.markdown }}
+          message: ${{ steps.gates_diff.outputs.markdown }}
+
+      - name: Delete export files
+        run: rm -rf noir/export export
+
+      - name: Build Brillig benchmark programs
+        if: steps.packages.outputs.packages != ''
+        run: |
+          for package in ${{ steps.packages.outputs.packages }}; do
+            nargo --program-dir noir export --silence-warnings --package $package --force-brillig
+          done
+          mv noir/export export
+
+      - name: Generate brillig report
+        if: steps.packages.outputs.packages != ''
+        run: ./scripts/build-brillig-report.sh
+
+      - name: Compare brillig reports
+        id: brillig_bytecode_diff
+        if: steps.packages.outputs.packages != ''
+        uses: noir-lang/noir-gates-diff@4fbb881edf2977d43f44b1a877c235dda9e6e7ec # main, 2026-09-29 (no release tags)
+        with:
+          report: brillig_report.json
+          header: |
+            # Changes to Brillig bytecode sizes
+          brillig_report: true
+          summaryQuantile: 0.9 # only display the 10% most significant circuit size diffs in the summary (defaults to 20%)
+
+      - name: Store brillig benchmark result
+        if: steps.packages.outputs.packages != ''
+        uses: benchmark-action/github-action-benchmark@4322e5726e6334590d251fc4f92bec0efafc45dc # v1.22.2
+        with:
+          name: "Brillig Bytecode Size"
+          tool: "customSmallerIsBetter"
+          output-file-path: "benchmark-brillig.json"
+          gh-pages-branch: "gh-pages"
+          benchmark-data-dir-path: "dev/bench"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          auto-push: ${{ github.ref == 'refs/heads/main' }}
+          comment-always: ${{ contains( github.event.pull_request.labels.*.name, 'bench-show') }}
+          comment-on-alert: true
+          alert-threshold: "101%"
+          fail-on-alert: false
+          max-items-in-chart: 50
+          skip-fetch-gh-pages: true
+
+      - name: Add brillig diff to sticky comment
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        uses: marocchino/sticky-pull-request-comment@5770ad5eb8f42dd2c4f34da00c94c5381e49af88 # v3.0.5
+        with:
+          header: brillig-diff
+          # delete the comment when the change does not affect circuit sizes
+          delete: ${{ !steps.brillig_bytecode_diff.outputs.markdown }}
+          message: ${{ steps.brillig_bytecode_diff.outputs.markdown }}

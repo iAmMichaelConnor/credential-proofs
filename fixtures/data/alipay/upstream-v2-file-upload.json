@@ -1,0 +1,12 @@
+{
+  "mode": "v2",
+  "body": "{\"code\":\"10000\",\"msg\":\"Success\",\"file_id\":\"CAxAToWB1JsAAAAAAAAAAAAADgSLAQBr\"}",
+  "signature": "F+LDzpTNiavn7xVZPGuPCSSVRSmWzJGgtuji6tVELGEaqMaNj0jRKXUEr5nloZJBBmwEnddOyCjjepMmrTKTvoOqQ0Efxpr/R1iEeHTHVbb/Q8TTh6Up5gHJDkILdaWS2q1cWeQ6VT+HQY9P3WRXS7uhILHuDODIhpAyCu5KhWGt0rMCIG+Im6NODJP2oohtSCtmTFXg58HH587Z2y2bdbjzOxLvzD9IrU1imghXQ2S/Q+wMIvRk9on6cWnBLkrNvJKapA2ReNGWOwyuASvB9zDVzhMPbR+3mfRGkVDxsq5HYLjBKGskJMXHw0HuugZij6ScRuaLPODhmHwr/pJ9yw==",
+  "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAk7LzhmMa2c4qQd4fqAqenfbuFoA7stPKvoS1LrZEsVnOOGUUjwoa1oU9xsSPjcOWhIerU/VAN4J95GIAXx59ipcleIyfLn2FhHXPgLJpvo+b2jJFyn/1/DbeJDh+0yDVAOf50Z7HhI0mdUhFMkXlT7BU0ZMtJf/TmISFEfhDU/w6qFd6D42L97byAkq0K6LroglSVF24GqJEa7hSeUIkZWj7RasykXrc2uVJ1+ejkXE0LyPxa2AHykMGbJLf5SiZvaNzUZgnKIR36mLOHpQ/2JCXxhXZYUWHzy0kMH54JcUEeksFWBYLGvLjV1phbcUIc3Q76tIuqApY6E222OoZZQIDAQAB\n-----END PUBLIC KEY-----",
+  "provenance": {
+    "repository": "https://github.com/alipay/alipay-sdk-nodejs-all",
+    "commit": "e1676390871eb7a69b4f81aa15de8327ac15738a",
+    "source": "test/alipay.test.ts: should work / checkResponseSign",
+    "meaning": "Public upstream recorded file-upload response. Not an identity/login credential."
+  }
+}

@@ -1,0 +1,11 @@
+[package]
+name = "uc_adapter_aadhaar_secure_qr"
+type = "lib"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"
+
+[dependencies]
+aadhaar_secure_qr = { path = "../../../../noir/aadhaar_secure_qr" }
+aztec = { git = "https://github.com/aztec-labs-eng/aztec-nr", tag = "v6.0.0", directory = "aztec" }
+uc_attribute_gate = { path = "../../attribute-gating/common" }
+uc_trust = { path = "../../trust" }

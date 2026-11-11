@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "scheme": "wechatpay",
+  "materials": [
+    {
+      "id": "local-relation-fixture",
+      "category": "local-test",
+      "kind": "fixture-input",
+      "environment": "local-test",
+      "provenance": {
+        "origin": "local-synthetic",
+        "sourceUrls": [],
+        "obtainedAt": "2026-10-22T17:25:08.000059+00:00",
+        "generator": "Existing repository fixture generation paths; files retained by reference",
+        "issuerKind": "local-test"
+      },
+      "privacy": "synthetic-subject",
+      "files": [
+        {
+          "path": "fixtures/data/wechatpay/synthetic-v3.json",
+          "sha256": "6b6edf42e2d9217e295cbf0f841ef7d2e92b6de0ef707db74104dc1b7bff5ec0"
+        }
+      ],
+      "trust": {
+        "role": "Merchant API trust uses authenticated platform key/certificate selection; local synthetic v3 fixture does not establish merchant enrollment or settlement.",
+        "algorithms": [
+          "RSA2048/SHA256"
+        ],
+        "rotationRevocation": "Fixture only; deployed credential/attestor holder keys must follow enrolled protocol policy.",
+        "authentication": "Explicitly local synthetic test material; never authenticate a production issuer through this fixture."
+      },
+      "verification": {
+        "method": "Exact local RSA HTTP envelope signature and two mutation negatives pass; signed bytes/key/signature match executed Noir Prover values. Full current constrained witness separately solved.",
+        "verifier": "Node crypto RSA PKCS1v1.5/SHA256 and nargo 1.0.0-rc.3, source-bound refresh report",
+        "commands": [
+          "node scripts/fixtures/material/verify-http-fixture.mjs fixtures/data/wechatpay/synthetic-v3.json target/kat/wechatpay_v3/Prover.toml",
+          "nargo test --program-dir noir --package wechatpay wechatpay_v3_"
+        ],
+        "result": "local-relation-executed",
+        "evidence": []
+      }
+    }
+  ],
+  "acquisitionNotes": [
+    {
+      "category": "provider-public",
+      "reason": "Merchant API trust uses authenticated platform key/certificate selection; local synthetic v3 fixture does not establish merchant enrollment or settlement. No authoritative global provider public key has been collected for this profile.",
+      "checkedSources": [
+        "https://pay.weixin.qq.com/doc/v3/merchant/4013053249"
+      ]
+    },
+    {
+      "category": "provider-test",
+      "reason": "No published provider-test credential has yet been verified for this inventory; existing synthetic relation fixture remains local-test.",
+      "checkedSources": [
+        "https://pay.weixin.qq.com/doc/v3/merchant/4013053249"
+      ]
+    }
+  ]
+}

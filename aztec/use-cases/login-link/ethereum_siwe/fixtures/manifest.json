@@ -1,0 +1,35 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "ethereum_siwe",
+  "use_case": "login-link",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/login_link.mjs",
+      "--instance",
+      "login-link/ethereum_siwe",
+      "--challenge",
+      "2c58aba4124bbbf5596767b77b4b70b0b78418cc16e51e0dacc6f6f803f16ed2"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "aztec/use-cases dependencies viem privateKeyToAccount (EIP-191 signMessage, low s)"
+  },
+  "key_provenance": "secp256k1 keys sha256('credential-proofs synthetic ethereum login-link key v1') and '... other key v1'; public seeds, not wallet keys. Anyone can sign with them.",
+  "claims": {
+    "address": "0xBa7D40E17C77160bA73269129238e9CD0F115eFa",
+    "message": "example.com wants you to sign in with your Ethereum account:\n0xBa7D40E17C77160bA73269129238e9CD0F115eFa\n\n\nURI: https://example.com/login\nVersion: 1\nChain ID: 1\nNonce: 2c58aba4124bbbf5596767b77b4b70b0b78418cc16e51e0dacc6f6f803f16ed2\nIssued At: 2096-10-02T07:05:40Z\nExpiration Time: 2096-10-02T07:10:40Z"
+  },
+  "notes": [
+    "The signed value is observed at the instance's TXE shell; the test fixture_signs_the_challenge fails with the value to pass when it changes.",
+    "The issue time is 60 s before --now.",
+    "Negative cases mutate this fixture in src/test.nr."
+  ],
+  "inputs": {
+    "aztec/use-cases/scripts/fixtures/generators/login_link.mjs": "1e8579707fc6586013c781bd5c63a4b5f481435b41731780ee3905dbbc891dd7",
+    "aztec/use-cases/scripts/fixtures/generators/event.mjs": "ee042da71aab4fa4d529f8d22a039f5f94b2420fb202da0ce6270cbd4f675387"
+  },
+  "outputs": {
+    "src/fixture.nr": "550b535ebcbba5fbfde59e9de1013fbb3dd1748821baaca2eba4df38c73ec226"
+  }
+}

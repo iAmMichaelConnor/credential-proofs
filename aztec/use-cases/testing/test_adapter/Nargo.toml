@@ -1,0 +1,14 @@
+[package]
+name = "uc_test_adapter"
+type = "lib"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"
+
+[dependencies]
+aztec = { git = "https://github.com/aztec-labs-eng/aztec-nr", tag = "v6.0.0", directory = "aztec" }
+uc_attribute_gate = { path = "../../attribute-gating/common" }
+uc_event_proof = { path = "../../event-proof/common" }
+uc_login_link = { path = "../../login-link/common" }
+uc_payment_settlement = { path = "../../payment-settlement/common" }
+uc_trust = { path = "../../trust" }
+uc_uniqueness = { path = "../../uniqueness/common" }

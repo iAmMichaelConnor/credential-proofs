@@ -1,0 +1,10 @@
+# Nightly thread counts for scripts/run-tests.sh --nightly: the packages whose constrained run needs fewer
+# than the default 4 test threads to fit a 16 GB runner (per test: constrained wall time, peak RSS).
+#
+# package                         threads
+anon_aadhaar_v2_auth_slow_tests   1         # 6.5 min, 7.8 GB
+entra_slow_tests                  1         # 7.5 min, 7 GB
+govbr_slow_tests                  1         # 9 min, 7.7 GB
+franceconnect_slow_tests          2         # 4 min, 3.5 GB
+university_auth_slow_tests        2         # 14-21 min, 6 GB
+wechatpay                         2         # about 3 min, 15 GB at two threads in total

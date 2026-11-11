@@ -1,0 +1,23 @@
+account-authorisation/google: missing src/test.nr
+account-authorisation/google: missing fixtures/manifest.json
+login-link/google: missing required test wrong_issuer_rejected
+login-link/google: missing required test wrong_challenge_rejected
+login-link/google: missing required test stale_rejected
+login-link/google: missing fixtures/manifest.json
+login-link/linkedin: missing required test replay_rejected
+login-link/linkedin: missing required test wrong_issuer_rejected
+login-link/linkedin: missing required test stale_rejected
+login-link/linkedin: missing fixtures/manifest.json
+attribute-gating/anon_aadhaar: missing src/test.nr
+attribute-gating/anon_aadhaar: missing fixtures/manifest.json
+attribute-gating/govbr: missing src/test.nr
+attribute-gating/govbr: missing fixtures/manifest.json
+uniqueness/anon_aadhaar: missing src/test.nr
+uniqueness/anon_aadhaar: missing fixtures/manifest.json
+payment-settlement/wechatpay: missing src/test.nr
+payment-settlement/wechatpay: missing fixtures/manifest.json
+event-proof/reclaim: missing required test replay_rejected
+event-proof/reclaim: missing required test wrong_issuer_rejected
+event-proof/reclaim: missing required test wrong_kind_rejected
+event-proof/reclaim: missing required test stale_rejected
+event-proof/reclaim: missing fixtures/manifest.json

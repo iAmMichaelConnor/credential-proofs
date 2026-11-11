@@ -1,0 +1,9 @@
+[package]
+name = "alipay"
+type = "lib"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"
+
+[dependencies]
+rsa_http = { path = "../rsa_http" }
+canonical_bytes = { path = "../canonical_bytes" }

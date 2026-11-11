@@ -1,0 +1,9 @@
+{
+  "kty": "EC",
+  "x": "Z4DF_HAnXixwYaDnh3uxdN6t65iHAn8_qDZUFYun9Qw",
+  "y": "PLqMNLw10g6B9zCsHHvW1mGpQvkMapylXFEvnkoAEmY",
+  "crv": "P-256",
+  "alg": "ES256",
+  "use": "sig",
+  "kid": "local-synthetic-singpass"
+}

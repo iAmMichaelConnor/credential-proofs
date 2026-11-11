@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "scheme": "aadhaar_secure_qr",
+  "materials": [
+    {
+      "id": "upstream-public-test-qr",
+      "category": "provider-test",
+      "kind": "credential",
+      "environment": "provider-test",
+      "provenance": {
+        "origin": "upstream-public-fixture",
+        "sourceUrls": [
+          "https://raw.githubusercontent.com/anon-aadhaar/anon-aadhaar/4dad918761cfb1d7d5ed9918dcd796d0cb23ae82/packages/circuits/assets/test.json",
+          "https://raw.githubusercontent.com/anon-aadhaar/anon-aadhaar/4dad918761cfb1d7d5ed9918dcd796d0cb23ae82/packages/circuits/assets/testCertificate.pem"
+        ],
+        "obtainedAt": "2026-10-22T18:13:36.745416+00:00",
+        "issuerKind": "upstream-maintainer"
+      },
+      "privacy": "published-test-subject",
+      "files": [
+        {
+          "path": "fixtures/material/anon_aadhaar/provider-test/test.json",
+          "sha256": "a72555c462606e3f8e4ac5a280bda95628bb99cac78f7f7910479a55ed7d90c2"
+        },
+        {
+          "path": "fixtures/material/anon_aadhaar/provider-test/testCertificate.pem",
+          "sha256": "a025f6e83f50885299d91a881ab667fe08aa8206062ea560e81d06a59bfdaae6"
+        }
+      ],
+      "trust": {
+        "role": "The same upstream Anon Aadhaar public test QR and test certificate as material/anon_aadhaar (files are shared, not copied). Upstream publishes the matching private key, so this issuer is never a trust anchor outside tests. Not a UIDAI credential.",
+        "algorithms": [
+          "RSA-2048 PKCS#1 v1.5 SHA-256 over the decompressed Secure QR V2 payload"
+        ],
+        "rotationRevocation": "Fixed historical test data; the self-signed test certificate expired 2025-03-01. Production deployments pin a current UIDAI key hash instead.",
+        "authentication": "File hashes match the pinned upstream commit (recorded for anon_aadhaar). Signature checked on the host with node:crypto and in Noir with the native verifier."
+      },
+      "verification": {
+        "method": "Host: decompress, split and node:crypto RSA-SHA256 verification against testCertificate.pem; parsed fields equal the fixture's published field values. Circuit: native Noir verify() with UPSTREAM_TEST_ISSUER_KEY_HASH.",
+        "verifier": "packages/credential-proofs-inputs/tests/aadhaar-secure-qr.test.ts; nargo 1.0.0-rc.3 test and execute",
+        "commands": [
+          "npm test -w credential-proofs-inputs",
+          "nargo test --program-dir noir --package aadhaar_secure_qr",
+          "nargo test --program-dir noir --package aadhaar_secure_qr aadhaar_secure_qr_"
+        ],
+        "result": "credential-signature-verified",
+        "evidence": []
+      }
+    },
+    {
+      "id": "synthetic-resigned-vectors",
+      "category": "local-test",
+      "kind": "fixture-input",
+      "environment": "local-test",
+      "provenance": {
+        "origin": "local-synthetic",
+        "sourceUrls": [],
+        "obtainedAt": "2026-10-25",
+        "generator": "scripts/fixtures/generate-aadhaar-secure-qr-fixtures.mjs",
+        "issuerKind": "local-test"
+      },
+      "privacy": "synthetic-subject",
+      "files": [
+        {
+          "path": "fixtures/material/aadhaar_secure_qr/local-test/synthetic-vectors.json",
+          "sha256": "1cf37aa256e085a0a7c357049372d5aa5da7afa19c855e0bfc05b825263b4bcb"
+        },
+        {
+          "path": "fixtures/data/synthetic-rs256-private.pem",
+          "sha256": "181021221b11334ea6ed4f36bcb38439613f5fc56eeda12cb192f4ef0b420d66"
+        },
+        {
+          "path": "noir/aadhaar_secure_qr/src/vectors.nr"
+        }
+      ],
+      "trust": {
+        "role": "Upstream test QR fields rearranged (2032 timestamp, re-issue with a new photo, new name, maximal lengths, too-long name) and re-signed with the repository's public synthetic RSA-2048 key. Test-only; the private key is checked in.",
+        "algorithms": [
+          "RSA-2048 PKCS#1 v1.5 SHA-256"
+        ],
+        "rotationRevocation": "Not applicable; synthetic.",
+        "authentication": "Generated locally; the host verifies each signature before writing the vectors."
+      },
+      "verification": {
+        "method": "Native Noir verify() with the synthetic key hash; expected issuance times from independent host Date.UTC code.",
+        "verifier": "nargo 1.0.0-rc.3 test (61 tests) and execute",
+        "commands": [
+          "python3 scripts/fixtures/generate.py"
+        ],
+        "result": "local-relation-executed",
+        "evidence": []
+      }
+    }
+  ],
+  "acquisitionNotes": [
+    {
+      "category": "provider-public",
+      "reason": "No authenticated current UIDAI offline-QR signing certificate is in the repository (see material/anon_aadhaar). The upstream copy of uidai_offline_publickey_26022021.cer (expired 2024-02-27) is used only for a key-hash test vector, not as trust material.",
+      "checkedSources": [
+        "https://uidai.gov.in/en/data-and-download"
+      ]
+    }
+  ]
+}

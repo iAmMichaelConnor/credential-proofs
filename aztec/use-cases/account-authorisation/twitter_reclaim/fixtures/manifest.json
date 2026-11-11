@@ -1,0 +1,42 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "twitter_reclaim",
+  "use_case": "account-authorisation",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/reclaim.mjs",
+      "--instance",
+      "account-authorisation/twitter_reclaim",
+      "--account",
+      "1b6efe5eacb338433f6b24c7664ac7e5faa274f49b33c740c72ec1b904a8ae6d",
+      "--action",
+      "1591d592cf605e9a32811f533cd61b5956ca19c4a3e0ae3abc4393d40c369995",
+      "--next-action",
+      "031af5ca6f3134bcaa3b41a5835f86ed4dec4eb96b339b8f90224164d5d80aec"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "aztec/use-cases dependencies viem (EIP-191 signMessage over the Reclaim identifier, owner, timestamp and epoch)"
+  },
+  "inputs": {
+    "packages/credential-proofs-inputs/src/reclaim.ts": "f626b90a6d17d2fd0ac3a85cc585b9c9b60b7a65a77ceee261764ca94d907f87",
+    "aztec/use-cases/scripts/fixtures/generators/account.mjs": "10696a752f75b6d3b4d6f5cc69f4b3ac4e69993ef83e16abfb36ede40bd0fd56",
+    "aztec/use-cases/scripts/fixtures/generators/reclaim.mjs": "1a6a05d3622acac543ebfc1b88480cddb1891e7a6e78676cc4d735916b2cdd0c"
+  },
+  "key_provenance": "secp256k1 attestor keys sha256('credential-proofs synthetic reclaim account attestor key v1') and '... other attestor key v1'; public seeds, not Reclaim attestors. Anyone can sign with them.",
+  "claims": {
+    "attestor": "0xB34ab455a67fACF3605D73e4756D5A9ba2eA4aCd",
+    "context": "{\"contextAddress\":\"0x1b6efe5eacb338433f6b24c7664ac7e5faa274f49b33c740c72ec1b904a8ae6d\",\"contextMessage\":\"1591d592cf605e9a32811f533cd61b5956ca19c4a3e0ae3abc4393d40c369995\",\"extractedParameters\":{\"username\":\"test_user\"},\"providerHash\":\"0x2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a\",\"reclaimSessionId\":\"session-1\"}",
+    "identifier": "0xd20b7f5b41a532461c57970fd80af9fa741c3a090254e5a4c5e85e5fa1275c19",
+    "timestamp": 1900000000,
+    "epoch": 1
+  },
+  "notes": [
+    "The action is the instance's action hash at the TXE shell; the test fixture_action_is_the_action fails with the value to use when it changes.",
+    "Negative cases mutate this fixture in src/test.nr."
+  ],
+  "outputs": {
+    "src/fixture.nr": "fe2f74d48e0f11a6f3a6e517aeeb949cef2f5c77130140b4ec8781e486c21345"
+  }
+}

@@ -1,0 +1,12 @@
+[package]
+name = "uc_dispatch_target"
+type = "contract"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"
+
+# Test only. The two path dependencies serve src/test.nr, which deploys the
+# Ethereum secret-key account and sends a private call through it.
+[dependencies]
+aztec = { git = "https://github.com/aztec-labs-eng/aztec-nr", tag = "v6.0.0", directory = "aztec" }
+ethereum_secret_key_auth_account = { path = "../../account-authorisation/ethereum_secret_key" }
+uc_account = { path = "../../account-authorisation/common" }

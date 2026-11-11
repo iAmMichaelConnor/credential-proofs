@@ -1,0 +1,55 @@
+{
+  "sourceRevision": "f1402703f8f73782203da49cb38a4d74abe40967",
+  "obtainedAt": "2026-10-22T19:29:54.295189+00:00",
+  "deployments": [
+    {
+      "name": "SimpleAttestationVerifier",
+      "chainId": 8453,
+      "address": "0xED6C0C34c3964D239e7a315C55E620fafE5Ae3AC",
+      "constructorArguments": [
+        "0x5106A86819ED6Bb82c77CcBfC151250E1d369DbA"
+      ],
+      "deploymentBlock": 37291273,
+      "compilationTarget": {
+        "contracts/unifiedVerifier/SimpleAttestationVerifier.sol": "SimpleAttestationVerifier"
+      },
+      "publishedSource": "https://github.com/zkp2p/zkp2p-contracts/blob/f1402703f8f73782203da49cb38a4d74abe40967/deployments/base/SimpleAttestationVerifier.json",
+      "sourceFileSha256": "9fd4b5ad8fdbf876e46e31cd11f1f37f36742465958ac3c4353d25c45ab009e1"
+    },
+    {
+      "name": "MultiAttestationVerifier",
+      "chainId": 8453,
+      "address": "0x9Fe920b24e50e6a6362BA71a1BeB502A99c402d5",
+      "constructorArguments": [
+        [
+          "0xDB4Ed7FAF170F0f6493E3adaaCaaFaF47092c754"
+        ],
+        1
+      ],
+      "deploymentBlock": 44940446,
+      "compilationTarget": {
+        "contracts/unifiedVerifier/MultiAttestationVerifier.sol": "MultiAttestationVerifier"
+      },
+      "publishedSource": "https://github.com/zkp2p/zkp2p-contracts/blob/f1402703f8f73782203da49cb38a4d74abe40967/deployments/base/MultiAttestationVerifier.json",
+      "sourceFileSha256": "59c880c95828a3db501eb61018b86081763396cd5289e022e4a9aa92ca8fbbc7"
+    },
+    {
+      "name": "UnifiedPaymentVerifierV3",
+      "chainId": 8453,
+      "address": "0xC6F4a193576C60892a47e111Bb5706c30162502B",
+      "constructorArguments": [
+        "0xBe9fED15ED7A4B915C03EFcEcb9662739C3382A9",
+        "0x5455e761b866dfa6A2f5Dc6d6525825bf9C09aeB",
+        "0x9Fe920b24e50e6a6362BA71a1BeB502A99c402d5"
+      ],
+      "deploymentBlock": 49352536,
+      "compilationTarget": {
+        "contracts/unifiedVerifier/UnifiedPaymentVerifierV3.sol": "UnifiedPaymentVerifierV3"
+      },
+      "publishedSource": "https://github.com/zkp2p/zkp2p-contracts/blob/f1402703f8f73782203da49cb38a4d74abe40967/deployments/base/UnifiedPaymentVerifierV3.json",
+      "sourceFileSha256": "d89b2899fb3cd3fc628c852cc746b125b56c291bf7445456354616408e7fe951"
+    }
+  ],
+  "scope": "Published Base Simple/Multi attestor and UnifiedPaymentVerifierV3 deployment metadata adjacent to implemented V4 schema. No matching UnifiedPaymentVerifierV4 deployment metadata located in deployments/base at this pin. These addresses must not be treated as V4 verifyingContract/attestor policy without independent enrollment. Current chain state not yet queried; no signed payment credential implied.",
+  "sourceArchiveSha256": "cadca0f8ce6a3c41a0aac0b09a6fe90a190e74114b877cbc8aa5c56888c541dc"
+}

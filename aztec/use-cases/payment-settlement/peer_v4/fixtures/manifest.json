@@ -1,0 +1,87 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "peer_v4",
+  "use_case": "payment-settlement",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/peer_v4.mjs",
+      "--instance",
+      "payment-settlement/peer_v4",
+      "--now",
+      "4000000000",
+      "--max-age-ms",
+      "3600000"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "viem signTypedData (EIP-712) and keccak256, from aztec/use-cases dependencies"
+  },
+  "inputs": {
+    "aztec/use-cases/scripts/fixtures/generators/peer_v4.mjs": "c4d9505ad740e3af7582c7e3dfa5975fe335f76df648afd02e36350b87a258bc",
+    "aztec/use-cases/package-lock.json": "400b17e30195637ac410270093086884cc692d0d9b04c657ec9c244983ab5eca"
+  },
+  "key_provenance": "Public secp256k1 test scalar 1 (attestor address 0x7E5F4552091A69125d5DfCb7b8C2659029395Bdf); not a Peer witness. Anyone can sign with it.",
+  "claims": {
+    "chainId": 8453,
+    "verifier": "0x1111111111111111111111111111111111111111",
+    "orchestrator": "0x2222222222222222222222222222222222222222",
+    "intentHash": "keccak256(orchestrator || counter) mod p, counter 1 (other_intent: 2)",
+    "attestations": {
+      "payment": {
+        "intentHash": "0x0589f0e181159acbc32c23327bdf98fcb6103fb00e32d5284d51a6d604356c50",
+        "paymentId": "0x1602778d3521a01384c90b32caac50b99d4ccc6e7d0b007c180bf3f650702af6",
+        "payeeId": "0x491ed026adf1480ca9b90cb5d0ee91392392af9219a965024486c9d3c0f2d7af",
+        "fiatAmount": "10000",
+        "paymentTimestampMs": "3999999940000",
+        "dataHash": "0x4f479e3ee9f7da320fe9610763e5bdce36096236560d5076f95da60ef787e950"
+      },
+      "other_payment": {
+        "intentHash": "0x0589f0e181159acbc32c23327bdf98fcb6103fb00e32d5284d51a6d604356c50",
+        "paymentId": "0x1602778d3521a01384c90b32caac50b99d4ccc6e7d0b007c180bf3f650702af7",
+        "payeeId": "0x491ed026adf1480ca9b90cb5d0ee91392392af9219a965024486c9d3c0f2d7af",
+        "fiatAmount": "10000",
+        "paymentTimestampMs": "3999999940000",
+        "dataHash": "0x0f0b3b2073e82a8bf3a35c1e493c75cfd628966bc8b7cc8ba40a677f5787aa4a"
+      },
+      "other_amount": {
+        "intentHash": "0x0589f0e181159acbc32c23327bdf98fcb6103fb00e32d5284d51a6d604356c50",
+        "paymentId": "0x1602778d3521a01384c90b32caac50b99d4ccc6e7d0b007c180bf3f650702af8",
+        "payeeId": "0x491ed026adf1480ca9b90cb5d0ee91392392af9219a965024486c9d3c0f2d7af",
+        "fiatAmount": "9999",
+        "paymentTimestampMs": "3999999940000",
+        "dataHash": "0xb6eafa94324bb5a832d0b530c997c2026923958c4da020d3154033b48edb425f"
+      },
+      "other_payee": {
+        "intentHash": "0x0589f0e181159acbc32c23327bdf98fcb6103fb00e32d5284d51a6d604356c50",
+        "paymentId": "0x1602778d3521a01384c90b32caac50b99d4ccc6e7d0b007c180bf3f650702af9",
+        "payeeId": "0x491ed026adf1480ca9b90cb5d0ee91392392af9219a965024486c9d3c0f2d7b0",
+        "fiatAmount": "10000",
+        "paymentTimestampMs": "3999999940000",
+        "dataHash": "0xf86bae69a051e77e38bfdcb6e0e8e3b1703c52d01f15b0d59c63017cba339437"
+      },
+      "early_payment": {
+        "intentHash": "0x0589f0e181159acbc32c23327bdf98fcb6103fb00e32d5284d51a6d604356c50",
+        "paymentId": "0x1602778d3521a01384c90b32caac50b99d4ccc6e7d0b007c180bf3f650702afb",
+        "payeeId": "0x491ed026adf1480ca9b90cb5d0ee91392392af9219a965024486c9d3c0f2d7af",
+        "fiatAmount": "10000",
+        "paymentTimestampMs": "3999999940000",
+        "dataHash": "0x4e620bafba60b69881b71c9bcab02ddda53a5f3f13e3864fa8c9515af7b44931"
+      },
+      "other_intent": {
+        "intentHash": "0x219b210e2c15fd2e090e3593a046c38817500f31828a1fc1a11d5a66e86a80ec",
+        "paymentId": "0x1602778d3521a01384c90b32caac50b99d4ccc6e7d0b007c180bf3f650702afa",
+        "payeeId": "0x491ed026adf1480ca9b90cb5d0ee91392392af9219a965024486c9d3c0f2d7af",
+        "fiatAmount": "10000",
+        "paymentTimestampMs": "3999999940000",
+        "dataHash": "0x39a1627fcd9dcf49addb09098af2762aec55ddb8ce96b3afc3ef200024f596c3"
+      }
+    }
+  },
+  "notes": [
+    "Variants are separately signed attestations for the wrong-term tests; other negative cases mutate a valid attestation in src/test.nr."
+  ],
+  "outputs": {
+    "src/fixture.nr": "23ecf88001f9fc053fa790742840c3144b0554a7c37057ff00c9d4cc82256903"
+  }
+}

@@ -1,0 +1,12 @@
+[package]
+name = "uc_adapter_twitter_reclaim"
+type = "lib"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"
+
+[dependencies]
+aztec = { git = "https://github.com/aztec-labs-eng/aztec-nr", tag = "v6.0.0", directory = "aztec" }
+reclaim_auth = { path = "../../../../noir/reclaim_auth" }
+uc_event_proof = { path = "../../event-proof/common" }
+uc_login_link = { path = "../../login-link/common" }
+uc_trust = { path = "../../trust" }

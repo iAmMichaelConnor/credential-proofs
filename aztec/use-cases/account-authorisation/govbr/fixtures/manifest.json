@@ -1,0 +1,64 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "govbr",
+  "use_case": "account-authorisation",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/oidc_account.mjs",
+      "--instance",
+      "account-authorisation/govbr",
+      "--action",
+      "151096361eef7dd58665fb1dc0e9723634c8b3efd10e7264c5f8e64c61c0a093"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "packages/credential-proofs-inputs/src/govbr.ts createSyntheticGovbr (gold and bronze)"
+  },
+  "inputs": {
+    "fixtures/data/synthetic-rs256-private.pem": "181021221b11334ea6ed4f36bcb38439613f5fc56eeda12cb192f4ef0b420d66",
+    "fixtures/data/synthetic-rs256-public.pem": "2b7dfcaec8fd468aab2b54441e8ac408d02375c81c48f2dba4d27205b72035ac",
+    "packages/credential-proofs-inputs/src/govbr.ts": "a18f4791a2c951504b3d47fd409a9e3871ab337c224ffc6d7e4e28d9656efbb8",
+    "aztec/use-cases/scripts/fixtures/generators/oidc_account/govbr.mjs": "850a7c84bcd56a2395ea75e7082f9c028be2577a8963a0cbdc37fd86abf1607e",
+    "aztec/use-cases/scripts/fixtures/generators/oidc_account/rs256.mjs": "66af721576b1cbbe45be2188bb27701acfdfa57afa685a5ec216b10b4db9a3f4",
+    "aztec/use-cases/scripts/fixtures/generators/account.mjs": "10696a752f75b6d3b4d6f5cc69f4b3ac4e69993ef83e16abfb36ede40bd0fd56",
+    "aztec/use-cases/scripts/fixtures/generators/oidc_account.mjs": "dde9617ba9be38effa6fe3364cf854bc94b63afc48fadcf7a683794cd8241071"
+  },
+  "key_provenance": "Public synthetic RS256 test key committed in fixtures/data; not a gov.br key. Anyone can sign with it.",
+  "claims": {
+    "nonce": "151096361eef7dd58665fb1dc0e9723634c8b3efd10e7264c5f8e64c61c0a093",
+    "amr": [
+      "passwd",
+      "mfa",
+      "otp_offline"
+    ],
+    "scope": [
+      "openid",
+      "govbr_confiabilidades_idtoken"
+    ],
+    "reliability_info": {
+      "level": "gold",
+      "reliabilities": [
+        {
+          "id": "601",
+          "updatedAt": "2025-07-02T14:17:16.001-0300"
+        },
+        {
+          "id": "626"
+        }
+      ]
+    },
+    "iss": "https://sso.acesso.gov.br/",
+    "aud": "synthetic-client.gov.br",
+    "sub": "12345678900",
+    "iat": 1899999995,
+    "exp": 1900000060
+  },
+  "notes": [
+    "The action is the instance's action hash at the TXE shell; the test fixture_action_is_the_action fails with the value to use when it changes.",
+    "Negative cases mutate this fixture in src/test.nr."
+  ],
+  "outputs": {
+    "src/fixture.nr": "99e09c5ba30a301af92a4e9b621c20cd0fcee9f6925fecb282be0e245ea0d4b6"
+  }
+}

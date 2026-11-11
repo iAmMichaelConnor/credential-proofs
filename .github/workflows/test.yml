@@ -1,0 +1,270 @@
+name: Noir tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  CARGO_TERM_COLOR: always
+  MINIMUM_NOIR_VERSION: 1.0.0-rc.3
+  # The Aztec examples: keep in sync with `aztec/.aztecrc`, the aztec-nr tag in every
+  # aztec/**/Nargo.toml and the README's compatibility section.
+  AZTEC_VERSION: 6.0.0
+  # The hint SDK that prepares Groth16 inputs (Anon Aadhaar fixtures, World ID SDK tests).
+  GROTH16_VERIFIER_TAG: v0.1.0
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Checkout groth16-verifier
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: iAmMichaelConnor/groth16-verifier
+          ref: ${{ env.GROTH16_VERIFIER_TAG }}
+          path: groth16-verifier
+
+      - name: Install Nargo
+        uses: noir-lang/noirup@bedac8fbe6a059177c35e565f9f76db54a795976 # v0.1.5
+        with:
+          toolchain: ${{ env.MINIMUM_NOIR_VERSION }}
+
+      - name: Run formatter
+        run: |
+          nargo --program-dir noir fmt --check
+          nargo --program-dir aztec fmt --check
+
+      - name: Check the package selection rules
+        run: ./scripts/changed-packages.sh --self-test
+
+      - name: Setup Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22.23.4
+
+      - name: Install generator dependencies
+        run: |
+          npm ci --ignore-scripts
+          npm run build -w credential-proofs-inputs -w credential-proofs-test-builders
+          npm ci --ignore-scripts --prefix aztec/use-cases
+          npm ci --ignore-scripts --prefix groth16-verifier/packages/groth16-verifier-hints
+          pip install -r scripts/fixtures/requirements.txt
+
+      - name: Check generated files
+        run: python3 scripts/generate.py --check
+        env:
+          GROTH16_VERIFIER: ${{ github.workspace }}/groth16-verifier
+
+  # What a pull request can affect, through the dependency graph and the generators
+  # (scripts/changed-packages.sh); a push to main selects everything.
+  changes:
+    name: Select affected packages
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      noir: ${{ steps.select.outputs.noir }}
+      host: ${{ steps.select.outputs.host }}
+      examples: ${{ steps.select.outputs.examples }}
+      aztec: ${{ steps.select.outputs.aztec }}
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      # A failure of the selection script, or a missing output, fails the job (and so `tests-end`).
+      - name: Select
+        id: select
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          selection="$RUNNER_TEMP/selection.txt"
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            ./scripts/changed-packages.sh "origin/$BASE_REF" > "$selection"
+          else
+            ./scripts/changed-packages.sh --all > "$selection"
+          fi
+          cat "$selection"
+          for key in noir benchmarks host examples aztec; do
+            grep -q "^$key=" "$selection" || { echo "missing output: $key" >&2; exit 1; }
+          done
+          cat "$selection" >> "$GITHUB_OUTPUT"
+
+  # One job per package and toolchain: the minimum supported Noir (1.0.0-rc.3, which Aztec 6.0.0 ships) and the
+  # latest release; nightly-canary.yml covers Noir nightly. Each package runs in its per-pull-request mode
+  # (CONTRIBUTING.md#tests) with four test threads, the vCPUs of a hosted runner. Only the affected packages run.
+  test:
+    needs: changes
+    if: needs.changes.outputs.noir != '[]'
+    name: Test ${{ matrix.package }} on Nargo ${{ matrix.toolchain }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        toolchain: [1.0.0-rc.3, 1.0.0]
+        package: ${{ fromJson( needs.changes.outputs.noir ) }}
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install Nargo
+        uses: noir-lang/noirup@bedac8fbe6a059177c35e565f9f76db54a795976 # v0.1.5
+        with:
+          toolchain: ${{ matrix.toolchain }}
+
+      - name: Run tests
+        run: ./scripts/run-tests.sh --package ${{ matrix.package }} --test-threads 4
+
+  # Host-side code: the input-preparation and World ID packages, the fixture
+  # manifests, the World ID gate fixtures and the generators' unit tests.
+  host:
+    needs: changes
+    if: needs.changes.outputs.host == 'true'
+    name: Host tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install Nargo
+        uses: noir-lang/noirup@bedac8fbe6a059177c35e565f9f76db54a795976 # v0.1.5
+        with:
+          toolchain: ${{ env.MINIMUM_NOIR_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22.23.4
+
+      # The use-case fixture generators (and so the end-to-end tests of check_fixtures.py) need the built input
+      # packages and aztec/use-cases' own dependencies.
+      - name: Install dependencies
+        run: |
+          npm ci --ignore-scripts
+          npm run build -w credential-proofs-inputs -w credential-proofs-test-builders
+          npm ci --ignore-scripts --prefix aztec/use-cases
+          pip install -r scripts/fixtures/requirements.txt
+
+      - name: Input preparation and fixture manifests
+        run: |
+          npm test -w credential-proofs-inputs
+          npm run test:material
+
+      - name: World ID SDK
+        run: |
+          npm test -w credential-proofs-world-id
+          ./scripts/world-id/install-groth16-verifier-hints.sh
+          npm run test:groth16 -w credential-proofs-world-id
+          node scripts/world-id/test-sdk-package.mjs
+          node scripts/world-id/world_id_foundation.mjs --check
+          node scripts/world-id/world_id4_foundation.mjs --check
+
+      - name: Script unit tests
+        run: |
+          python3 -m unittest discover -s scripts/fixtures/tests -p 'test_*.py'
+          python3 -m unittest discover -s scripts/world-id/tests -p 'test_*.py'
+          node --test scripts/world-id/tests/world_id4_input.test.mjs
+          python3 -m unittest discover -s aztec/use-cases/scripts/tests
+
+  # The Aztec examples need the Aztec toolchain, which pins its own nargo. No job
+  # compiles an example contract: `check` type-checks the affected aztec/ packages
+  # (about 25 s each, four at a time) and every other group runs TXE tests of the
+  # affected examples' logic in a test context or at the keyless shell contract, the
+  # only contract that is compiled.
+  examples:
+    needs: changes
+    if: needs.changes.outputs.examples != '[]'
+    name: Examples (${{ matrix.group }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        group: ${{ fromJson( needs.changes.outputs.examples ) }}
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22.23.4
+
+      - name: Cache Aztec toolchain
+        id: aztec-cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.aztec
+          key: aztec-${{ env.AZTEC_VERSION }}-${{ runner.os }}
+
+      - name: Install Aztec toolchain
+        if: steps.aztec-cache.outputs.cache-hit != 'true'
+        run: curl -fsSL https://install.aztec-labs.com | VERSION=${{ env.AZTEC_VERSION }} bash
+
+      - name: Add Aztec toolchain to PATH
+        run: |
+          echo "$HOME/.aztec/current/bin" >> $GITHUB_PATH
+          echo "$HOME/.aztec/bin" >> $GITHUB_PATH
+
+      - name: Cache Nargo dependencies
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/nargo
+          key: nargo-${{ hashFiles('**/Nargo.toml') }}
+
+      - name: Test
+        env:
+          GROUP: ${{ matrix.group }}
+          PACKAGES: ${{ needs.changes.outputs.aztec }}
+        run: |
+          case "$GROUP" in
+            check) cd aztec && jq -r '.[]' <<<"$PACKAGES" | xargs -P 4 -I{} aztec-nargo check --package {} --silence-warnings ;;
+            world-id) ./scripts/test-world-id.sh --test-threads 4 ;;
+            *) aztec/use-cases/scripts/test-use-cases.sh --jobs 4 --test-threads 4 $GROUP ;;
+          esac
+
+  # This is a job which depends on all test jobs and reports the overall status.
+  # This allows us to add/remove test jobs without having to update the required workflows.
+  tests-end:
+    name: Noir End
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    # We want this job to always run (even if the dependant jobs fail) as we want this job to fail rather than skipping.
+    if: ${{ always() }}
+    needs:
+      - format
+      - changes
+      - test
+      - host
+      - examples
+
+    steps:
+      - name: Report overall success
+        run: |
+          if [[ $FAIL == true ]]; then
+              exit 1
+          else
+              exit 0
+          fi
+        env:
+          # A failed or cancelled job fails the workflow; a skipped job does not, unless the selection asked for it.
+          FAIL: >-
+            ${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')
+            || (needs.changes.outputs.noir != '[]' && needs.test.result == 'skipped')
+            || (needs.changes.outputs.host == 'true' && needs.host.result == 'skipped')
+            || (needs.changes.outputs.examples != '[]' && needs.examples.result == 'skipped') }}

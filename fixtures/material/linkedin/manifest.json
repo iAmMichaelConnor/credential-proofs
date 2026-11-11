@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "scheme": "linkedin",
+  "materials": [
+    {
+      "id": "official-jwks",
+      "category": "provider-public",
+      "kind": "jwks",
+      "environment": "production",
+      "provenance": {
+        "origin": "official-public-distribution",
+        "sourceUrls": [
+          "https://www.linkedin.com/oauth/openid/jwks"
+        ],
+        "obtainedAt": "2026-10-22T23:48:42.697Z",
+        "issuerKind": "identity-provider",
+        "sourcePublisher": "LinkedIn Corporation"
+      },
+      "privacy": "public-key-only",
+      "files": [
+        {
+          "path": "fixtures/data/public-trust/linkedin/jwks.json",
+          "sha256": "9a6fec4339df9a3e2f78de685d662610755b6f4c2509da21aea98fcce2164daa"
+        }
+      ],
+      "trust": {
+        "role": "LinkedIn RS256 ID-token verifier, not a user-info bearer access token. Published supported claim profile omits nonce, so token is reusable until expiry; account still binds the submitted Aztec transaction nonce/action.",
+        "algorithms": [
+          "RS256"
+        ],
+        "rotationRevocation": "Refresh only the fixed provider JWKS endpoint. Review kid/SPKI rotation and explicitly update enrolled account policy; this snapshot is not a perpetual trust guarantee.",
+        "authentication": "Fetched from the configured official HTTPS JWKS URL with redirect errors; host trust store validates TLS; no token-selected jku/x5u resolution. JWKS provenance proves only public-key origin, not an issuer-signed user credential.",
+        "keys": [
+          {
+            "kid": "d929668a-bab1-4c69-9598-4373149723ff",
+            "kty": "RSA",
+            "alg": null,
+            "use": null,
+            "spkiSha256": "347d8c8138c2fa5a110157d8f0fd9836b1c79f3e4590ab2a155538e1fa9ab6a4",
+            "asymmetricKeyType": "rsa",
+            "modulusLength": 4096
+          }
+        ]
+      },
+      "verification": {
+        "method": "Parse the official public JWKS and compute stable SPKI fingerprints. This does not verify a user token.",
+        "verifier": "Node v24.12.0 node:crypto/createPublicKey; packages/credential-proofs-inputs/src/trust-material.ts",
+        "commands": [
+          "node scripts/fixtures/material/snapshot-trust-material.mjs linkedin"
+        ],
+        "result": "public-material-parsed",
+        "evidence": []
+      }
+    },
+    {
+      "id": "synthetic-bearer-id-token-fixture",
+      "category": "local-test",
+      "kind": "fixture-input",
+      "environment": "local-test",
+      "provenance": {
+        "origin": "local-synthetic",
+        "sourceUrls": [],
+        "obtainedAt": "2026-10-22T23:49:02.311966Z",
+        "generator": "packages/credential-proofs-inputs/tests/linkedin.test.ts generates a local 4096-bit RSA key and signs synthetic tokens; repository example fixture is also synthetic.",
+        "issuerKind": "local-test"
+      },
+      "privacy": "synthetic-subject",
+      "files": [
+        {
+          "path": "noir/linkedin/src/known_answer_tests.nr"
+        }
+      ],
+      "trust": {
+        "role": "Public repository synthetic token fixture only. It is not Facebook/LinkedIn-issued evidence and cannot establish successful real-provider sign-in.",
+        "algorithms": [
+          "RS256",
+          "RSA4096/65537"
+        ],
+        "rotationRevocation": "No production use; recreate or replace only with an explicitly documented local test fixture.",
+        "authentication": "Fixture is signed with a test-only local key or test-generated ephemeral key. Never enroll the test key as a production issuer key."
+      },
+      "verification": {
+        "method": "Run the exact synthetic example witness and focused constrained claim-policy tests. No provider-test credential is supplied.",
+        "verifier": "nargo 1.0.0-rc.3 and local synthetic credential tests",
+        "commands": [
+          "nargo test --program-dir noir --package linkedin linkedin_",
+          "nargo test --program-dir noir --package linkedin"
+        ],
+        "result": "local-relation-executed",
+        "evidence": []
+      }
+    }
+  ],
+  "acquisitionNotes": [
+    {
+      "category": "provider-test",
+      "reason": "No publicly reusable provider-issued test ID-token sample was captured. An authentic JWKS snapshot establishes public key provenance only; local examples and tests use synthetic keys/tokens. Live client registration and genuine login interoperability are not claimed.",
+      "checkedSources": [
+        "https://www.linkedin.com/oauth/openid/jwks"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "manifest": "../manifest.json",
+  "category": "provider-public",
+  "materialIds": [
+    "entra-common-public-jwks"
+  ]
+}

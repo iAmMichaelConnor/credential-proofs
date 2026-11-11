@@ -1,0 +1,91 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "university",
+  "use_case": "attribute-gating",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/oidc.mjs",
+      "--instance",
+      "attribute-gating/university",
+      "--binding",
+      "2e4a44ac799f374e3e1fdbfff544ccff46fab189a3caf77f6f40b85c13205199",
+      "--other-binding",
+      "20f6a8a9dd8345b6daf043853aa03c76dc5f1db3e8aee25a34807250e5ae103c",
+      "--now",
+      "4000000000"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "packages/credential-proofs-inputs/src/university.ts importVerifiedUniversity (signed with node:crypto)"
+  },
+  "inputs": {
+    "fixtures/data/synthetic-rs256-private.pem": "181021221b11334ea6ed4f36bcb38439613f5fc56eeda12cb192f4ef0b420d66",
+    "fixtures/data/synthetic-rs256-public.pem": "2b7dfcaec8fd468aab2b54441e8ac408d02375c81c48f2dba4d27205b72035ac",
+    "packages/credential-proofs-inputs/src/university.ts": "0cd4fa86bae08218de400c0f63ee9d982aeb650bf21f3dd4a453574c0ba19bbb",
+    "packages/credential-proofs-inputs/src/oidc.ts": "aea6e0218724a1e3acb3d752c805574ecba8c789c0bf5e09b8dee19f5544c8ce",
+    "aztec/use-cases/scripts/fixtures/generators/oidc.mjs": "3bf84f629c58e2597012f3486133bd2d5f215bae759daeb725aea7fbf1c80279",
+    "aztec/use-cases/scripts/fixtures/generators/x509.py": "2a03fa13717c8a96bb79adb48a83beef156bb224a9084dd0a08e12e3e5d9854e"
+  },
+  "key_provenance": "Public synthetic RS256 test key committed in fixtures/data; not a university key. Anyone can sign with it.",
+  "claims": {
+    "token": {
+      "nonce": "2e4a44ac799f374e3e1fdbfff544ccff46fab189a3caf77f6f40b85c13205199",
+      "iss": "https://cilogon.org",
+      "aud": "credential-proofs-use-case-client",
+      "sub": "http://cilogon.org/serverA/users/100001",
+      "iat": 3999999940,
+      "exp": 4000000840,
+      "idp": "https://idp.example.edu/idp/shibboleth",
+      "affiliation": "member@example.edu;student@example.edu"
+    },
+    "second_token": {
+      "nonce": "2e4a44ac799f374e3e1fdbfff544ccff46fab189a3caf77f6f40b85c13205199",
+      "iss": "https://cilogon.org",
+      "aud": "credential-proofs-use-case-client",
+      "sub": "http://cilogon.org/serverA/users/100001",
+      "iat": 3999999941,
+      "exp": 4000000840,
+      "idp": "https://idp.example.edu/idp/shibboleth",
+      "affiliation": "member@example.edu;student@example.edu"
+    },
+    "other_subject": {
+      "nonce": "2e4a44ac799f374e3e1fdbfff544ccff46fab189a3caf77f6f40b85c13205199",
+      "iss": "https://cilogon.org",
+      "aud": "credential-proofs-use-case-client",
+      "sub": "http://cilogon.org/serverA/users/1000012",
+      "iat": 3999999940,
+      "exp": 4000000840,
+      "idp": "https://idp.example.edu/idp/shibboleth",
+      "affiliation": "member@example.edu;student@example.edu"
+    },
+    "other_contract": {
+      "nonce": "20f6a8a9dd8345b6daf043853aa03c76dc5f1db3e8aee25a34807250e5ae103c",
+      "iss": "https://cilogon.org",
+      "aud": "credential-proofs-use-case-client",
+      "sub": "http://cilogon.org/serverA/users/100001",
+      "iat": 3999999940,
+      "exp": 4000000840,
+      "idp": "https://idp.example.edu/idp/shibboleth",
+      "affiliation": "member@example.edu;student@example.edu"
+    },
+    "no_affiliation": {
+      "nonce": "2e4a44ac799f374e3e1fdbfff544ccff46fab189a3caf77f6f40b85c13205199",
+      "iss": "https://cilogon.org",
+      "aud": "credential-proofs-use-case-client",
+      "sub": "http://cilogon.org/serverA/users/100001",
+      "iat": 3999999950,
+      "exp": 4000000840,
+      "idp": "https://idp.example.edu/idp/shibboleth"
+    }
+  },
+  "notes": [
+    "The bindings are the instance's caller bindings observed in TXE; the instance test fails with the values to use when they change.",
+    "iat of token() is 60 s before --now and exp - iat is 900 s; variants keep the exp and move iat by the offset in their description.",
+    "other_key_signature() signs the fixture token under the key from the seed label 'uc login-link other rs256-2048 key v1' (x509.py seeded_key), whose modulus exceeds the fixture key's. The importer checks every token.",
+    "Tampering cases mutate these tokens in src/test.nr."
+  ],
+  "outputs": {
+    "src/fixture.nr": "477e6d6cc7524e38bcec34dabcc56079c646afb180578b15738e83b08e125a61"
+  }
+}

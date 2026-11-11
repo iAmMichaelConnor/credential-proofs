@@ -1,0 +1,9 @@
+#[test]
+unconstrained fn valid() {
+    run();
+}
+
+#[test(should_fail_with = "x")]
+unconstrained fn replay_rejected() {
+    run();
+}

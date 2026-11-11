@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "kind": "public-jwks",
+  "provider": "Singpass production",
+  "url": "https://id.singpass.gov.sg/.well-known/keys",
+  "issuer": "https://id.singpass.gov.sg/fapi",
+  "purpose": "Inner ID-token ES256 signature",
+  "rotation": "Fixed official JWKS rotates; review kid/SPKI and explicitly update enrolled trust. No JWKS key expiry advertised.",
+  "fetchedAt": "2026-10-22T19:00:42.178Z",
+  "responseSha256": "2718930461d3a87fec7873abc7a9c3f2f9d401f0b308c9108e43606b9a614d9b",
+  "keys": [
+    {
+      "kid": "alias/prd-sp-auth-api-id-token-signing-key-kms-asymmetric-key-alias",
+      "kty": "EC",
+      "alg": null,
+      "use": "sig",
+      "spkiSha256": "f279e6826be0e6f8baddd39f8fbcce20bc35e5788a67cd7322406571cfbbe167",
+      "asymmetricKeyType": "ec",
+      "modulusLength": null
+    }
+  ],
+  "authentication": "Retrieved from an explicitly configured official HTTPS URL using the host trust store; no JWT jku/x5u resolution. JWKS has no intrinsic expiry. Snapshot is provenance, not permanent authorization.",
+  "evidenceLimit": "Authentic public issuer keys only; no genuine credential or successful issuer-signature vector is implied."
+}

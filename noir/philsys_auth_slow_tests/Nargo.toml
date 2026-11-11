@@ -1,0 +1,9 @@
+[package]
+name = "philsys_auth_slow_tests"
+type = "lib"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"
+
+[dependencies]
+philsys_auth = { path = "../philsys_auth" }
+ed25519_auth = { path = "../ed25519_auth" }

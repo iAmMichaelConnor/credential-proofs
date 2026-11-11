@@ -1,0 +1,34 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "ethereum_siwe",
+  "use_case": "account-authorisation",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/ethereum.mjs",
+      "--instance",
+      "account-authorisation/ethereum_siwe",
+      "--action",
+      "2126efaadf4f95cee1bc8adce56e565da7da6fddc855e2e90155393e1464dbac"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "aztec/use-cases dependencies viem privateKeyToAccount (EIP-191 signMessage, low s)"
+  },
+  "inputs": {
+    "aztec/use-cases/scripts/fixtures/generators/account.mjs": "10696a752f75b6d3b4d6f5cc69f4b3ac4e69993ef83e16abfb36ede40bd0fd56",
+    "aztec/use-cases/scripts/fixtures/generators/ethereum.mjs": "8e369e79f4559fb8ff5873ccbeb8dcb58f5807b6b28a257a339b0a17e21bfd4d"
+  },
+  "key_provenance": "secp256k1 keys sha256('credential-proofs synthetic ethereum account key v1') and '... other key v1'; public seeds, not wallet keys. Anyone can sign with them.",
+  "claims": {
+    "address": "0xA95d67749DbD0979ff870F99747dd54920A2E3A9",
+    "message": "example.com wants you to sign in with your Ethereum account:\n0xA95d67749DbD0979ff870F99747dd54920A2E3A9\n\n\nURI: https://example.com/login\nVersion: 1\nChain ID: 1\nNonce: 2126efaadf4f95cee1bc8adce56e565da7da6fddc855e2e90155393e1464dbac\nIssued At: 2096-10-02T07:05:40Z\nExpiration Time: 2096-10-02T07:11:40Z"
+  },
+  "notes": [
+    "The action is the instance's action hash at the TXE shell; the test fixture_action_is_the_action fails with the value to use when it changes.",
+    "Negative cases mutate this fixture in src/test.nr."
+  ],
+  "outputs": {
+    "src/fixture.nr": "474bc51b1ca9e219db19e348648912e1bfac252092bd7a4798719b2f69d740cf"
+  }
+}

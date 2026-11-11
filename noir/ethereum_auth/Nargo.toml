@@ -1,0 +1,11 @@
+[package]
+name = "ethereum_auth"
+type = "lib"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"
+
+[dependencies]
+keccak256 = { tag = "main", git = "https://github.com/noir-lang/keccak256" }
+bignum = { git = "https://github.com/noir-lang/noir-bignum", tag = "v0.11.0" }
+noir_bigcurve = { git = "https://github.com/noir-lang/noir_bigcurve", tag = "v0.15.0" }
+canonical_bytes = { path = "../canonical_bytes" }

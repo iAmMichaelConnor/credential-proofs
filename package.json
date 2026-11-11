@@ -1,0 +1,21 @@
+{
+  "name": "credential-proofs",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "Apache-2.0",
+  "workspaces": [
+    "packages/credential-proofs-inputs",
+    "packages/credential-proofs-inputs/tests/builders",
+    "packages/credential-proofs-world-id"
+  ],
+  "scripts": {
+    "build": "npm run build -w credential-proofs-inputs && npm run build -w credential-proofs-test-builders && npm run build -w credential-proofs-world-id",
+    "test": "npm run test:inputs && npm run build -w credential-proofs-world-id && npm test -w credential-proofs-world-id",
+    "test:inputs": "npm test -w credential-proofs-inputs",
+    "test:material": "node scripts/fixtures/material/validate-material.mjs && node --test scripts/fixtures/material/test-material-schema.mjs"
+  },
+  "overrides": {
+    "ws": "8.22.2"
+  }
+}

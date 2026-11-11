@@ -1,0 +1,11 @@
+# event-proof
+
+Hand-written text.
+
+<!-- use-case-instances:start -->
+Each instance is a contract in `<scheme>/src/main.nr`, entrypoint `on_event(terms, evidence)`, package `<scheme>_event_proof`, tested by `scripts/test-use-cases.sh event-proof/<scheme>`. Its `src/test.nr` has the tests `valid`, `replay_rejected`, `wrong_issuer_rejected`, `wrong_kind_rejected`, `stale_rejected`; [use-cases.json](../use-cases.json) records each exception and its reason. The category is the evidence category of [ARCHITECTURE.md](../ARCHITECTURE.md#evidence-and-authority).
+
+| Instance | Category | Contract | Adapter | Residual risk and notes |
+| --- | --- | --- | --- | --- |
+| [reclaim](reclaim/src/main.nr) | - | `ReclaimEventProof` | [`uc_adapter_reclaim`](../adapters/reclaim/src/lib.nr) | - |
+<!-- use-case-instances:end -->

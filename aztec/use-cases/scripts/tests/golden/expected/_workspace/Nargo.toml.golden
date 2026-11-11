@@ -1,0 +1,25 @@
+[workspace]
+members = [
+    # Other packages
+    "other/contract",
+    # Use cases
+    "use-cases/trust",
+    "use-cases/account-authorisation/common",
+    "use-cases/testing/terms_shell",
+    "use-cases/adapters/anon_aadhaar",
+    "use-cases/adapters/google",
+    "use-cases/adapters/govbr",
+    "use-cases/adapters/linkedin",
+    "use-cases/adapters/oidc",
+    "use-cases/adapters/reclaim",
+    "use-cases/adapters/wechatpay",
+    "use-cases/testing/template_attribute_gate",
+    "use-cases/account-authorisation/google",
+    "use-cases/attribute-gating/anon_aadhaar",
+    "use-cases/attribute-gating/govbr",
+    "use-cases/event-proof/reclaim",
+    "use-cases/login-link/google",
+    "use-cases/login-link/linkedin",
+    "use-cases/payment-settlement/wechatpay",
+    "use-cases/uniqueness/anon_aadhaar",
+]

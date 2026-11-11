@@ -1,0 +1,6 @@
+{
+  "manifest": "../manifest.json",
+  "materialIds": [
+    "official-sdk-recorded-v2-response"
+  ]
+}

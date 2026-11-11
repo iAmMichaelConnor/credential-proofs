@@ -1,0 +1,7 @@
+{
+  "manifest": "../manifest.json",
+  "category": "local-test",
+  "materialIds": [
+    "entra-synthetic-signed-token"
+  ]
+}

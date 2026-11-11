@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "scheme": "passkey",
+  "materials": [
+    {
+      "id": "oxide-maintainer-public-assertion",
+      "category": "provider-test",
+      "kind": "fixture-input",
+      "environment": "provider-test",
+      "provenance": {
+        "origin": "upstream-public-fixture",
+        "issuerKind": "upstream-maintainer",
+        "sourcePublisher": "Aztec Oxide maintainer test vector",
+        "sourceUrls": [
+          "https://github.com/aztec-labs-eng/zkmoney-public/blob/00e54087526d6d89f1755958eb027e077184cd9a/vendor/oxide/noir-projects/oxide_lib/src/webauthn.nr"
+        ],
+        "obtainedAt": "2026-10-22T20:04:00Z"
+      },
+      "privacy": "synthetic-subject",
+      "files": [
+        {
+          "path": "fixtures/material/passkey/provider-test/oxide-assertion.toml",
+          "sha256": "b5ce70784dc4527e34877ee6fd4ddbdc8fceb64188862326563d567ea129f9fc"
+        },
+        {
+          "path": "fixtures/material/passkey/provider-test/oxide-webauthn.nr",
+          "sha256": "13edc5dfec63095365f1555d39f347167182f3359f528c189020dd5e354866ae"
+        }
+      ],
+      "trust": {
+        "role": "Published stub WebAuthn assertion test; enrollment of real credential public keys and authenticator attestation policy are separate.",
+        "algorithms": [
+          "P256/SHA256"
+        ],
+        "rotationRevocation": "Fixture only; deployed credential/attestor holder keys must follow enrolled protocol policy.",
+        "authentication": "Exact signed authenticator/client/signature bytes match pinned upstream test constants; host P256 verifies. Maintainer-generated stub key, not an identity-provider-issued assertion or authenticated physical device."
+      },
+      "verification": {
+        "method": "Host verifies exact referenced signature and signed inputs; altered signed bytes/entry reject. No provider identity or physical authenticator claim.",
+        "verifier": "Node node:crypto/P256 or @pcd/pod0.5.1 through shared importer; exact versions in report",
+        "commands": [
+          "node scripts/fixtures/material/verify-original-public-fixtures.mjs"
+        ],
+        "result": "credential-signature-verified",
+        "evidence": []
+      }
+    },
+    {
+      "id": "chromium-virtual-authenticator-assertion",
+      "category": "local-test",
+      "kind": "fixture-input",
+      "environment": "local-test",
+      "provenance": {
+        "origin": "local-synthetic",
+        "issuerKind": "local-test",
+        "sourceUrls": [],
+        "obtainedAt": "2026-10-22T20:07:29Z",
+        "generator": "Retained Chromium151.0.7922.34/Playwright1.62.1 CTAP2 virtual authenticator ceremony; exact execution source snapshot in evidence"
+      },
+      "privacy": "synthetic-subject",
+      "files": [
+        {
+          "path": "fixtures/data/passkey-browser-virtual-authenticator/Browser.toml",
+          "sha256": "c344ec782c8f3a603de26734ec8c171f419af807fa909e5a0633be8d416e2611"
+        },
+        {
+          "path": "fixtures/data/passkey-browser-virtual-authenticator/assertion.json",
+          "sha256": "eca2e893ab0a578e0f0873ad15b11115ac1a2a398caa92202de3e67f9323eaf4"
+        },
+        {
+          "path": "fixtures/data/passkey-browser-virtual-authenticator/challenge.json",
+          "sha256": "660fc335bd6cfb0248c0c39e013658071050d2bd341b5973eeaa45cd3f78d988"
+        }
+      ],
+      "trust": {
+        "role": "Local browser virtual authenticator assertion, not a physical authenticator attestation.",
+        "algorithms": [
+          "P256/SHA256"
+        ],
+        "rotationRevocation": "Fixture only; deployed credential/attestor holder keys must follow enrolled protocol policy.",
+        "authentication": "Retained local browser ceremony/importer/witness execution; original source-bound proof result is historical, no new proof generated."
+      },
+      "verification": {
+        "method": "Retained virtual browser assertion imported and full Noir witness solved on the recorded source snapshot; historical proof/verification logs retained separately.",
+        "verifier": "Chromium151.0.7922.34; Nargo 1.0.0-rc.3 and bb 6.0.0",
+        "commands": [
+          "See retained source-manifest.json for original execution and verification commands"
+        ],
+        "result": "local-relation-executed",
+        "evidence": []
+      }
+    }
+  ],
+  "acquisitionNotes": [
+    {
+      "category": "provider-public",
+      "reason": "WebAuthn assertion signing key is enrolled per credential; there is no global user assertion issuer key. Authenticator attestation trust is a separate policy and is not proven by this assertion fixture. No authoritative global provider public key has been collected for this profile.",
+      "checkedSources": [
+        "https://www.w3.org/TR/webauthn-3/"
+      ]
+    },
+    {
+      "category": "provider-test",
+      "reason": "Pinned Oxide maintainer stub assertion is collected and verified. It is not identity-provider-issued test material or a physical authenticator credential.",
+      "checkedSources": [
+        "https://www.w3.org/TR/webauthn-3/"
+      ]
+    }
+  ]
+}

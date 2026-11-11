@@ -1,0 +1,49 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "facebook",
+  "use_case": "login-link",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/oidc.mjs",
+      "--instance",
+      "login-link/facebook",
+      "--nonce",
+      "22efafdd311913a0a4a052303bf99110cb760f82ae97f6ebf7177af43371e6f0",
+      "--now",
+      "4000000000",
+      "--audience",
+      "credential-proofs-use-case-client",
+      "--subject",
+      "100000000000000000001"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "packages/credential-proofs-inputs/src/oidc.ts importVerifiedOidc (signed with node:crypto)"
+  },
+  "inputs": {
+    "fixtures/data/synthetic-rs256-private.pem": "181021221b11334ea6ed4f36bcb38439613f5fc56eeda12cb192f4ef0b420d66",
+    "fixtures/data/synthetic-rs256-public.pem": "2b7dfcaec8fd468aab2b54441e8ac408d02375c81c48f2dba4d27205b72035ac",
+    "packages/credential-proofs-inputs/src/oidc.ts": "aea6e0218724a1e3acb3d752c805574ecba8c789c0bf5e09b8dee19f5544c8ce",
+    "aztec/use-cases/scripts/fixtures/generators/oidc.mjs": "3bf84f629c58e2597012f3486133bd2d5f215bae759daeb725aea7fbf1c80279",
+    "aztec/use-cases/scripts/fixtures/generators/x509.py": "2a03fa13717c8a96bb79adb48a83beef156bb224a9084dd0a08e12e3e5d9854e"
+  },
+  "key_provenance": "Public synthetic RS256 test key committed in fixtures/data; not a facebook key. Anyone can sign with it.",
+  "claims": {
+    "nonce": "22efafdd311913a0a4a052303bf99110cb760f82ae97f6ebf7177af43371e6f0",
+    "iss": "https://www.facebook.com",
+    "aud": "credential-proofs-use-case-client",
+    "sub": "100000000000000000001",
+    "iat": 3999999940,
+    "exp": 4000003540
+  },
+  "notes": [
+    "The nonce is the instance's bound value observed in TXE; the instance test fails with the value to use when it changes.",
+    "iat is 60 s before --now; the adapter reads the signed iat, and exp - iat is 3600 s.",
+    "later_payload() is the same claims with iat one second later and the same exp, signed by the fixture key; other_key_signature() signs the fixture token under the key from the seed label 'uc login-link other rs256-2048 key v1' (x509.py seeded_key), whose modulus exceeds the fixture key's. The importer checks both tokens.",
+    "Negative cases mutate this fixture in src/test.nr."
+  ],
+  "outputs": {
+    "src/fixture.nr": "470576c25f612d604ff70d08a57e0024c7853ce4230614348d26a940545fb7ec"
+  }
+}

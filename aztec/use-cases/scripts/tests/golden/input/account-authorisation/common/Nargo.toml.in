@@ -1,0 +1,3 @@
+[package]
+name = "uc_account"
+type = "lib"

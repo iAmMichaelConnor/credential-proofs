@@ -1,0 +1,39 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "jpki",
+  "use_case": "login-link",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "python3",
+      "scripts/fixtures/generators/x509.py",
+      "--instance",
+      "login-link/jpki",
+      "--account",
+      "0fc60bc9687ee3b8a3f15123e48a8efee777a426397d69a910a6758e0101cd5e",
+      "--message",
+      "058804d83dc996b9cd401227b91fd19ce719ab9e122ffd19ea173193b0b6951f"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "scripts/fixtures/lib (x509_fixture.signed_ocsp)"
+  },
+  "inputs": {
+    "scripts/fixtures/lib/x509_fixture.py": "6fe61179d7a086bbc085f6a5b44a5d9cd2b6fbf8c200de38bf7ea02ac6f2d2b4",
+    "aztec/use-cases/scripts/fixtures/generators/x509.py": "2a03fa13717c8a96bb79adb48a83beef156bb224a9084dd0a08e12e3e5d9854e"
+  },
+  "key_provenance": "RSA keys derived from the public seeds 'credential-proofs synthetic jpki account <role> key v1' (the account fixture's chain); a local test chain, not JPKI. Anyone can sign with them.",
+  "claims": {
+    "root_sha256": "227a7b03d1ad85973bcc68b43a2de44ee64f1e069ab5f2ca546bffda33478748",
+    "holder_spki_sha256": "46fedcf93aa9b28cbf97e7f63df90d18bb790bdd03676ce2bbf54bf1a6c030d2",
+    "now": 1900000000,
+    "issued_at": 1899999940,
+    "session": "0303030303030303030303030303030303030303030303030303030303030303"
+  },
+  "notes": [
+    "The account and message are the shell address and the timed link challenge observed in TXE; the test fixture_signs_the_challenge fails with the values to use when they change.",
+    "Negative cases mutate this fixture in src/test.nr."
+  ],
+  "outputs": {
+    "src/fixture.nr": "122fbd9ccb6df5e71b18bd8864d0f46106c60ac994302ded8b9c706fe0aaac16"
+  }
+}

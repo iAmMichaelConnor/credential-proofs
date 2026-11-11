@@ -1,0 +1,9 @@
+[package]
+name = "franceconnect_slow_tests"
+type = "lib"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"
+
+[dependencies]
+franceconnect = { path = "../franceconnect" }
+oidc = { path = "../oidc" }

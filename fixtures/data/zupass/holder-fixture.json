@@ -1,0 +1,14 @@
+{
+  "sdk": "@pcd/pod@0.5.1",
+  "pod": {
+    "entries": {
+      "owner": {
+        "eddsa_pubkey": "TYFfTxNQP+n1jnjt/MzPVQ7ypkfURit72HbpH1gKkik"
+      }
+    },
+    "signature": "CRhC7Lyv3DoOglrmQtuP7XSYGKQY3oJAYsQCsHvwSYf1qOp32uB+pE8Zo043XVkTtnzj49okaC4112PaOI70AA",
+    "signerPublicKey": "xDP3ppa3qjpSJO+zmTuvDM2eku7O4MKaP2yCCKnoHZ4"
+  },
+  "action": "123456789",
+  "holderSignature": "x44m0q2uGmDLzYExv5woHDzuiF4qMlvwCuraEzszvRqBvp+adISYdFkDBq2SIGHN3QQVLd8MxzFV/615qCi1BQ"
+}

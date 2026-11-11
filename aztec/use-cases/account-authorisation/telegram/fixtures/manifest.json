@@ -1,0 +1,43 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "telegram",
+  "use_case": "account-authorisation",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/oidc_account.mjs",
+      "--instance",
+      "account-authorisation/telegram",
+      "--action",
+      "049e5c50b4942b609eb4f19e6fc6a5cdd7f8df8daaf8fcad81790e9e30e0b083"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "packages/credential-proofs-inputs/src/oidc.ts createSyntheticOidc(\"telegram\")"
+  },
+  "inputs": {
+    "fixtures/data/synthetic-rs256-private.pem": "181021221b11334ea6ed4f36bcb38439613f5fc56eeda12cb192f4ef0b420d66",
+    "fixtures/data/synthetic-rs256-public.pem": "2b7dfcaec8fd468aab2b54441e8ac408d02375c81c48f2dba4d27205b72035ac",
+    "packages/credential-proofs-inputs/src/oidc.ts": "aea6e0218724a1e3acb3d752c805574ecba8c789c0bf5e09b8dee19f5544c8ce",
+    "aztec/use-cases/scripts/fixtures/generators/oidc_account/telegram.mjs": "1dddf72e6426306c9b818466d158455fb5184fbba62bab02453c02dc8b791321",
+    "aztec/use-cases/scripts/fixtures/generators/oidc_account/rs256.mjs": "66af721576b1cbbe45be2188bb27701acfdfa57afa685a5ec216b10b4db9a3f4",
+    "aztec/use-cases/scripts/fixtures/generators/account.mjs": "10696a752f75b6d3b4d6f5cc69f4b3ac4e69993ef83e16abfb36ede40bd0fd56",
+    "aztec/use-cases/scripts/fixtures/generators/oidc_account.mjs": "dde9617ba9be38effa6fe3364cf854bc94b63afc48fadcf7a683794cd8241071"
+  },
+  "key_provenance": "Public synthetic RS256 test key committed in fixtures/data; not a telegram key. Anyone can sign with it.",
+  "claims": {
+    "nonce": "049e5c50b4942b609eb4f19e6fc6a5cdd7f8df8daaf8fcad81790e9e30e0b083",
+    "iss": "https://oauth.telegram.org",
+    "aud": "123456789",
+    "sub": "opaque-user",
+    "iat": 1899999940,
+    "exp": 1900003600
+  },
+  "notes": [
+    "The action is the instance's action hash at the TXE shell; the test fixture_action_is_the_action fails with the value to use when it changes.",
+    "Negative cases mutate this fixture in src/test.nr."
+  ],
+  "outputs": {
+    "src/fixture.nr": "457f353700be3b50bbe9e9f3e12cf93923e1b6f17ef6b81ffa3985a08a501ec9"
+  }
+}

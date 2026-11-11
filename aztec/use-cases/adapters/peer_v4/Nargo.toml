@@ -1,0 +1,11 @@
+[package]
+name = "uc_adapter_peer_v4"
+type = "lib"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"
+
+[dependencies]
+aztec = { git = "https://github.com/aztec-labs-eng/aztec-nr", tag = "v6.0.0", directory = "aztec" }
+peer_v4_auth = { path = "../../../../noir/peer_v4_auth" }
+uc_payment_settlement = { path = "../../payment-settlement/common" }
+uc_trust = { path = "../../trust" }

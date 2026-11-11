@@ -1,0 +1,55 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "singpass",
+  "use_case": "account-authorisation",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/oidc_account.mjs",
+      "--instance",
+      "account-authorisation/singpass",
+      "--action",
+      "1691a967149312101bd2294927d358f81c33bf4d327fcb9d0d12fb1dcfceaba3"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "packages/credential-proofs-inputs/tests/builders/src/synthetic-es256.ts signSyntheticEs256 (P-256 scalar 42, RFC 6979)"
+  },
+  "inputs": {
+    "packages/credential-proofs-inputs/tests/builders/src/synthetic-es256.ts": "91bcdaa036b99477805ebf7e43f71bfc20aa259b12c0f830b166020698362b7c",
+    "aztec/use-cases/scripts/fixtures/generators/oidc_account/singpass.mjs": "cbb09d3638421f3d3fe724d2c874351e414bfd9cd4f999331fae6968dfe36164",
+    "aztec/use-cases/scripts/fixtures/generators/oidc_account/es256.mjs": "0ab282ef09b2ec6fe591f18b42f1744215c4eeb630d2cad034b0ac0b55fbf92c",
+    "aztec/use-cases/scripts/fixtures/generators/account.mjs": "10696a752f75b6d3b4d6f5cc69f4b3ac4e69993ef83e16abfb36ede40bd0fd56",
+    "aztec/use-cases/scripts/fixtures/generators/oidc_account.mjs": "dde9617ba9be38effa6fe3364cf854bc94b63afc48fadcf7a683794cd8241071"
+  },
+  "key_provenance": "Public synthetic P-256 scalar 42 (packages/credential-proofs-inputs/tests/builders/src/synthetic-es256.ts); not a singpass key. Anyone can sign with it.",
+  "claims": {
+    "header": {
+      "alg": "ES256",
+      "typ": "JWT",
+      "kid": "local-synthetic-singpass"
+    },
+    "iss": "https://id.singpass.gov.sg/fapi",
+    "aud": "local-synthetic-singpass-client",
+    "sub": "local-synthetic-singpass-user",
+    "nonce": "1691a967149312101bd2294927d358f81c33bf4d327fcb9d0d12fb1dcfceaba3",
+    "iat": 1899999940,
+    "exp": 1900003600,
+    "sub_type": "user",
+    "acr": "urn:singpass:authentication:loa:2",
+    "amr": [
+      "pwd",
+      "future-provider-method"
+    ],
+    "sub_attributes": {
+      "name": "SYNTHETIC LOCAL TEST"
+    }
+  },
+  "notes": [
+    "The action is the instance's action hash at the TXE shell; the test fixture_action_is_the_action fails with the value to use when it changes.",
+    "Negative cases mutate this fixture in src/test.nr."
+  ],
+  "outputs": {
+    "src/fixture.nr": "c114ca290109c3ba1e4cea456bdf093f89b5b1169c040db98403c6131232f7c1"
+  }
+}

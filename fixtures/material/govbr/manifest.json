@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "scheme": "govbr",
+  "materials": [
+    {
+      "id": "official-jwks",
+      "category": "provider-public",
+      "kind": "jwks",
+      "environment": "production",
+      "provenance": {
+        "origin": "official-public-distribution",
+        "sourceUrls": [
+          "https://sso.acesso.gov.br/jwk"
+        ],
+        "obtainedAt": "2026-10-22T17:15:12.840Z",
+        "issuerKind": "identity-provider"
+      },
+      "privacy": "public-key-only",
+      "files": [
+        {
+          "path": "fixtures/data/public-trust/govbr/jwks.json",
+          "sha256": "f0412b728b54547d7964f29c7854c34b4f6b3ad79a5064f387284134a899508f"
+        }
+      ],
+      "trust": {
+        "role": "Public ID-token signature verification key. Account policy must independently enroll the exact key and issuer/audience/subject. Entra common keys alone do not authenticate a tenant.",
+        "algorithms": [
+          "RS256"
+        ],
+        "rotationRevocation": "Refresh only this fixed official endpoint; review kid/SPKI changes and explicitly update enrolled account policy. Existing key snapshot is not a perpetual trust guarantee.",
+        "authentication": "Retrieved from an explicitly configured official HTTPS URL using the host trust store; no JWT jku/x5u resolution. JWKS has no intrinsic expiry. Snapshot is provenance, not permanent authorization.",
+        "keys": [
+          {
+            "kid": "rsa1",
+            "kty": "RSA",
+            "alg": "RS256",
+            "use": null,
+            "spkiSha256": "116f9c057ab8fde26c483a8a9eb4d6cc64aea27047479a9a4954e2b1ec22a54c",
+            "asymmetricKeyType": "rsa",
+            "modulusLength": 2048
+          }
+        ]
+      },
+      "verification": {
+        "method": "Parse official HTTPS JWKS and compute public SPKI fingerprints. This is not a provider credential verification.",
+        "verifier": "Node v24.12.0 node:crypto/createPublicKey; exact utility packages/credential-proofs-inputs/src/trust-material.ts",
+        "commands": [
+          "node scripts/fixtures/material/snapshot-trust-material.mjs govbr"
+        ],
+        "result": "public-material-parsed",
+        "evidence": []
+      }
+    },
+    {
+      "id": "repository-rs256-fixture",
+      "category": "local-test",
+      "kind": "fixture-input",
+      "environment": "local-test",
+      "provenance": {
+        "origin": "local-synthetic",
+        "sourceUrls": [],
+        "obtainedAt": "2026-10-22T17:19:55.292999+00:00",
+        "generator": "packages/credential-proofs-inputs/src/oidc.ts createSyntheticOidc or packages/credential-proofs-inputs/src/govbr.ts createSyntheticGovbr; public test-only PEM",
+        "issuerKind": "local-test"
+      },
+      "privacy": "synthetic-subject",
+      "files": [
+        {
+          "path": "noir/govbr_slow_tests/src/known_answer_tests.nr"
+        },
+        {
+          "path": "fixtures/data/synthetic-rs256-public.pem",
+          "sha256": "2b7dfcaec8fd468aab2b54441e8ac408d02375c81c48f2dba4d27205b72035ac"
+        },
+        {
+          "path": "fixtures/data/synthetic-rs256-private.pem",
+          "sha256": "181021221b11334ea6ed4f36bcb38439613f5fc56eeda12cb192f4ef0b420d66"
+        }
+      ],
+      "trust": {
+        "role": "Public repository test key and synthetic ID-token witness only. Never authentic provider-issued evidence.",
+        "algorithms": [
+          "RS256",
+          "RSA2048/65537"
+        ],
+        "rotationRevocation": "No production use; deterministically regenerate local fixtures.",
+        "authentication": "Generated with explicitly local public test PEM; production trust policy must not enroll this key."
+      },
+      "verification": {
+        "method": "Exact token/witness generated and cryptographically imported through shared verifier; Noir witness evidence linked when available.",
+        "verifier": "jose6.2.13; nargo 1.0.0-rc.3",
+        "commands": [
+          "npm run build -w credential-proofs-inputs",
+          "nargo test --program-dir noir --package govbr_slow_tests govbr_"
+        ],
+        "result": "local-relation-executed",
+        "evidence": []
+      }
+    }
+  ],
+  "acquisitionNotes": [
+    {
+      "category": "provider-test",
+      "reason": "No authoritative publicly reusable signed provider-test ID token has been collected. Public JWKS proves key provenance, not token interoperability. Personal capture is optional; local fixtures are explicitly synthetic.",
+      "checkedSources": [
+        "https://sso.acesso.gov.br/jwk"
+      ]
+    }
+  ]
+}

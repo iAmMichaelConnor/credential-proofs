@@ -1,0 +1,7 @@
+{
+  "protocol": "synthetic Peer V4 EIP-712 fixture; not a provider-issued payment",
+  "paymentTimestampMs": "1900000000000",
+  "intentHash": "0x6e4075c9a414c44af694ab555da077fc919f82b02df5eaf70a8cb19c4cbd0e45",
+  "dataHash": "0x7552890b52822d8d2779445e1c1afc8eeab4598259876533910159831df96c3b",
+  "signature": "0x4b8e40ea16ca5da6852be850866a42aeb81f899ce76e8184397b7493e5440a1e4b816ad23a1402fc21a474839466e518bb1a8c0b8adb95f87daae07ff37747591c"
+}

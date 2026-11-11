@@ -1,0 +1,43 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "google",
+  "use_case": "account-authorisation",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/oidc_account.mjs",
+      "--instance",
+      "account-authorisation/google",
+      "--action",
+      "121287a8ea45863d2f620cb7aa30a1669bce642462b69dc6fe3906949d633326"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "packages/credential-proofs-inputs/src/oidc.ts createSyntheticOidc(\"google\")"
+  },
+  "inputs": {
+    "fixtures/data/synthetic-rs256-private.pem": "181021221b11334ea6ed4f36bcb38439613f5fc56eeda12cb192f4ef0b420d66",
+    "fixtures/data/synthetic-rs256-public.pem": "2b7dfcaec8fd468aab2b54441e8ac408d02375c81c48f2dba4d27205b72035ac",
+    "packages/credential-proofs-inputs/src/oidc.ts": "aea6e0218724a1e3acb3d752c805574ecba8c789c0bf5e09b8dee19f5544c8ce",
+    "aztec/use-cases/scripts/fixtures/generators/oidc_account/google.mjs": "6062544dbb69153b27dc672dce4be10247428b0208c8260be6966c2323fa4306",
+    "aztec/use-cases/scripts/fixtures/generators/oidc_account/rs256.mjs": "66af721576b1cbbe45be2188bb27701acfdfa57afa685a5ec216b10b4db9a3f4",
+    "aztec/use-cases/scripts/fixtures/generators/account.mjs": "10696a752f75b6d3b4d6f5cc69f4b3ac4e69993ef83e16abfb36ede40bd0fd56",
+    "aztec/use-cases/scripts/fixtures/generators/oidc_account.mjs": "dde9617ba9be38effa6fe3364cf854bc94b63afc48fadcf7a683794cd8241071"
+  },
+  "key_provenance": "Public synthetic RS256 test key committed in fixtures/data; not a google key. Anyone can sign with it.",
+  "claims": {
+    "nonce": "121287a8ea45863d2f620cb7aa30a1669bce642462b69dc6fe3906949d633326",
+    "iss": "https://accounts.google.com",
+    "aud": "synthetic-client-id-0123456789abcdefghijklmnopqrstuvwxyz-0123456789",
+    "sub": "synthetic-user",
+    "iat": 1899999940,
+    "exp": 1900003600
+  },
+  "notes": [
+    "The action is the instance's action hash at the TXE shell; the test fixture_action_is_the_action fails with the value to use when it changes.",
+    "Negative cases mutate this fixture in src/test.nr."
+  ],
+  "outputs": {
+    "src/fixture.nr": "56fea6ea60fa1589d35407c051ae5b4f4de202e2791ca5f252a34ef688783388"
+  }
+}

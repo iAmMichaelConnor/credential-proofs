@@ -1,0 +1,50 @@
+{
+  "retrievedAt": "2026-10-22T19:32:30.025Z",
+  "rpc": "https://mainnet.base.org",
+  "chainId": 8453,
+  "blockNumber": "52954101",
+  "blockHash": "0x2a1cae32b46300932a25a30dd1a68941de551079013ebbeb172e51e018318d18",
+  "results": [
+    {
+      "name": "SimpleAttestationVerifier",
+      "address": "0xED6C0C34c3964D239e7a315C55E620fafE5Ae3AC",
+      "method": "witness()",
+      "callData": "0x39046e8b",
+      "rawReturn": "0x000000000000000000000000db4ed7faf170f0f6493e3adaacaafaf47092c754",
+      "decoded": "0xDB4Ed7FAF170F0f6493E3adaaCaaFaF47092c754",
+      "codeKeccak256": "0x901c3a5999ed5be2c6ec28c681126b4546f2316e8b90a27fd7507087692d10da"
+    },
+    {
+      "name": "MultiAttestationVerifier",
+      "address": "0x9Fe920b24e50e6a6362BA71a1BeB502A99c402d5",
+      "method": "witnesses()",
+      "callData": "0x53176195",
+      "rawReturn": "0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000002000000000000000000000000db4ed7faf170f0f6493e3adaacaafaf47092c754000000000000000000000000e078d93bfdd87a8c5c5cca5905dcba0dd7a1f0bd",
+      "decoded": [
+        "0xDB4Ed7FAF170F0f6493E3adaaCaaFaF47092c754",
+        "0xE078D93bFdd87A8c5C5cCA5905DCbA0Dd7A1F0BD"
+      ],
+      "codeKeccak256": "0x828a5dae520d3eaed904dfed56994dc6e892eb6416b58ad952c079e220ef841a"
+    },
+    {
+      "name": "MultiAttestationVerifier",
+      "address": "0x9Fe920b24e50e6a6362BA71a1BeB502A99c402d5",
+      "method": "requiredSignatures()",
+      "callData": "0x8d068043",
+      "rawReturn": "0x0000000000000000000000000000000000000000000000000000000000000001",
+      "decoded": "1",
+      "codeKeccak256": "0x828a5dae520d3eaed904dfed56994dc6e892eb6416b58ad952c079e220ef841a"
+    },
+    {
+      "name": "UnifiedPaymentVerifierV3",
+      "address": "0xC6F4a193576C60892a47e111Bb5706c30162502B",
+      "method": "attestationVerifier()",
+      "callData": "0xb4b3c5a0",
+      "rawReturn": "0x0000000000000000000000009fe920b24e50e6a6362ba71a1beb502a99c402d5",
+      "decoded": "0x9Fe920b24e50e6a6362BA71a1BeB502A99c402d5",
+      "codeKeccak256": "0x7636c79f0f46cf88c7122767e553264f1898fa253ea214f6a1c3187b0f0a4bcf"
+    }
+  ],
+  "authentication": "HTTPS to official Base RPC; pinned block number/hash and exact eth_call bytes retained. Not an independently verified light-client/storage proof.",
+  "trustLimit": "These are published Simple/Multi attestor and V3 deployments adjacent to the implemented V4 source. No matching V4 deployment or signed V4 payment has been authenticated; do not use these addresses as V4 domain/policy automatically."
+}

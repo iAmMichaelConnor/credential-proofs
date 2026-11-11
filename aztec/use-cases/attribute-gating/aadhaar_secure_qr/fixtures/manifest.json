@@ -1,0 +1,76 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "aadhaar_secure_qr",
+  "use_case": "attribute-gating",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/aadhaar_secure_qr.mjs",
+      "--instance",
+      "attribute-gating/aadhaar_secure_qr",
+      "--now",
+      "4000000000",
+      "--max-age",
+      "10800"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "packages/credential-proofs-inputs prepareSecureQrInput; node:crypto RSA-SHA256 (PKCS#1 v1.5)"
+  },
+  "inputs": {
+    "fixtures/data/synthetic-rs256-private.pem": "181021221b11334ea6ed4f36bcb38439613f5fc56eeda12cb192f4ef0b420d66",
+    "fixtures/data/synthetic-rs256-public.pem": "2b7dfcaec8fd468aab2b54441e8ac408d02375c81c48f2dba4d27205b72035ac",
+    "fixtures/material/anon_aadhaar/provider-test/test.json": "a72555c462606e3f8e4ac5a280bda95628bb99cac78f7f7910479a55ed7d90c2",
+    "fixtures/material/anon_aadhaar/provider-test/testCertificate.pem": "a025f6e83f50885299d91a881ab667fe08aa8206062ea560e81d06a59bfdaae6",
+    "packages/credential-proofs-inputs/src/aadhaar-secure-qr.ts": "6b5271299365e86b8a4a5e6aa6dfd44ca335a4ba90df6f50a805a3a478448718",
+    "aztec/use-cases/scripts/fixtures/generators/aadhaar_secure_qr.mjs": "1d268992864a3c3dbe1be71b5ddeffa9035fe09dd1193d7c574561b1f6c4084c"
+  },
+  "key_provenance": "Public synthetic RS256 test key committed in fixtures/data, and the Anon Aadhaar upstream test key (testCertificate.pem; its private key is published upstream). Neither is a UIDAI key. Anyone can sign with either.",
+  "claims": {
+    "now": 4000000000,
+    "qr_max_age": 10800,
+    "qrs": {
+      "upstream": {
+        "note": "Anon Aadhaar public test QR, upstream test key (private key published upstream)",
+        "issued_at": 1713557752,
+        "date_of_birth": "01-01-1984",
+        "signed_sha256": "ed90ddc784c38f9b282d2776827e1c699f51c5082dce0b3564d1e09c5a5c8f3d"
+      },
+      "adult": {
+        "note": "the upstream test fields re-issued at --now (holder born 01-01-1984)",
+        "issued_at": 4000000000,
+        "reference_id": "269720961002123640000",
+        "date_of_birth": "01-01-1984",
+        "signed_sha256": "817f5a24165246d2bf5c9ba337b5740d2fee56c142db5f44de06aa81a48e258a"
+      },
+      "reissue": {
+        "note": "the same person re-issued 120 s later with another photo",
+        "issued_at": 4000000120,
+        "reference_id": "269720961002123840000",
+        "date_of_birth": "01-01-1984",
+        "signed_sha256": "5f985d1cd76b9f8f798e2ebf5ef58e0e000291017d273b43f64e2cef06ced4d2"
+      },
+      "minor": {
+        "note": "a 10-year-old holder, issued at --now",
+        "issued_at": 4000000000,
+        "reference_id": "269720961002123640000",
+        "date_of_birth": "01-01-2086",
+        "signed_sha256": "04b74359a067e13364c8a6fbf1aa33f9b7c2f6c42e0ee9137173e3e0bb332247"
+      },
+      "turns_18": {
+        "note": "a holder whose 18th birthday is the IST issuance date (inclusive)",
+        "issued_at": 4000000000,
+        "reference_id": "269720961002123640000",
+        "date_of_birth": "02-10-2078",
+        "signed_sha256": "d76c6704be4529022b031070bbeedc225b9a7bbf386753a66657fce86519eb79"
+      }
+    }
+  },
+  "notes": [
+    "Re-issued QRs keep the upstream test fields (name, gender, address, last four digits 2697) and change only the reference-id time, the date of birth and the photo bytes.",
+    "Negative cases mutate a valid QR in src/test.nr (signature, signed byte, modulus, maximum age)."
+  ],
+  "outputs": {
+    "src/fixture.nr": "2b5aa9a59e02d3379756252806517864e221595f12b9a24c0ba3abaef4a70704"
+  }
+}

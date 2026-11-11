@@ -1,0 +1,2 @@
+# Python dependency of the X.509 fixture generator (generate-x509-fixtures.py).
+cryptography==50.0.2

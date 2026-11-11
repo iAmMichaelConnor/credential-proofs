@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "scheme": "ed25519",
+  "materials": [
+    {
+      "id": "rfc8032-standard-vectors",
+      "category": "provider-test",
+      "kind": "assertion",
+      "environment": "provider-test",
+      "provenance": {
+        "origin": "upstream-public-fixture",
+        "sourceUrls": [
+          "https://www.rfc-editor.org/rfc/rfc8032#section-7.1"
+        ],
+        "obtainedAt": "2026-10-27",
+        "issuerKind": "unknown"
+      },
+      "privacy": "no-subject",
+      "files": [
+        {
+          "path": "fixtures/material/ed25519/provider-test/rfc8032-vectors.json",
+          "sha256": "040e706ed701251af218a3c811ba858c4d359dfb0c69e1767ac350041948d7f5"
+        }
+      ],
+      "trust": {
+        "role": "Published standard test vectors only, not a provider-issued identity.",
+        "algorithms": [
+          "Ed25519"
+        ],
+        "rotationRevocation": "RFC test keys are public and never production issuer roots.",
+        "authentication": "Exact RFC8032 section 7.1 Tests 1, 2, 3, 1024 and SHA(abc), independently verified before strict Noir execution."
+      },
+      "verification": {
+        "method": "Five exact public standard vectors with 0, 1, 2, 1023 and 64 message bytes pass constrained Noir tests. The strict prime-subgroup profile is explicit, not every cofactored variant.",
+        "verifier": "Noble1.2.0 strict Ed25519 and Noir 1.0.0-rc.3",
+        "commands": [
+          "nargo test --program-dir noir --package ed25519_auth_slow_tests"
+        ],
+        "result": "local-relation-executed",
+        "evidence": []
+      }
+    },
+    {
+      "id": "public-local-component-fixture",
+      "category": "local-test",
+      "kind": "fixture-input",
+      "environment": "local-test",
+      "provenance": {
+        "origin": "local-synthetic",
+        "sourceUrls": [],
+        "obtainedAt": "2026-10-22",
+        "generator": "generate-philsys-local.mjs; public Ed25519 seed42 and P256 scalars43/44 only",
+        "issuerKind": "local-test"
+      },
+      "privacy": "synthetic-subject",
+      "files": [
+        {
+          "path": "noir/ed25519_auth_slow_tests/src/known_answer_tests.nr"
+        },
+        {
+          "path": "scripts/fixtures/generate-ed25519-local.mjs"
+        }
+      ],
+      "trust": {
+        "role": "Generic local signature relation only; not an issuer identity credential.",
+        "algorithms": [
+          "Ed25519 strict prime-subgroup",
+          "P256 SHA256"
+        ],
+        "rotationRevocation": "Local public test-only material; never enroll in production. Status assurance is configured relying-party statement, not cryptographic proof of biometric correctness.",
+        "authentication": "Exact synthetic root labels separate from official PSA key and rejected advisory illustration."
+      },
+      "verification": {
+        "method": "Node crypto independently verifies synthetic issuer signature; four host tests and ten Noir enrollment tests. Account integration not yet asserted in this inventory entry.",
+        "verifier": "Node node:crypto plus Noble1.2.0 and nargo 1.0.0-rc.3",
+        "commands": [
+          "node scripts/fixtures/generate-ed25519-local.mjs"
+        ],
+        "result": "credential-signature-verified",
+        "evidence": []
+      }
+    }
+  ],
+  "acquisitionNotes": [
+    {
+      "category": "provider-public",
+      "reason": "Generic signature primitive has no single issuer trust root; provider-specific manifests carry authentic issuer material.",
+      "checkedSources": []
+    }
+  ]
+}

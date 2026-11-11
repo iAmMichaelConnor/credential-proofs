@@ -1,0 +1,51 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "university",
+  "use_case": "login-link",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/oidc.mjs",
+      "--instance",
+      "login-link/university",
+      "--nonce",
+      "1b6b53977a4f5644cc4c4c4e70ae31fd0099d3bd733355c16264d8b27428fef9",
+      "--now",
+      "4000000000",
+      "--audience",
+      "credential-proofs-use-case-client",
+      "--subject",
+      "http://cilogon.org/serverA/users/100001"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "packages/credential-proofs-inputs/src/university.ts importVerifiedUniversity (signed with node:crypto)"
+  },
+  "inputs": {
+    "fixtures/data/synthetic-rs256-private.pem": "181021221b11334ea6ed4f36bcb38439613f5fc56eeda12cb192f4ef0b420d66",
+    "fixtures/data/synthetic-rs256-public.pem": "2b7dfcaec8fd468aab2b54441e8ac408d02375c81c48f2dba4d27205b72035ac",
+    "packages/credential-proofs-inputs/src/university.ts": "0cd4fa86bae08218de400c0f63ee9d982aeb650bf21f3dd4a453574c0ba19bbb",
+    "packages/credential-proofs-inputs/src/oidc.ts": "aea6e0218724a1e3acb3d752c805574ecba8c789c0bf5e09b8dee19f5544c8ce",
+    "aztec/use-cases/scripts/fixtures/generators/oidc.mjs": "3bf84f629c58e2597012f3486133bd2d5f215bae759daeb725aea7fbf1c80279",
+    "aztec/use-cases/scripts/fixtures/generators/x509.py": "2a03fa13717c8a96bb79adb48a83beef156bb224a9084dd0a08e12e3e5d9854e"
+  },
+  "key_provenance": "Public synthetic RS256 test key committed in fixtures/data; not a university key. Anyone can sign with it.",
+  "claims": {
+    "nonce": "1b6b53977a4f5644cc4c4c4e70ae31fd0099d3bd733355c16264d8b27428fef9",
+    "iss": "https://cilogon.org",
+    "aud": "credential-proofs-use-case-client",
+    "sub": "http://cilogon.org/serverA/users/100001",
+    "iat": 3999999940,
+    "exp": 4000000840,
+    "idp": "https://idp.example.edu/idp/shibboleth"
+  },
+  "notes": [
+    "The nonce is the instance's bound value observed in TXE; the instance test fails with the value to use when it changes.",
+    "iat is 60 s before --now; the adapter reads the signed iat, and exp - iat is 900 s.",
+    "later_payload() is the same claims with iat one second later and the same exp, signed by the fixture key; other_key_signature() signs the fixture token under the key from the seed label 'uc login-link other rs256-2048 key v1' (x509.py seeded_key), whose modulus exceeds the fixture key's. The importer checks both tokens.",
+    "Negative cases mutate this fixture in src/test.nr."
+  ],
+  "outputs": {
+    "src/fixture.nr": "c9918b4256f3462240cd1ddb250047570d39065e0f1c18db4b345919f1eb6c0f"
+  }
+}

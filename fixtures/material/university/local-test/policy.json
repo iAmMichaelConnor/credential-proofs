@@ -1,0 +1,9 @@
+{
+  "mode": "cilogon",
+  "issuer": "https://cilogon.org",
+  "audience": "cilogon:/client_id/local-synthetic-university",
+  "subject": "http://cilogon.org/serverA/users/local-synthetic-university",
+  "nonce": "0000000000000000000000000000000000000000000000000000000000000000",
+  "now": 1900000000,
+  "institutionalIdp": "urn:mace:incommon:uiuc.edu"
+}

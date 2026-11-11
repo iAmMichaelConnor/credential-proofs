@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "name": "s2048._domainkey.yahoo.com",
+  "fetchedAt": "2026-10-22T18:26:53.518Z",
+  "sources": [
+    {
+      "url": "https://dns.google/resolve?name=s2048._domainkey.yahoo.com&type=TXT&do=true",
+      "sha256": "8b02da672fe62e5ff1184e3580f16a7a592f90a2b99788ab10dcdceb722fa4ac",
+      "authenticatedData": false,
+      "ttl": 16754,
+      "transport": "HTTPS to trusted recursive resolver; this alone is not DNSSEC validation"
+    },
+    {
+      "url": "https://cloudflare-dns.com/dns-query?name=s2048._domainkey.yahoo.com&type=TXT&do=true",
+      "sha256": "a5a03b756583c9cb0117a1cc85dab874f1d02ed67c2e8ebe0d866d4a4e218cf6",
+      "authenticatedData": false,
+      "ttl": 86400,
+      "transport": "HTTPS to trusted recursive resolver; this alone is not DNSSEC validation"
+    }
+  ],
+  "spkiSha256": "240d86fcad816987530b648b73a20a8d6b3c89c53691ecadf9fbb3bffc9a21ce",
+  "algorithm": "RSA/SHA256 DKIM",
+  "modulusLength": 2048,
+  "authoritativeAttempt": {
+    "nameserver": "ns1.yahoo.com.",
+    "address": "68.180.131.16",
+    "records": [
+      [
+        "k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuoWufgbWw58MczUGbMv176RaxdZGOMkQmn8OOJ/HGoQ6dalSMWiLaj8IMcHC1cubJx2gz",
+        "iAPQHVPtFYayyLA4ayJUSNk10/uqfByiU8qiPCE4JSFrpxflhMIKV4bt+g1uHw7wLzguCf4YAoR6XxUKRsAoHuoF7M+v6bMZ/X1G+viWHkBl4UfgJQ6O8F1ckKKoZ5K",
+        "qUkJH5pDaqbgs+F3PpyiAUQfB6EEzOA1KMPRWJGpzgPtKoukDcQuKUw9GAul7kSIyEcizqrbaUKNLGAmz0elkqRnzIsVpz6jdT1/YV5Ri6YUOQ5sN5bqNzZ8TxoQlkb",
+        "VRy6eKOjUnoSSTmSAhwIDAQAB;"
+      ]
+    ]
+  },
+  "trustRole": "Domain/selector public signature key; not an assertion of private email ownership. No email captured.",
+  "rotationRevocation": "Honor selector DNS TTL and p= revocation; account trust enrollment must authenticate domain+selector and refresh policy.",
+  "verification": "Public key parsed and independent HTTPS resolver answers compared. No DNSSEC guarantee unless explicitly evidenced by authenticatedData; no message-signature vector implied."
+}

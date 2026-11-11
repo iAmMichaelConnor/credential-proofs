@@ -1,0 +1,11 @@
+[package]
+name = "uc_adapter_kakao"
+type = "lib"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"
+
+[dependencies]
+aztec = { git = "https://github.com/aztec-labs-eng/aztec-nr", tag = "v6.0.0", directory = "aztec" }
+kakao = { path = "../../../../noir/kakao" }
+oidc = { path = "../../../../noir/oidc" }
+uc_family_oidc = { path = "../oidc" }

@@ -1,0 +1,137 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "philsys",
+  "use_case": "attribute-gating",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/philsys.mjs",
+      "--instance",
+      "attribute-gating/philsys"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "node:crypto Ed25519; importVerifiedPhilSys (packages/credential-proofs-inputs)"
+  },
+  "inputs": {
+    "aztec/use-cases/scripts/fixtures/generators/philsys.mjs": "eec6ccb05b640680c03e55afab2b32d6b83f46eb2640ee01b6930d5f9e9e0ebe",
+    "packages/credential-proofs-inputs/src/philsys.ts": "d54fe6be5c47e2b5d2b81d37de45c846623381c058961ffea7930a5028ca5cb9",
+    "packages/credential-proofs-inputs/src/ed25519.ts": "effad38d9a0e8d8aae90c33094560b4f8f14d0c9177df0498497d52749fa2d60"
+  },
+  "key_provenance": "Public synthetic Ed25519 issuer keys whose seeds are 32 bytes of 42 (pinned) and 43 (other). Not the PSA key; anyone can sign with them.",
+  "claims": {
+    "qr": {
+      "issuer_seed_byte": 42,
+      "qr": {
+        "DateIssued": "31 May 2021",
+        "Issuer": "PSA",
+        "subject": {
+          "Suffix": "",
+          "lName": "TEST",
+          "fName": "SYNTHETIC",
+          "mName": "ONLY",
+          "sex": "Female",
+          "BF": "[1,10]",
+          "DOB": "March 01, 1947",
+          "POB": "Synthetic Town",
+          "PCN": "0000-0000-0000-0000"
+        },
+        "alg": "EDDSA",
+        "signature": "9mnjejgQm+QI+766hsbPIWp+xMKXNWVZE9ArhlweNjdIWyp7pR1ujsRPBSNzpN/TjXVlmM4fhy+bACyA081gDg=="
+      },
+      "signed_message_sha256": "0ca15627a3d0028dfe73bbc5c7f58f4aab94dcf249ff4f9e0595342aa1322fce"
+    },
+    "other_person": {
+      "issuer_seed_byte": 42,
+      "qr": {
+        "DateIssued": "02 June 2022",
+        "Issuer": "PSA",
+        "subject": {
+          "Suffix": "",
+          "lName": "SAMPLE",
+          "fName": "SECOND",
+          "mName": "",
+          "sex": "Male",
+          "BF": "[1,10]",
+          "DOB": "July 15, 1990",
+          "POB": "Synthetic Town",
+          "PCN": "0000-0000-0000-0001"
+        },
+        "alg": "EDDSA",
+        "signature": "7UJAoB1/CxAXI2AwVbywDRdxbxMw403t2hoUGF76dnvYGrO55Llk4Y8Df3lj5E6cw+n6hLTRhWRVw5RxHp6oDw=="
+      },
+      "signed_message_sha256": "4b32623b7f6568d4b93ac22bb20686c09d0cd861d7a577c46f75c19b3e80f0a6"
+    },
+    "enye": {
+      "issuer_seed_byte": 42,
+      "qr": {
+        "DateIssued": "31 May 2021",
+        "Issuer": "PSA",
+        "subject": {
+          "Suffix": "",
+          "lName": "PEÑA",
+          "fName": "SYNTHETIC",
+          "mName": "ONLY",
+          "sex": "Female",
+          "BF": "[1,10]",
+          "DOB": "March 01, 1947",
+          "POB": "Synthetic Town",
+          "PCN": "0000-0000-0000-0002"
+        },
+        "alg": "EDDSA",
+        "signature": "HCAfFZLAZXA30qnsoz+GJe+wp/OE7ueDFvEWq1VMLeoDHNuTRx0v0eXuLCMPiJOIxh0L42kOFeXUcDR1jvSVBg=="
+      },
+      "signed_message_sha256": "462d8b6cd64806f9b31361538a61ff07cce3598f095a71da6c593e5b235cf529"
+    },
+    "other_issuer": {
+      "issuer_seed_byte": 43,
+      "qr": {
+        "DateIssued": "31 May 2021",
+        "Issuer": "PSA",
+        "subject": {
+          "Suffix": "",
+          "lName": "TEST",
+          "fName": "SYNTHETIC",
+          "mName": "ONLY",
+          "sex": "Female",
+          "BF": "[1,10]",
+          "DOB": "March 01, 1947",
+          "POB": "Synthetic Town",
+          "PCN": "0000-0000-0000-0000"
+        },
+        "alg": "EDDSA",
+        "signature": "qQOUbJPvg0T3oYKEXH06Fp0yPP88P4BUiK748tWpPQTF0GPjkRhaTJ7dfAbt2FCXqJzlSO8yZ+SvZbUOJt/jAw=="
+      },
+      "signed_message_sha256": "0ca15627a3d0028dfe73bbc5c7f58f4aab94dcf249ff4f9e0595342aa1322fce"
+    },
+    "enye_resigned": {
+      "issuer_seed_byte": 42,
+      "qr": {
+        "DateIssued": "31 May 2021",
+        "Issuer": "PSA",
+        "subject": {
+          "Suffix": "",
+          "lName": "PEÑA",
+          "fName": "SYNTHETIC",
+          "mName": "ONLY",
+          "sex": "Female",
+          "BF": "[1,10]",
+          "DOB": "March 01, 1947",
+          "POB": "Synthetic Town",
+          "PCN": "0000-0000-0000-0002"
+        },
+        "alg": "EDDSA",
+        "signature": "vnGaM+LQSxgj1Fp5DId/OBFdKw4vn6V7E5eOQofr1rm3OP4zGdquwsSlHqdCsTIlYYkGbEJI4TOEYcebHl40Cw=="
+      },
+      "signed_message_sha256": "462d8b6cd64806f9b31361538a61ff07cce3598f095a71da6c593e5b235cf529"
+    }
+  },
+  "notes": [
+    "Synthetic legacy PhilID JSON QRs in the profile that philsys_auth accepts; not PSA-issued and not real persons.",
+    "Negative cases (tampered fields, wrong digest, the enye in its unsigned spelling) mutate these QRs in src/test.nr."
+  ],
+  "outputs": {
+    "src/fixture.nr": "893c36b444e63ba44729d1f17e0c79d33cdb5229bfc64c27374827744eeb20b7",
+    "../../adapters/philsys/src/fixture.nr": "67495505017cb610fb6236b223f064f765aca879ebff3532885d20e9b1d0ffc7"
+  }
+}

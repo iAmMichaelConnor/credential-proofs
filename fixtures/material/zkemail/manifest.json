@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "scheme": "zkemail",
+  "materials": [
+    {
+      "id": "yahoo-s2048-public-selector",
+      "category": "provider-public",
+      "kind": "key",
+      "environment": "production",
+      "provenance": {
+        "origin": "official-public-distribution",
+        "issuerKind": "domain-operator",
+        "sourcePublisher": "Yahoo domain DNS operator",
+        "sourceUrls": [
+          "https://dns.google/resolve?name=s2048._domainkey.yahoo.com&type=TXT&do=true",
+          "https://cloudflare-dns.com/dns-query?name=s2048._domainkey.yahoo.com&type=TXT&do=true"
+        ],
+        "obtainedAt": "2026-10-22T18:26:53.518Z"
+      },
+      "privacy": "public-key-only",
+      "files": [
+        {
+          "path": "fixtures/material/zkemail/provider-public/selector-spki.der",
+          "sha256": "240d86fcad816987530b648b73a20a8d6b3c89c53691ecadf9fbb3bffc9a21ce"
+        }
+      ],
+      "trust": {
+        "role": "Domain/selector public signature key; not an assertion of private email ownership. No email captured.",
+        "algorithms": [
+          "RSA2048",
+          "DKIM RSA/SHA256"
+        ],
+        "rotationRevocation": "Honor selector DNS TTL and p= revocation; account trust enrollment must authenticate domain+selector and refresh policy.",
+        "authentication": "Matching Google and Cloudflare HTTPS recursive DNS snapshots plus direct ns1.yahoo.com authoritative TXT response. AD=false: no DNSSEC authentication claimed.",
+        "keys": [
+          {
+            "spkiSha256": "240d86fcad816987530b648b73a20a8d6b3c89c53691ecadf9fbb3bffc9a21ce",
+            "domain": "yahoo.com",
+            "selector": "s2048"
+          }
+        ]
+      },
+      "verification": {
+        "method": "Public key parsed and independent HTTPS resolver answers compared. No DNSSEC guarantee unless explicitly evidenced by authenticatedData; no message-signature vector implied.",
+        "verifier": "Node node:dns and node:crypto/createPublicKey",
+        "commands": [
+          "node scripts/fixtures/material/snapshot-dkim-key.mjs s2048._domainkey.yahoo.com"
+        ],
+        "result": "public-material-parsed",
+        "evidence": [
+          {
+            "path": "fixtures/material/zkemail/provider-public/dns-authority-a.json",
+            "sha256": "2b9030d7e1d018c096821a925f4998b4d49efbe274d3d87c5233bd782a774c77"
+          },
+          {
+            "path": "fixtures/material/zkemail/provider-public/dns-authority-ns.json",
+            "sha256": "d00e36698e688b2431585c40e76f8a6ff11ba75b0cffee1afe89e42e49c667e0"
+          },
+          {
+            "path": "fixtures/material/zkemail/provider-public/dns-cloudflare.json",
+            "sha256": "a5a03b756583c9cb0117a1cc85dab874f1d02ed67c2e8ebe0d866d4a4e218cf6"
+          },
+          {
+            "path": "fixtures/material/zkemail/provider-public/dns-google.json",
+            "sha256": "8b02da672fe62e5ff1184e3580f16a7a592f90a2b99788ab10dcdceb722fa4ac"
+          },
+          {
+            "path": "fixtures/material/zkemail/provider-public/dns-provenance.json",
+            "sha256": "5bd6dd6b3142df1bdf9140381c93d355155e5c9487b304a6e1ab978bc3d13e36"
+          }
+        ]
+      }
+    }
+  ],
+  "acquisitionNotes": [
+    {
+      "category": "provider-public",
+      "reason": "Current DKIM trust is domain+selector DNS policy, not the historical fixture key. No DNSSEC-authenticated live selector snapshot is collected by this entry.",
+      "checkedSources": [
+        "https://www.rfc-editor.org/rfc/rfc6376"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,341 @@
+name: Noir Nightly Canary
+
+on:
+  schedule:
+    # Run a check at 9 AM UTC
+    - cron: "0 9 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  CARGO_TERM_COLOR: always
+  # The slow mode uses the latest release, not nightly, so that a compiler regression and a library regression are
+  # reported apart.
+  SLOW_MODE_NOIR_VERSION: 1.0.0
+  # Keep in sync with test.yml.
+  MINIMUM_NOIR_VERSION: 1.0.0-rc.3
+  AZTEC_VERSION: 6.0.0
+
+jobs:
+  # Every package, example group and host test, whatever changed: the backstop for the pull-request selection
+  # (scripts/changed-packages.sh) and for the dependencies tracked at `main`.
+  packages:
+    name: List the packages
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      noir: ${{ steps.list.outputs.noir }}
+      examples: ${{ steps.list.outputs.examples }}
+      aztec: ${{ steps.list.outputs.aztec }}
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: List
+        id: list
+        run: |
+          ./scripts/changed-packages.sh --all > "$RUNNER_TEMP/selection.txt"
+          cat "$RUNNER_TEMP/selection.txt" >> "$GITHUB_OUTPUT"
+
+  # The pull-request tests (test.yml) on Noir nightly.
+  test:
+    name: Test ${{ matrix.package }} on Nargo nightly
+    needs: packages
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      issues: write
+    strategy:
+      fail-fast: false
+      matrix:
+        package: ${{ fromJson( needs.packages.outputs.noir ) }}
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install Nargo
+        uses: noir-lang/noirup@bedac8fbe6a059177c35e565f9f76db54a795976 # v0.1.5
+        with:
+          toolchain: nightly
+
+      - name: Run tests
+        run: ./scripts/run-tests.sh --package ${{ matrix.package }} --test-threads 4
+
+      - name: Open an issue on failure
+        if: ${{ failure() }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          WORKFLOW_NAME: ${{ github.workflow }}
+          WORKFLOW_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          TEMPLATE: .github/NIGHTLY_CANARY_DIED.md
+        # The template's title and body; an open issue with that title is updated instead of opening another.
+        run: |
+          TITLE=$(sed -n 's/^title: "\(.*\)"$/\1/p' "$TEMPLATE")
+          export TITLE
+          body=$(awk 'n >= 2; /^---$/ { n++ }' "$TEMPLATE")
+          body=${body//'{{env.WORKFLOW_NAME}}'/"$WORKFLOW_NAME"}
+          body=${body//'{{env.WORKFLOW_URL}}'/"$WORKFLOW_URL"}
+          number=$(gh issue list --state open --search "in:title \"$TITLE\"" --json number,title --jq '[.[] | select(.title == env.TITLE)][0].number // empty')
+          if [ -n "$number" ]; then
+            gh issue edit "$number" --body "$body"
+          else
+            gh issue create --title "$TITLE" --body "$body"
+          fi
+
+  # Every package constrained, one job per package, with the thread count of scripts/nightly-threads.txt (default 4).
+  # One timeout for all: the longest measured run is 44 minutes, and `wechatpay` has not been run to completion
+  # locally (CONTRIBUTING.md#tests).
+  slow-mode:
+    name: Slow mode (${{ matrix.package }})
+    needs: packages
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    permissions:
+      contents: read
+      issues: write
+    strategy:
+      fail-fast: false
+      matrix:
+        package: ${{ fromJson( needs.packages.outputs.noir ) }}
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install Nargo
+        uses: noir-lang/noirup@bedac8fbe6a059177c35e565f9f76db54a795976 # v0.1.5
+        with:
+          toolchain: ${{ env.SLOW_MODE_NOIR_VERSION }}
+
+      - name: Run tests constrained
+        run: ./scripts/run-tests.sh --nightly --package ${{ matrix.package }}
+
+      - name: Check base64url's constraints without the Brillig hint
+        if: matrix.package == 'base64url'
+        run: python3 scripts/base64url-hint-disabled-check.py --out "$RUNNER_TEMP/base64url-hint-disabled"
+
+      - name: Open an issue on failure
+        if: ${{ failure() }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          WORKFLOW_NAME: ${{ github.workflow }}
+          WORKFLOW_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          TEMPLATE: .github/SLOW_MODE_FAILED.md
+        # The template's title and body; an open issue with that title is updated instead of opening another.
+        run: |
+          TITLE=$(sed -n 's/^title: "\(.*\)"$/\1/p' "$TEMPLATE")
+          export TITLE
+          body=$(awk 'n >= 2; /^---$/ { n++ }' "$TEMPLATE")
+          body=${body//'{{env.WORKFLOW_NAME}}'/"$WORKFLOW_NAME"}
+          body=${body//'{{env.WORKFLOW_URL}}'/"$WORKFLOW_URL"}
+          number=$(gh issue list --state open --search "in:title \"$TITLE\"" --json number,title --jq '[.[] | select(.title == env.TITLE)][0].number // empty')
+          if [ -n "$number" ]; then
+            gh issue edit "$number" --body "$body"
+          else
+            gh issue create --title "$TITLE" --body "$body"
+          fi
+
+  # The host tests of test.yml, whatever changed.
+  host:
+    name: Host tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install Nargo
+        uses: noir-lang/noirup@bedac8fbe6a059177c35e565f9f76db54a795976 # v0.1.5
+        with:
+          toolchain: ${{ env.MINIMUM_NOIR_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22.23.4
+
+      # The use-case fixture generators (and so the end-to-end tests of check_fixtures.py) need the built input
+      # packages and aztec/use-cases' own dependencies.
+      - name: Install dependencies
+        run: |
+          npm ci --ignore-scripts
+          npm run build -w credential-proofs-inputs -w credential-proofs-test-builders
+          npm ci --ignore-scripts --prefix aztec/use-cases
+          pip install -r scripts/fixtures/requirements.txt
+
+      - name: Input preparation and fixture manifests
+        run: |
+          npm test -w credential-proofs-inputs
+          npm run test:material
+
+      - name: World ID SDK
+        run: |
+          npm test -w credential-proofs-world-id
+          ./scripts/world-id/install-groth16-verifier-hints.sh
+          npm run test:groth16 -w credential-proofs-world-id
+          node scripts/world-id/test-sdk-package.mjs
+          node scripts/world-id/world_id_foundation.mjs --check
+          node scripts/world-id/world_id4_foundation.mjs --check
+
+      - name: Script unit tests
+        run: |
+          python3 -m unittest discover -s scripts/fixtures/tests -p 'test_*.py'
+          python3 -m unittest discover -s scripts/world-id/tests -p 'test_*.py'
+          node --test scripts/world-id/tests/world_id4_input.test.mjs
+          python3 -m unittest discover -s aztec/use-cases/scripts/tests
+
+      - name: Open an issue on failure
+        if: ${{ failure() }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          WORKFLOW_NAME: ${{ github.workflow }}
+          WORKFLOW_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          TEMPLATE: .github/SLOW_MODE_FAILED.md
+        # The template's title and body; an open issue with that title is updated instead of opening another.
+        run: |
+          TITLE=$(sed -n 's/^title: "\(.*\)"$/\1/p' "$TEMPLATE")
+          export TITLE
+          body=$(awk 'n >= 2; /^---$/ { n++ }' "$TEMPLATE")
+          body=${body//'{{env.WORKFLOW_NAME}}'/"$WORKFLOW_NAME"}
+          body=${body//'{{env.WORKFLOW_URL}}'/"$WORKFLOW_URL"}
+          number=$(gh issue list --state open --search "in:title \"$TITLE\"" --json number,title --jq '[.[] | select(.title == env.TITLE)][0].number // empty')
+          if [ -n "$number" ]; then
+            gh issue edit "$number" --body "$body"
+          else
+            gh issue create --title "$TITLE" --body "$body"
+          fi
+
+  # Every example group of test.yml: the type-check of every aztec/ package, the World ID gates, the cores, the
+  # adapters and every use-case instance.
+  examples:
+    name: Examples (${{ matrix.group }})
+    needs: packages
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+      issues: write
+    strategy:
+      fail-fast: false
+      matrix:
+        group: ${{ fromJson( needs.packages.outputs.examples ) }}
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22.23.4
+
+      - name: Cache Aztec toolchain
+        id: aztec-cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.aztec
+          key: aztec-${{ env.AZTEC_VERSION }}-${{ runner.os }}
+
+      - name: Install Aztec toolchain
+        if: steps.aztec-cache.outputs.cache-hit != 'true'
+        run: curl -fsSL https://install.aztec-labs.com | VERSION=${{ env.AZTEC_VERSION }} bash
+
+      - name: Add Aztec toolchain to PATH
+        run: |
+          echo "$HOME/.aztec/current/bin" >> $GITHUB_PATH
+          echo "$HOME/.aztec/bin" >> $GITHUB_PATH
+
+      - name: Cache Nargo dependencies
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/nargo
+          key: nargo-${{ hashFiles('**/Nargo.toml') }}
+
+      - name: Test
+        env:
+          GROUP: ${{ matrix.group }}
+          PACKAGES: ${{ needs.packages.outputs.aztec }}
+        run: |
+          case "$GROUP" in
+            check) cd aztec && jq -r '.[]' <<<"$PACKAGES" | xargs -P 4 -I{} aztec-nargo check --package {} --silence-warnings ;;
+            world-id) ./scripts/test-world-id.sh --test-threads 4 ;;
+            *) aztec/use-cases/scripts/test-use-cases.sh --jobs 4 --test-threads 4 $GROUP ;;
+          esac
+
+      - name: Open an issue on failure
+        if: ${{ failure() }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          WORKFLOW_NAME: ${{ github.workflow }}
+          WORKFLOW_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          TEMPLATE: .github/SLOW_MODE_FAILED.md
+        # The template's title and body; an open issue with that title is updated instead of opening another.
+        run: |
+          TITLE=$(sed -n 's/^title: "\(.*\)"$/\1/p' "$TEMPLATE")
+          export TITLE
+          body=$(awk 'n >= 2; /^---$/ { n++ }' "$TEMPLATE")
+          body=${body//'{{env.WORKFLOW_NAME}}'/"$WORKFLOW_NAME"}
+          body=${body//'{{env.WORKFLOW_URL}}'/"$WORKFLOW_URL"}
+          number=$(gh issue list --state open --search "in:title \"$TITLE\"" --json number,title --jq '[.[] | select(.title == env.TITLE)][0].number // empty')
+          if [ -n "$number" ]; then
+            gh issue edit "$number" --body "$body"
+          else
+            gh issue create --title "$TITLE" --body "$body"
+          fi
+
+  # Every aztec/ package compiled to a circuit (pull requests and the nightly run only type-check the examples). It
+  # takes about 390 CPU-minutes, so it runs only when started by hand.
+  compile-examples:
+    name: Compile example contracts on Aztec 6.0.0
+    if: github.event_name == 'workflow_dispatch'
+    needs: packages
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22.23.4
+
+      - name: Cache Aztec toolchain
+        id: aztec-cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.aztec
+          key: aztec-${{ env.AZTEC_VERSION }}-${{ runner.os }}
+
+      - name: Install Aztec toolchain
+        if: steps.aztec-cache.outputs.cache-hit != 'true'
+        run: curl -fsSL https://install.aztec-labs.com | VERSION=${{ env.AZTEC_VERSION }} bash
+
+      - name: Add Aztec toolchain to PATH
+        run: |
+          echo "$HOME/.aztec/current/bin" >> $GITHUB_PATH
+          echo "$HOME/.aztec/bin" >> $GITHUB_PATH
+
+      - name: Cache Nargo dependencies
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/nargo
+          key: nargo-${{ hashFiles('**/Nargo.toml') }}
+
+      - name: Compile the example contracts
+        env:
+          PACKAGES: ${{ needs.packages.outputs.aztec }}
+        working-directory: aztec
+        run: jq -r '.[]' <<<"$PACKAGES" | xargs -P 4 -I{} aztec-nargo compile --package {} --silence-warnings

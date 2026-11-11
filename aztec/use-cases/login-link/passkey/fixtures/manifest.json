@@ -1,0 +1,39 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "passkey",
+  "use_case": "login-link",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/login_link.mjs",
+      "--instance",
+      "login-link/passkey",
+      "--message",
+      "1bfd9d583d6ae05690ff61c7b833d8030e884b47d9e03f092874022206c16cc2"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "aztec/use-cases dependencies @noble/curves p256 (RFC 6979, low s)"
+  },
+  "key_provenance": "P-256 keys sha256('credential-proofs synthetic passkey login-link key v1') and '... other key v1'; public seeds, not authenticator keys. Anyone can sign with them.",
+  "claims": {
+    "rp_id": "example.com",
+    "origin": "https://example.com",
+    "flags": "0x05 (UP, UV)",
+    "sign_count": 1,
+    "issued_at": 3999999940,
+    "client_data_json": "{\"type\":\"webauthn.get\",\"challenge\":\"G_2dWD1q4FaQ_2HHuDPYAw6IS0fZ4D8JKHQCIgbBbMI\",\"origin\":\"https://example.com\",\"crossOrigin\":false}"
+  },
+  "notes": [
+    "The signed value is observed at the instance's TXE shell; the test fixture_signs_the_challenge fails with the value to pass when it changes.",
+    "The issue time is 60 s before --now.",
+    "Negative cases mutate this fixture in src/test.nr."
+  ],
+  "inputs": {
+    "aztec/use-cases/scripts/fixtures/generators/login_link.mjs": "1e8579707fc6586013c781bd5c63a4b5f481435b41731780ee3905dbbc891dd7",
+    "aztec/use-cases/scripts/fixtures/generators/event.mjs": "ee042da71aab4fa4d529f8d22a039f5f94b2420fb202da0ce6270cbd4f675387"
+  },
+  "outputs": {
+    "src/fixture.nr": "892b8f03f7bd872b6864437b209757b621398a2242a25ee1e248d5dd2d030033"
+  }
+}

@@ -1,0 +1,9 @@
+[package]
+name = "anon_aadhaar_v2_auth"
+type = "lib"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"
+
+[dependencies]
+groth16 = { git = "https://github.com/iAmMichaelConnor/groth16-verifier", tag = "v0.1.0", directory = "noir/groth16" }
+keccak256 = { tag = "main", git = "https://github.com/noir-lang/keccak256" }

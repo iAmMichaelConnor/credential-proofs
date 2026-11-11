@@ -1,0 +1,17 @@
+{
+  "schema": "groth16-verifier-profile-v2",
+  "name": "anon_aadhaar_v2",
+  "mode": "private",
+  "keyPolicy": "fixed",
+  "inputCount": 9,
+  "certificate": "groth16-fixed-global68-v1",
+  "keyHash": "21595107836515423986638629967959216111233384772783373808573971720568342632564",
+  "configurationHash": "20473657354623501274898098223695708451717580461443823453172650611573988160603",
+  "statementSchema": "groth16-verifier-statement-v1",
+  "toolchain": {
+    "aztecCommit": "0219f11d8133970df3974fe5ae65e006bf8c193a",
+    "noirCommit": "5a7ee9bf5ed8973076df7bb0d2b723024db09ae7",
+    "backend": "stock-v6"
+  },
+  "domain": "finite-pairing-operands-v1"
+}

@@ -1,0 +1,9 @@
+[package]
+name = "university_auth_slow_tests"
+type = "lib"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"
+
+[dependencies]
+university_auth = { path = "../university_auth" }
+oidc = { path = "../oidc" }

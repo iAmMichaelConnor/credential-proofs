@@ -1,0 +1,41 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "jpki",
+  "use_case": "account-authorisation",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "python3",
+      "scripts/fixtures/generators/x509.py",
+      "--instance",
+      "account-authorisation/jpki",
+      "--account",
+      "2e2a8767a4b63ab63999b53f889d7c85cb1c5e84027436f038fc595ae3b34470",
+      "--action",
+      "1056a1fb0b31c2421f2a242735c8aabd6c187a84bcc73d4035f026349623e270",
+      "--next-action",
+      "171029378f39a6cde844a475f79677c4dfb4686d4c174b1ae87b4af354bf3d50"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "scripts/fixtures/lib (x509_fixture.signed_ocsp)"
+  },
+  "inputs": {
+    "scripts/fixtures/lib/x509_fixture.py": "6fe61179d7a086bbc085f6a5b44a5d9cd2b6fbf8c200de38bf7ea02ac6f2d2b4",
+    "aztec/use-cases/scripts/fixtures/generators/x509.py": "2a03fa13717c8a96bb79adb48a83beef156bb224a9084dd0a08e12e3e5d9854e"
+  },
+  "key_provenance": "RSA keys derived from the public seeds 'credential-proofs synthetic jpki account <role> key v1'; a local test chain, not JPKI. Anyone can sign with them.",
+  "claims": {
+    "root_sha256": "227a7b03d1ad85973bcc68b43a2de44ee64f1e069ab5f2ca546bffda33478748",
+    "holder_spki_sha256": "46fedcf93aa9b28cbf97e7f63df90d18bb790bdd03676ce2bbf54bf1a6c030d2",
+    "now": 1900000000,
+    "session": "0303030303030303030303030303030303030303030303030303030303030303",
+    "next_session": "0505050505050505050505050505050505050505050505050505050505050505"
+  },
+  "notes": [
+    "The account and actions are the shell address and action hashes observed in TXE; the test fixture_is_for_this_account fails with the values to use when they change.",
+    "Negative cases mutate this fixture in src/test.nr."
+  ],
+  "outputs": {
+    "src/fixture.nr": "0f4558cf28c8e3b14a97636df44bacc146aa775621268947c314fcac8918d5e1"
+  }
+}

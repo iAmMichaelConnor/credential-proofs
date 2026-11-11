@@ -1,0 +1,10 @@
+[package]
+name = "ed25519_auth_slow_tests"
+type = "lib"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"
+
+[dependencies]
+ed25519_auth = { path = "../ed25519_auth" }
+edwards_bignum = { git = "https://github.com/willemolding/noir-edwards-bignum", tag = "v0.1.0-alpha.4" }
+bignum = { git = "https://github.com/noir-lang/noir-bignum", tag = "v0.10.0" }

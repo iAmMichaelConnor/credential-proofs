@@ -1,0 +1,12 @@
+# attribute-gating
+
+Hand-written text.
+
+<!-- use-case-instances:start -->
+Each instance is a contract in `<scheme>/src/main.nr`, entrypoint `act(terms, evidence)` (govbr: `act(terms, evidence, choice)`), package `<scheme>_attribute_gate`, tested by `scripts/test-use-cases.sh attribute-gating/<scheme>` (no TXE tests for anon_aadhaar, govbr). Its `src/test.nr` has the tests `valid`, `replay_rejected`, `wrong_issuer_rejected`, `predicate_false_rejected`, `wrong_binding_rejected`, `stale_rejected`, `second_use_rejected`; [use-cases.json](../use-cases.json) records each exception and its reason. The category is the evidence category of [ARCHITECTURE.md](../ARCHITECTURE.md#evidence-and-authority).
+
+| Instance | Category | Contract | Adapter | Residual risk and notes |
+| --- | --- | --- | --- | --- |
+| [anon_aadhaar](anon_aadhaar/src/main.nr) | 6 | `AnonAadhaarAttributeGate` | [`uc_adapter_anon_aadhaar`](../adapters/anon_aadhaar/src/lib.nr) | - |
+| [govbr](govbr/src/main.nr) | 3 | `GovbrAttributeGate` | [`uc_adapter_govbr`](../adapters/govbr/src/lib.nr) via `OidcAttribute` | - |
+<!-- use-case-instances:end -->

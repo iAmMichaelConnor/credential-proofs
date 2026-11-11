@@ -1,0 +1,7 @@
+[package]
+name = "uc_adapter_anon_aadhaar"
+type = "lib"
+authors = ["Michael Connor"]
+
+[dependencies]
+aztec = { git = "https://github.com/aztec-labs-eng/aztec-nr", tag = "v6.0.0", directory = "aztec" }

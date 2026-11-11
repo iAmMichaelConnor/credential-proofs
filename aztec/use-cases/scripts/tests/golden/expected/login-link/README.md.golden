@@ -1,0 +1,12 @@
+# login-link
+
+Hand-written text.
+
+<!-- use-case-instances:start -->
+Each instance is a contract in `<scheme>/src/main.nr`, entrypoint `link(terms, evidence)`, package `<scheme>_login_link`, tested by `scripts/test-use-cases.sh login-link/<scheme>` (no TXE tests for linkedin). Its `src/test.nr` has the tests `valid`, `replay_rejected`, `wrong_issuer_rejected`, `wrong_challenge_rejected`, `stale_rejected`; [use-cases.json](../use-cases.json) records each exception and its reason. The category is the evidence category of [ARCHITECTURE.md](../ARCHITECTURE.md#evidence-and-authority).
+
+| Instance | Category | Contract | Adapter | Residual risk and notes |
+| --- | --- | --- | --- | --- |
+| [google](google/src/main.nr) | 3 | `GoogleLoginLink` | [`uc_adapter_google`](../adapters/google/src/lib.nr) via `OidcLink` | - |
+| [linkedin](linkedin/src/main.nr) | 3 | `LinkedinLoginLink` | [`uc_adapter_linkedin`](../adapters/linkedin/src/lib.nr) via `OidcBearerLink` | Bearer: any holder of a copy of the token can link the subject to their own address (`ALSO_IDP \| ALSO_COPY_HOLDER`) until the bearer ceiling or the token's expiry. `sub` is treated as pairwise. |
+<!-- use-case-instances:end -->

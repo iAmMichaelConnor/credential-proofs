@@ -1,0 +1,8 @@
+[package]
+name = "anon_aadhaar_v2_auth_slow_tests"
+type = "lib"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"
+
+[dependencies]
+anon_aadhaar_v2_auth = { path = "../anon_aadhaar_v2_auth" }

@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "providerId": "e94e776d-f040-431b-a834-8f5bed297ec3",
+  "providerVersion": "16.0.3",
+  "sourceUrl": "https://api.reclaimprotocol.org/api/providers/e94e776d-f040-431b-a834-8f5bed297ec3/configs?versionNumber=16.0.3&allowedTags=",
+  "source": "Official Reclaim provider catalogue response retained unchanged for the normal credentials host test.",
+  "retrievedUtc": "2026-10-23",
+  "file": "reclaim-twitter-provider-16.0.3.json",
+  "bytes": 942,
+  "sha256": "859716f14bcdfc04b0454343759a2642de2122cdb40d43805f395e1b27cc0d0d"
+}

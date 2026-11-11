@@ -1,0 +1,10 @@
+{
+  "manifest": "../manifest.json",
+  "category": "local-test",
+  "materialIds": [
+    "jpki-local-root",
+    "jpki-local-holder",
+    "jpki-local-responder",
+    "jpki-local-signed-status-and-challenge"
+  ]
+}

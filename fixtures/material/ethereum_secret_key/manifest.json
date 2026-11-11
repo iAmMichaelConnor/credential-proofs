@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "scheme": "ethereum_secret_key",
+  "materials": [
+    {
+      "id": "local-relation-fixture",
+      "category": "local-test",
+      "kind": "fixture-input",
+      "environment": "local-test",
+      "provenance": {
+        "origin": "local-synthetic",
+        "sourceUrls": [],
+        "obtainedAt": "2026-10-22T17:25:08.000059+00:00",
+        "generator": "Existing repository fixture generation paths; files retained by reference",
+        "issuerKind": "local-test"
+      },
+      "privacy": "synthetic-subject",
+      "files": [
+        {
+          "path": "fixtures/data/generated/ethereum-secret-key.synthetic.toml",
+          "sha256": "71b7da3c84f8a92a51a9c012ea0daea7f6d0158fbd6dc6079247102176366b23"
+        }
+      ],
+      "trust": {
+        "role": "Knowledge of an enrolled holder secret scalar, not provider-issued credential. Test scalar is deliberately public.",
+        "algorithms": [
+          "secp256k1"
+        ],
+        "rotationRevocation": "Fixture only; deployed credential/attestor holder keys must follow enrolled protocol policy.",
+        "authentication": "Explicitly local synthetic test material; never authenticate a production issuer through this fixture."
+      },
+      "verification": {
+        "method": "Full constrained standalone witness executes the exact local fixture (TOML values match the referenced input). Synthetic test material only; no provider-issued credential or proof claim.",
+        "verifier": "nargo 1.0.0-rc.3; exact compiler/artifact/input hashes in execution record.",
+        "commands": [
+          "nargo test --program-dir noir --package ethereum_auth ethereum_secret_key_"
+        ],
+        "result": "local-relation-executed",
+        "evidence": []
+      }
+    }
+  ],
+  "acquisitionNotes": [
+    {
+      "category": "provider-public",
+      "reason": "Knowledge of an enrolled holder secret scalar, not provider-issued credential. Test scalar is deliberately public. No authoritative global provider public key has been collected for this profile.",
+      "checkedSources": [
+        "https://eips.ethereum.org/EIPS/eip-191"
+      ]
+    },
+    {
+      "category": "provider-test",
+      "reason": "No published provider-test credential has yet been verified for this inventory; existing synthetic relation fixture remains local-test.",
+      "checkedSources": [
+        "https://eips.ethereum.org/EIPS/eip-191"
+      ]
+    }
+  ]
+}

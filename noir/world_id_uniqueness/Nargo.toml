@@ -1,0 +1,10 @@
+[package]
+name = "world_id_uniqueness"
+type = "lib"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"
+
+[dependencies]
+poseidon = { git = "https://github.com/noir-lang/poseidon", tag = "v0.4.0" }
+common = { path = "../world_id_common" }
+runtime_verifier = { git = "https://github.com/iAmMichaelConnor/groth16-verifier", tag = "v0.1.0", directory = "noir/runtime_verifier" }

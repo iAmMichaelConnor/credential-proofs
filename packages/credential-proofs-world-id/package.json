@@ -1,0 +1,48 @@
+{
+  "name": "credential-proofs-world-id",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "Apache-2.0",
+  "description": "World ID uniqueness policies and Groth16 codecs for Aztec v6",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./groth16": {
+      "types": "./dist/groth16.d.ts",
+      "import": "./dist/groth16.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "build:host": "tsc -p tsconfig.host.json",
+    "test": "npm run build:host && node --test test/sdk.test.mjs",
+    "test:groth16": "npm run build && node --test --test-concurrency=1 test/sdk.test.mjs test/groth16.test.mjs"
+  },
+  "dependencies": {
+    "@noble/hashes": "1.6.0",
+    "@noble/curves": "1.7.0"
+  },
+  "peerDependencies": {
+    "groth16-verifier-hints": "0.1.0"
+  },
+  "peerDependenciesMeta": {
+    "groth16-verifier-hints": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "24.0.0",
+    "typescript": "6.0.3"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

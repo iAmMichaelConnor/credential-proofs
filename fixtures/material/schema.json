@@ -1,0 +1,451 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Auth credential-material evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "scheme",
+    "materials",
+    "acquisitionNotes"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "scheme": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "materials": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/material"
+      }
+    },
+    "acquisitionNotes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "category",
+          "reason",
+          "checkedSources"
+        ],
+        "properties": {
+          "category": {
+            "enum": [
+              "provider-public",
+              "provider-test",
+              "local-test"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "checkedSources": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^https://"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "sha256"
+          ]
+        },
+        {
+          "properties": {
+            "path": {
+              "$ref": "#/definitions/existenceOnlyPath"
+            }
+          }
+        }
+      ]
+    },
+    "material": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "category",
+        "kind",
+        "environment",
+        "provenance",
+        "privacy",
+        "files",
+        "trust",
+        "verification"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "category": {
+          "enum": [
+            "provider-public",
+            "provider-test",
+            "local-test"
+          ]
+        },
+        "kind": {
+          "enum": [
+            "jwks",
+            "certificate",
+            "verification-key",
+            "credential",
+            "assertion",
+            "key",
+            "fixture-input",
+            "provenance-report"
+          ]
+        },
+        "environment": {
+          "enum": [
+            "production",
+            "provider-test",
+            "local-test"
+          ]
+        },
+        "provenance": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "origin",
+            "sourceUrls",
+            "obtainedAt",
+            "issuerKind"
+          ],
+          "properties": {
+            "origin": {
+              "enum": [
+                "official-public-distribution",
+                "official-published-test",
+                "local-synthetic",
+                "upstream-public-fixture"
+              ]
+            },
+            "sourceUrls": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^https://"
+              }
+            },
+            "obtainedAt": {
+              "type": "string",
+              "minLength": 1
+            },
+            "generator": {
+              "type": "string"
+            },
+            "issuerKind": {
+              "enum": [
+                "identity-provider",
+                "api-provider",
+                "domain-operator",
+                "certificate-authority",
+                "upstream-maintainer",
+                "local-test",
+                "unknown",
+                "not-applicable"
+              ]
+            },
+            "sourcePublisher": {
+              "type": "string"
+            }
+          }
+        },
+        "privacy": {
+          "enum": [
+            "public-key-only",
+            "published-test-subject",
+            "synthetic-subject",
+            "no-subject"
+          ]
+        },
+        "files": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/reference"
+          }
+        },
+        "trust": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "role",
+            "algorithms",
+            "rotationRevocation",
+            "authentication"
+          ],
+          "properties": {
+            "role": {
+              "type": "string",
+              "minLength": 1
+            },
+            "algorithms": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "rotationRevocation": {
+              "type": "string",
+              "minLength": 1
+            },
+            "authentication": {
+              "type": "string",
+              "minLength": 1
+            },
+            "keys": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            },
+            "certificate": {
+              "type": "object",
+              "required": [
+                "subject",
+                "issuer",
+                "notBefore",
+                "notAfter",
+                "purpose",
+                "independentAnchor",
+                "chainVerification",
+                "keyUsage",
+                "basicConstraints",
+                "policies",
+                "chainRole"
+              ],
+              "properties": {
+                "subject": {
+                  "type": "string"
+                },
+                "issuer": {
+                  "type": "string"
+                },
+                "notBefore": {
+                  "type": "string"
+                },
+                "notAfter": {
+                  "type": "string"
+                },
+                "purpose": {
+                  "type": "string"
+                },
+                "independentAnchor": {
+                  "type": "string"
+                },
+                "chainVerification": {
+                  "type": "string"
+                },
+                "keyUsage": {
+                  "type": "string"
+                },
+                "basicConstraints": {
+                  "type": "string"
+                },
+                "policies": {
+                  "type": "string"
+                },
+                "chainRole": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "corroboration": {
+          "description": "Independent checks of a pinned key after acquisition: a live re-fetch, the TLS identity, archived snapshots or cross-checks. Each check records what it saw; the shape varies by source.",
+          "type": "object",
+          "required": [
+            "checkedAt"
+          ],
+          "properties": {
+            "checkedAt": {
+              "type": "string",
+              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}"
+            }
+          }
+        },
+        "verification": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "method",
+            "verifier",
+            "commands",
+            "result",
+            "evidence"
+          ],
+          "properties": {
+            "method": {
+              "type": "string",
+              "minLength": 1
+            },
+            "verifier": {
+              "type": "string",
+              "minLength": 1
+            },
+            "commands": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string"
+              }
+            },
+            "result": {
+              "enum": [
+                "public-material-parsed",
+                "credential-signature-verified",
+                "chain-and-purpose-verified",
+                "local-relation-executed",
+                "not-yet-verified",
+                "signature-rejected",
+                "chain-rejected",
+                "invalid-provider-sample"
+              ]
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/reference"
+              }
+            }
+          }
+        },
+        "environmentDetail": {
+          "type": "string"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "local-test"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "provenance": {
+                "properties": {
+                  "origin": {
+                    "const": "local-synthetic"
+                  }
+                }
+              },
+              "environment": {
+                "const": "local-test"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "provider-public"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "privacy": {
+                "enum": [
+                  "public-key-only",
+                  "no-subject"
+                ]
+              },
+              "provenance": {
+                "properties": {
+                  "origin": {
+                    "const": "official-public-distribution"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "provider-test"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "provenance": {
+                "properties": {
+                  "origin": {
+                    "enum": [
+                      "official-published-test",
+                      "upstream-public-fixture"
+                    ]
+                  }
+                }
+              },
+              "environment": {
+                "const": "provider-test"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "certificate"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "trust": {
+                "required": [
+                  "certificate"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "existenceOnlyPath": {
+      "type": "string",
+      "pattern": "(?:\\.md$|^(?:noir|scripts|packages/credential-proofs-inputs/(?:src|scripts|tests)|aztec/use-cases)/.*\\.(?:nr|ts|js|mjs|py|sh)$)"
+    }
+  }
+}

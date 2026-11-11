@@ -1,0 +1,87 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "wechatpay",
+  "use_case": "payment-settlement",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/platform_payment.mjs",
+      "--instance",
+      "payment-settlement/wechatpay",
+      "--reference",
+      "1e9b793d92e625b69f67048159a04b7f7d9a190e4583b1474c263207ecdd1bf3",
+      "--now",
+      "4000000000",
+      "--max-age",
+      "300"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "node:crypto RSA-SHA256 (PKCS#1 v1.5)"
+  },
+  "inputs": {
+    "fixtures/data/synthetic-rs256-private.pem": "181021221b11334ea6ed4f36bcb38439613f5fc56eeda12cb192f4ef0b420d66",
+    "fixtures/data/synthetic-rs256-public.pem": "2b7dfcaec8fd468aab2b54441e8ac408d02375c81c48f2dba4d27205b72035ac",
+    "aztec/use-cases/scripts/fixtures/generators/platform_payment.mjs": "b0c9201d0e806bf9b0634d434aff73896577cfabc9dd4c018c76d88b83a84d9a"
+  },
+  "key_provenance": "Public synthetic RS256 test key committed in fixtures/data; not a wechatpay platform key. Anyone can sign with it.",
+  "claims": {
+    "timestamp": "4000000000",
+    "nonce": "synthetic-wechatpay-query-nonce",
+    "responses": {
+      "payment": {
+        "appid": "wx1234567890abcdef",
+        "mchid": "1900000001",
+        "transaction_id": "4200000000202610250000000001",
+        "openid": "synthetic-openid-001",
+        "total": 2500,
+        "timestamp": "4000000000",
+        "body": "{\"appid\":\"wx1234567890abcdef\",\"mchid\":\"1900000001\",\"trade_state\":\"SUCCESS\",\"transaction_id\":\"4200000000202610250000000001\",\"attach\":\"1e9b793d92e625b69f67048159a04b7f7d9a190e4583b1474c263207ecdd1bf3\",\"payer\":{\"openid\":\"synthetic-openid-001\"},\"amount\":{\"total\":2500,\"payer_total\":2500,\"currency\":\"CNY\"}}"
+      },
+      "other_transaction": {
+        "appid": "wx1234567890abcdef",
+        "mchid": "1900000001",
+        "transaction_id": "4200000000202610250000000002",
+        "openid": "synthetic-openid-001",
+        "total": 2500,
+        "timestamp": "4000000000",
+        "body": "{\"appid\":\"wx1234567890abcdef\",\"mchid\":\"1900000001\",\"trade_state\":\"SUCCESS\",\"transaction_id\":\"4200000000202610250000000002\",\"attach\":\"1e9b793d92e625b69f67048159a04b7f7d9a190e4583b1474c263207ecdd1bf3\",\"payer\":{\"openid\":\"synthetic-openid-001\"},\"amount\":{\"total\":2500,\"payer_total\":2500,\"currency\":\"CNY\"}}"
+      },
+      "other_amount": {
+        "appid": "wx1234567890abcdef",
+        "mchid": "1900000001",
+        "transaction_id": "4200000000202610250000000003",
+        "openid": "synthetic-openid-001",
+        "total": 2499,
+        "timestamp": "4000000000",
+        "body": "{\"appid\":\"wx1234567890abcdef\",\"mchid\":\"1900000001\",\"trade_state\":\"SUCCESS\",\"transaction_id\":\"4200000000202610250000000003\",\"attach\":\"1e9b793d92e625b69f67048159a04b7f7d9a190e4583b1474c263207ecdd1bf3\",\"payer\":{\"openid\":\"synthetic-openid-001\"},\"amount\":{\"total\":2499,\"payer_total\":2499,\"currency\":\"CNY\"}}"
+      },
+      "other_merchant": {
+        "appid": "wx1234567890abcdef",
+        "mchid": "1900000002",
+        "transaction_id": "4200000000202610250000000004",
+        "openid": "synthetic-openid-001",
+        "total": 2500,
+        "timestamp": "4000000000",
+        "body": "{\"appid\":\"wx1234567890abcdef\",\"mchid\":\"1900000002\",\"trade_state\":\"SUCCESS\",\"transaction_id\":\"4200000000202610250000000004\",\"attach\":\"1e9b793d92e625b69f67048159a04b7f7d9a190e4583b1474c263207ecdd1bf3\",\"payer\":{\"openid\":\"synthetic-openid-001\"},\"amount\":{\"total\":2500,\"payer_total\":2500,\"currency\":\"CNY\"}}"
+      },
+      "with_coupon": {
+        "appid": "wx1234567890abcdef",
+        "mchid": "1900000001",
+        "transaction_id": "4200000000202610250000000005",
+        "openid": "synthetic-openid-001",
+        "total": 2500,
+        "coupon": 100,
+        "timestamp": "4000000000",
+        "body": "{\"appid\":\"wx1234567890abcdef\",\"mchid\":\"1900000001\",\"out_trade_no\":\"1217752501201407033233368018\",\"transaction_id\":\"4200000000202610250000000005\",\"trade_type\":\"JSAPI\",\"trade_state\":\"SUCCESS\",\"trade_state_desc\":\"支付成功\",\"bank_type\":\"CMC\",\"attach\":\"1e9b793d92e625b69f67048159a04b7f7d9a190e4583b1474c263207ecdd1bf3\",\"success_time\":\"2026-10-25T10:34:56+08:00\",\"payer\":{\"openid\":\"synthetic-openid-001\"},\"amount\":{\"total\":2500,\"payer_total\":2400,\"currency\":\"CNY\",\"payer_currency\":\"CNY\"},\"scene_info\":{\"device_id\":\"013467007045764\"},\"promotion_detail\":[{\"coupon_id\":\"109519\",\"name\":\"单品惠-6\",\"scope\":\"SINGLE\",\"type\":\"CASH\",\"amount\":100,\"stock_id\":\"931386\",\"wechatpay_contribute\":0,\"merchant_contribute\":100,\"other_contribute\":0,\"currency\":\"CNY\",\"goods_detail\":[{\"goods_id\":\"M1006\",\"quantity\":1,\"unit_price\":2500,\"discount_amount\":100,\"goods_remark\":\"商品备注信息\"}]}]}"
+      }
+    }
+  },
+  "notes": [
+    "The reference is the instance's order reference observed in TXE; the instance test fails with the value to use when it changes.",
+    "Variants are separately signed responses for the wrong-term tests; other negative cases mutate a valid response in src/test.nr."
+  ],
+  "outputs": {
+    "src/fixture.nr": "30fb52c18d0dafa9a89658d739a73eb3519957fe9923768ec9daf9e22591b0a9"
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "twitter_reclaim",
+  "use_case": "event-proof",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/reclaim_event.mjs",
+      "--instance",
+      "event-proof/twitter_reclaim",
+      "--now",
+      "4000000000"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "viem (aztec/use-cases dependencies) keccak256 and EIP-191 signMessage over the Reclaim wire format"
+  },
+  "key_provenance": "Synthetic secp256k1 attestor keys: sha256 of the public seeds 'credential-proofs reclaim event attestor key v1' and '... other attestor key v1'. Not Reclaim attestor keys. Anyone can derive them.",
+  "claims": {
+    "provider": "http",
+    "parameters": "{\"method\":\"GET\",\"responseMatches\":[{\"type\":\"contains\",\"value\":\"\\\"full_text\\\":\\\"gm aztec\\\"\"}],\"url\":\"https://api.x.com/2/tweets/1900000000000000001\"}",
+    "contexts": [
+      "{\"contextAddress\":\"0x0\",\"contextMessage\":\"event\",\"extractedParameters\":{},\"reclaimSessionId\":\"session-1\"}",
+      "{\"contextAddress\":\"0x0\",\"contextMessage\":\"event\",\"extractedParameters\":{},\"reclaimSessionId\":\"session-2\"}"
+    ],
+    "identifiers": [
+      "0xe4ab0889d6c235f1dd0c70c6d1d608b9f172c30fe2e72698296d1a4949cf632e",
+      "0x658a6f8b23df4437aa72228746c3f985247fc916288fb9e13adb95c76c86ac28"
+    ],
+    "owners": [
+      "0x00000000000000000000000000000000000000aa",
+      "0x00000000000000000000000000000000000000aa",
+      "0x00000000000000000000000000000000000000bb"
+    ],
+    "timestamps_s": [
+      3999999940,
+      3999999940,
+      3999999941
+    ],
+    "epoch": 1,
+    "attestor_address": "0xf6EF6242B8C01780B569E9E103A7Ba11f3d5b055"
+  },
+  "notes": [
+    "The claim time is 60 s before --now.",
+    "The parameters name an X URL, but no X response was fetched or matched: the envelope is synthetic.",
+    "Negative cases mutate this fixture in src/test.nr."
+  ],
+  "inputs": {
+    "aztec/use-cases/scripts/fixtures/generators/reclaim_event.mjs": "fb8787cf3e5d84b284017eb1dbc79105684c8031f34d8dc5d1cc35ba3d0ba217",
+    "aztec/use-cases/scripts/fixtures/generators/event.mjs": "ee042da71aab4fa4d529f8d22a039f5f94b2420fb202da0ce6270cbd4f675387"
+  },
+  "outputs": {
+    "src/fixture.nr": "5663ba66e07363bddf12d7e8587491ad91d5fe59cdc7cb59c7dd1a2c843b6e1a"
+  }
+}

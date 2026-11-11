@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "scheme": "facebook",
+  "materials": [
+    {
+      "id": "official-jwks",
+      "category": "provider-public",
+      "kind": "jwks",
+      "environment": "production",
+      "provenance": {
+        "origin": "official-public-distribution",
+        "sourceUrls": [
+          "https://www.facebook.com/.well-known/oauth/openid/jwks/"
+        ],
+        "obtainedAt": "2026-10-22T23:48:42.474Z",
+        "issuerKind": "identity-provider",
+        "sourcePublisher": "Meta Platforms, Inc."
+      },
+      "privacy": "public-key-only",
+      "files": [
+        {
+          "path": "fixtures/data/public-trust/facebook/jwks.json",
+          "sha256": "f9a5d4147067682eb0a2098a4731e8933599897756f482888d649038889b50ea"
+        }
+      ],
+      "trust": {
+        "role": "Facebook Limited Login ID-token verifier, not generic OAuth access-token verification. Exact issuer, audience, subject, action-derived nonce and time policy remain required.",
+        "algorithms": [
+          "RS256"
+        ],
+        "rotationRevocation": "Refresh only the fixed provider JWKS endpoint. Review kid/SPKI rotation and explicitly update enrolled account policy; this snapshot is not a perpetual trust guarantee.",
+        "authentication": "Fetched from the configured official HTTPS JWKS URL with redirect errors; host trust store validates TLS; no token-selected jku/x5u resolution. JWKS provenance proves only public-key origin, not an issuer-signed user credential.",
+        "keys": [
+          {
+            "kid": "4fb6bc95fd4e6c7bb362a70ac9c6b3e97204da10",
+            "kty": "RSA",
+            "alg": "RS256",
+            "use": "sig",
+            "spkiSha256": "d272072100cb5982b830033598cdf0437e2a6f6c8c07f38069979704629c57d0",
+            "asymmetricKeyType": "rsa",
+            "modulusLength": 2048
+          },
+          {
+            "kid": "1d3dd6c36adb94642406f95fabb61fa2b801d9ce",
+            "kty": "RSA",
+            "alg": "RS256",
+            "use": "sig",
+            "spkiSha256": "0cc23dee02d3a45e97c0bf8eb8d95e1266be78cc00dbde3cbe994dcf2a7a65d3",
+            "asymmetricKeyType": "rsa",
+            "modulusLength": 2048
+          }
+        ]
+      },
+      "verification": {
+        "method": "Parse the official public JWKS and compute stable SPKI fingerprints. This does not verify a user token.",
+        "verifier": "Node v24.12.0 node:crypto/createPublicKey; packages/credential-proofs-inputs/src/trust-material.ts",
+        "commands": [
+          "node scripts/fixtures/material/snapshot-trust-material.mjs facebook"
+        ],
+        "result": "public-material-parsed",
+        "evidence": []
+      }
+    },
+    {
+      "id": "synthetic-limited-login-fixture",
+      "category": "local-test",
+      "kind": "fixture-input",
+      "environment": "local-test",
+      "provenance": {
+        "origin": "local-synthetic",
+        "sourceUrls": [],
+        "obtainedAt": "2026-10-22T23:49:02.311966Z",
+        "generator": "packages/credential-proofs-inputs/src/oidc.ts createSyntheticOidc and tooling.test.ts; repository fixture uses only a local synthetic RSA key.",
+        "issuerKind": "local-test"
+      },
+      "privacy": "synthetic-subject",
+      "files": [
+        {
+          "path": "noir/facebook/src/known_answer_tests.nr"
+        }
+      ],
+      "trust": {
+        "role": "Public repository synthetic token fixture only. It is not Facebook/LinkedIn-issued evidence and cannot establish successful real-provider sign-in.",
+        "algorithms": [
+          "RS256",
+          "RSA2048/65537"
+        ],
+        "rotationRevocation": "No production use; recreate or replace only with an explicitly documented local test fixture.",
+        "authentication": "Fixture is signed with a test-only local key or test-generated ephemeral key. Never enroll the test key as a production issuer key."
+      },
+      "verification": {
+        "method": "Run the exact synthetic example witness and focused constrained claim-policy tests. No provider-test credential is supplied.",
+        "verifier": "nargo 1.0.0-rc.3 and local synthetic credential tests",
+        "commands": [
+          "nargo test --program-dir noir --package facebook facebook_",
+          "nargo test --program-dir noir --package facebook"
+        ],
+        "result": "local-relation-executed",
+        "evidence": []
+      }
+    }
+  ],
+  "acquisitionNotes": [
+    {
+      "category": "provider-test",
+      "reason": "No publicly reusable provider-issued test ID-token sample was captured. An authentic JWKS snapshot establishes public key provenance only; local examples and tests use synthetic keys/tokens. Live client registration and genuine login interoperability are not claimed.",
+      "checkedSources": [
+        "https://www.facebook.com/.well-known/oauth/openid/jwks/"
+      ]
+    }
+  ]
+}

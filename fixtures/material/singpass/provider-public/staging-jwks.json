@@ -1,0 +1,1 @@
+{"keys":[{"kty":"EC","x":"JWxFTtneUjMyaNf6bbLct3_HAw4tdvahUZ8L0SeakWs","y":"g-pXv-Jm9Nb0R-7v5e5QcT7HvNzByXp0deAoxulfV9k","crv":"P-256","kid":"alias/stg-sp-auth-api-id-token-signing-key-kms-asymmetric-key-alias","use":"sig"}]}

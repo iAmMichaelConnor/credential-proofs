@@ -1,0 +1,9 @@
+[package]
+name = "govbr_slow_tests"
+type = "lib"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"
+
+[dependencies]
+govbr = { path = "../govbr" }
+oidc = { path = "../oidc" }

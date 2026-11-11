@@ -1,0 +1,274 @@
+{
+  "schemaVersion": 1,
+  "scheme": "line",
+  "materials": [
+    {
+      "id": "official-jwks",
+      "category": "provider-public",
+      "kind": "jwks",
+      "environment": "production",
+      "provenance": {
+        "origin": "official-public-distribution",
+        "sourceUrls": [
+          "https://api.line.me/oauth2/v2.1/certs"
+        ],
+        "obtainedAt": "2026-10-22",
+        "issuerKind": "identity-provider"
+      },
+      "privacy": "public-key-only",
+      "files": [
+        {
+          "path": "fixtures/data/public-trust/line/jwks.json",
+          "sha256": "5f34690acd7d65268cdc61658813c7ee4290473cf9917ee7f46bcd8e9f084dfd"
+        }
+      ],
+      "trust": {
+        "role": "LINE ES256 issuer key snapshot; enroll exact key and signed issuer/audience/subject in account policy.",
+        "algorithms": [
+          "ES256",
+          "P-256"
+        ],
+        "rotationRevocation": "Refresh only this fixed official endpoint; review kid/SPKI changes and explicitly update enrolled account policy. Existing key snapshot is not a perpetual trust guarantee.",
+        "authentication": "Retrieved from an explicitly configured official HTTPS URL using the host trust store; no JWT jku/x5u resolution. JWKS has no intrinsic expiry. Snapshot is provenance, not permanent authorization.",
+        "keys": [
+          {
+            "kid": "26cf395f48162e4a377339b9520c706729e1fdc3a645b7a9ae77ac2a4875a808",
+            "kty": "EC",
+            "alg": "ES256",
+            "use": "sig",
+            "spkiSha256": "f04b827d39e951b22120397916fa70f263a3d298de1034839dbd63eaeb109a27",
+            "asymmetricKeyType": "ec",
+            "modulusLength": null
+          },
+          {
+            "kid": "e6a6919386169ba54de9dd336b41479a01012dc0c428baae2de18e59ee2146db",
+            "kty": "EC",
+            "alg": "ES256",
+            "use": "sig",
+            "spkiSha256": "014d6360165eae326f07a1ab8e08878c99114cf987d073bcbcaedfcf88fd93b6",
+            "asymmetricKeyType": "ec",
+            "modulusLength": null
+          },
+          {
+            "kid": "a2a459aec5b65fa4e8add5c7697c79be445ae312bbcd6eef8fe09b5bb826cf3d",
+            "kty": "EC",
+            "alg": "ES256",
+            "use": "sig",
+            "spkiSha256": "90465f44da4d2ff2f169f839cf02391b865ba33180988d477e3efa4349340a1e",
+            "asymmetricKeyType": "ec",
+            "modulusLength": null
+          },
+          {
+            "kid": "ccd58c2f2646f45fe0b4bbb0237d62f0dd7bb1669d40c121b8488f10bf363900",
+            "kty": "EC",
+            "alg": "ES256",
+            "use": "sig",
+            "spkiSha256": "e574f564adaa87ee49eccb21757a0f98cf182a4152fe9413cbe5f797e03be124",
+            "asymmetricKeyType": "ec",
+            "modulusLength": null
+          },
+          {
+            "kid": "6aa8ad07cd2aaadcc656f7e2139cce8b8c4a6c81c29042f481680672fd03c969",
+            "kty": "EC",
+            "alg": "ES256",
+            "use": "sig",
+            "spkiSha256": "34725160c9f5cf1a06c4c7ae3f1efa5c2c2c190d7cf7f8ba83bdf81a770ae388",
+            "asymmetricKeyType": "ec",
+            "modulusLength": null
+          },
+          {
+            "kid": "95e9119f653eae095bb3d871d6ba8ff46467aa314575a4543615f051d4b735a6",
+            "kty": "EC",
+            "alg": "ES256",
+            "use": "sig",
+            "spkiSha256": "d921daf28faa41414c45663e0dd28aed393bcc72af421ed374a51e744606fa4f",
+            "asymmetricKeyType": "ec",
+            "modulusLength": null
+          },
+          {
+            "kid": "fa134042993a4a1717e4ee16b0c48f354de6171f850155971885038288fb92c9",
+            "kty": "EC",
+            "alg": "ES256",
+            "use": "sig",
+            "spkiSha256": "815d3666004d1532770e905cd16fbc831f8692b798e87ac629c9a02264fa6a92",
+            "asymmetricKeyType": "ec",
+            "modulusLength": null
+          },
+          {
+            "kid": "5cee37e69c353766a3fe01fa05bf821283541a84a6692cdeddf947d0c0904367",
+            "kty": "EC",
+            "alg": "ES256",
+            "use": "sig",
+            "spkiSha256": "a08f7eab22d71ba0f77dade996149065fb35d8d0c35083423eec79e428ab74bd",
+            "asymmetricKeyType": "ec",
+            "modulusLength": null
+          },
+          {
+            "kid": "0f7ac0f8a22e131b5fe75a9ce1699aca150f7f6c0ed75e282b3bf7fb097a763e",
+            "kty": "EC",
+            "alg": "ES256",
+            "use": "sig",
+            "spkiSha256": "a91bfa2c459a05b5854bab503168bde44589860739aa672d834a85b5c64b2fcc",
+            "asymmetricKeyType": "ec",
+            "modulusLength": null
+          },
+          {
+            "kid": "7f31159a65aa4bf1ddf342b57170dd7467e92d12e84c24ca20e1442553b3f08c",
+            "kty": "EC",
+            "alg": "ES256",
+            "use": "sig",
+            "spkiSha256": "b32ad23579aa0dc9c644f3960a69f12c6255d1de78b19bf4a53df14af2fc2b0b",
+            "asymmetricKeyType": "ec",
+            "modulusLength": null
+          },
+          {
+            "kid": "a7968c2ea15f0f41635de5e088290491b0231a56a49cc8a6cd6ed441727a252f",
+            "kty": "EC",
+            "alg": "ES256",
+            "use": "sig",
+            "spkiSha256": "b71064fda29e2b98a8692f33064637cd603ccda050f743cbc1f2e966043b20a8",
+            "asymmetricKeyType": "ec",
+            "modulusLength": null
+          },
+          {
+            "kid": "9b1112b098f3184c6e83fc3d1be8fc217db1eb20756a156cb63ce8ce9e27dfd2",
+            "kty": "EC",
+            "alg": "ES256",
+            "use": "sig",
+            "spkiSha256": "de7226bafb8c0ba7420e4b9a529d40bce36c89541f31a3678d919be5f4455cd7",
+            "asymmetricKeyType": "ec",
+            "modulusLength": null
+          },
+          {
+            "kid": "fe1e8d888ec664cd2afef479c5db79692cd01aacd141483a54339351f395fa27",
+            "kty": "EC",
+            "alg": "ES256",
+            "use": "sig",
+            "spkiSha256": "8c9ec4a96a7f99965cb09f4b8291dd582130f7d360a542062279689a12386ee6",
+            "asymmetricKeyType": "ec",
+            "modulusLength": null
+          },
+          {
+            "kid": "8cce8f074ed02378fa80705644812a2672ed7751f5b9069893557734f21bf728",
+            "kty": "EC",
+            "alg": "ES256",
+            "use": "sig",
+            "spkiSha256": "c1ff2132387ca8439bb6491d7a7b8e187ceab4dc49a462622d772d224376a574",
+            "asymmetricKeyType": "ec",
+            "modulusLength": null
+          },
+          {
+            "kid": "9291e6b6a38c7d8af68c5266faa28208d6dd59845faa024e541bdb39fe135d4b",
+            "kty": "EC",
+            "alg": "ES256",
+            "use": "sig",
+            "spkiSha256": "71c5b869a4d672beedce0ff1e16336e1782f5b01e2bbc875045f231246e4bee6",
+            "asymmetricKeyType": "ec",
+            "modulusLength": null
+          },
+          {
+            "kid": "7159e3eae0f7f2d868f3c09b6de930ec3363ec04526f40caec9b1f08e0f43ca6",
+            "kty": "EC",
+            "alg": "ES256",
+            "use": "sig",
+            "spkiSha256": "d56dfdc3a9610915688364bef4062aef58f5160c0d8378b4f1c613fafdf73371",
+            "asymmetricKeyType": "ec",
+            "modulusLength": null
+          },
+          {
+            "kid": "1f067eec599b74bf4e28c243c7fba6463a035933553e31f7a388e14d44fa48e3",
+            "kty": "EC",
+            "alg": "ES256",
+            "use": "sig",
+            "spkiSha256": "94e0ae6c246d6011bf6ec00ae33692a095826e39bd60835b0623930919a90893",
+            "asymmetricKeyType": "ec",
+            "modulusLength": null
+          },
+          {
+            "kid": "a524a404e7a97d35dc64633756305525ed2dc4a5b48a130736f74e9a3a5d4b1d",
+            "kty": "EC",
+            "alg": "ES256",
+            "use": "sig",
+            "spkiSha256": "edb48c910a033a1c4c32968e836531cc03c3d6f5b1bf7d904dfad39a3d743454",
+            "asymmetricKeyType": "ec",
+            "modulusLength": null
+          },
+          {
+            "kid": "a2fd5181692cc6daf799905d0dcd7b0826b458c9fe794b9056fc7b4db61cfba4",
+            "kty": "EC",
+            "alg": "ES256",
+            "use": "sig",
+            "spkiSha256": "0a893db6014c9d24bec29a725a0ef307cf1dc683c01424a6e502e75eb5940aae",
+            "asymmetricKeyType": "ec",
+            "modulusLength": null
+          },
+          {
+            "kid": "c6f34e863d3e5e32ba32081402d8b3e10e8edb638568a57b2716c0f30f567103",
+            "kty": "EC",
+            "alg": "ES256",
+            "use": "sig",
+            "spkiSha256": "fb8b0696cea967f549892b0a50c9ffd1e47c0d38953bf32a3d1d1216495dc717",
+            "asymmetricKeyType": "ec",
+            "modulusLength": null
+          }
+        ]
+      },
+      "verification": {
+        "method": "Schema and source inspection; signature success is not implied.",
+        "verifier": "Node node:crypto; nargo 1.0.0-rc.3 when explicitly linked",
+        "commands": [
+          "node scripts/fixtures/material/validate-material.mjs"
+        ],
+        "result": "public-material-parsed",
+        "evidence": []
+      }
+    },
+    {
+      "id": "synthetic-amr-id-token",
+      "category": "local-test",
+      "kind": "fixture-input",
+      "environment": "local-test",
+      "provenance": {
+        "origin": "local-synthetic",
+        "sourceUrls": [],
+        "obtainedAt": "2026-10-22",
+        "issuerKind": "local-test"
+      },
+      "privacy": "synthetic-subject",
+      "files": [
+        {
+          "path": "noir/line/src/known_answer_tests.nr"
+        },
+        {
+          "path": "scripts/fixtures/generate-line-fixture.py"
+        }
+      ],
+      "trust": {
+        "role": "Synthetic test-only scalar42; not provider-issued.",
+        "algorithms": [
+          "ES256"
+        ],
+        "rotationRevocation": "Never production trust. Regenerate local fixtures only.",
+        "authentication": "Explicit public test scalar42, separate from authentic provider keys."
+      },
+      "verification": {
+        "method": "Synthetic issuer token; standalone solved witness and seven TXE tests, linked evidence; not LINE-issued.",
+        "verifier": "Node node:crypto; nargo 1.0.0-rc.3 when explicitly linked",
+        "commands": [
+          "node scripts/fixtures/material/validate-material.mjs"
+        ],
+        "result": "local-relation-executed",
+        "evidence": []
+      }
+    }
+  ],
+  "acquisitionNotes": [
+    {
+      "category": "provider-test",
+      "reason": "No authoritative public signed LINE test token found; local fixtures complete engineering acceptance without personal credentials.",
+      "checkedSources": [
+        "https://developers.line.biz/en/docs/line-login/verify-id-token/"
+      ]
+    }
+  ]
+}

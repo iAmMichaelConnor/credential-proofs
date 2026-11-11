@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "scheme": "university",
+  "materials": [
+    {
+      "id": "official-cilogon-signing-keys",
+      "category": "provider-public",
+      "kind": "jwks",
+      "environment": "production",
+      "provenance": {
+        "origin": "official-public-distribution",
+        "issuerKind": "identity-provider",
+        "sourceUrls": [
+          "https://www.cilogon.org/oidc",
+          "https://cilogon.org/.well-known/openid-configuration",
+          "https://cilogon.org/oauth2/certs"
+        ],
+        "obtainedAt": "2026-10-22T18:15:40.403Z"
+      },
+      "privacy": "public-key-only",
+      "files": [
+        {
+          "path": "fixtures/material/university/provider-public/cilogon-jwks.json",
+          "sha256": "2f524a5a03bcfeb620843a17b03e1f480adc428964980b283af4915fe0ddaac1"
+        },
+        {
+          "path": "fixtures/material/university/provider-public/cilogon-discovery.json",
+          "sha256": "c37f67851a7c57314ae11f14cb42b22abbcd263572b614bcccdaf49be3f1cba5"
+        }
+      ],
+      "trust": {
+        "role": "CILogon broker signing keys. Institutional login additionally requires independently trusted exact signed original idp; affiliation may be cached.",
+        "algorithms": [
+          "RS256",
+          "RS384",
+          "RS512"
+        ],
+        "rotationRevocation": "Review kid/SPKI changes at the fixed official endpoint and update enrolled policy explicitly. No intrinsic JWKS expiry or freshness guarantee.",
+        "authentication": "Retrieved from an explicitly configured official HTTPS URL using the host trust store; no JWT jku/x5u resolution. JWKS has no intrinsic expiry. Snapshot is provenance, not permanent authorization.",
+        "keys": [
+          {
+            "kid": "244B235F6B28E34108D101EAC7362C4E",
+            "kty": "RSA",
+            "alg": "RS256",
+            "use": "sig",
+            "spkiSha256": "ece1a597d7657955f5b7a15a8b2ec9d1e9ba6b127c3cfca59278763b69a3d7bd",
+            "asymmetricKeyType": "rsa",
+            "modulusLength": 2048
+          },
+          {
+            "kid": "F3F243BEB3B3286E1D14A29C42290393",
+            "kty": "RSA",
+            "alg": "RS512",
+            "use": "sig",
+            "spkiSha256": "7bc87684aa5b5d1a9275841c85cd62b698a9c326f09f923c7f49e0237dd594d3",
+            "asymmetricKeyType": "rsa",
+            "modulusLength": 2048
+          },
+          {
+            "kid": "BD6B721690DE665196068F073CFACC5C",
+            "kty": "RSA",
+            "alg": "RS384",
+            "use": "sig",
+            "spkiSha256": "2e33347ee583156b8e3eb735fb1d1f6de989551b3993977030e8a06aaf99aee2",
+            "asymmetricKeyType": "rsa",
+            "modulusLength": 2048
+          }
+        ]
+      },
+      "verification": {
+        "method": "Authenticated official HTTPS discovery/JWKS parsing and SPKI fingerprints only. No provider-issued ID token verification implied; implementation accepts RS256 RSA2048 only.",
+        "verifier": "Node crypto public-key parsing; shared trust-material.ts",
+        "commands": [
+          "node scripts/fixtures/material/validate-material.mjs"
+        ],
+        "result": "public-material-parsed",
+        "evidence": [
+          {
+            "path": "fixtures/material/university/provider-public/provenance.json",
+            "sha256": "9a5a9f45957e4dca1db0235b360cec3e5aeba3ea8c01165408ad33c4685d18a6"
+          }
+        ]
+      }
+    },
+    {
+      "id": "synthetic-university-login",
+      "category": "local-test",
+      "kind": "fixture-input",
+      "environment": "local-test",
+      "provenance": {
+        "origin": "local-synthetic",
+        "issuerKind": "local-test",
+        "sourceUrls": [],
+        "obtainedAt": "2026-10-22",
+        "generator": "scripts/fixtures/generate-university-local.mjs"
+      },
+      "privacy": "synthetic-subject",
+      "files": [
+        {
+          "path": "fixtures/material/university/local-test/id-token.txt",
+          "sha256": "36775509e7985ece5e9f33666a9884607b7c11dd3c6c1375dea739be4330b151"
+        },
+        {
+          "path": "fixtures/material/university/local-test/issuer-key.json",
+          "sha256": "46054a337bf901c9230c5b196778fe8fcd52c83d2dfe8ad6534fdb65de000d81"
+        },
+        {
+          "path": "fixtures/material/university/local-test/policy.json",
+          "sha256": "05a81e7db59e536460e6cd61085ae8ae222317ed70eda9f05c25560153c8e2e9"
+        }
+      ],
+      "trust": {
+        "role": "Public repository synthetic RSA issuer key, not CILogon-issued. Signed CILogon-shaped idp/subject/action fixture exercises trust policy only.",
+        "algorithms": [
+          "RS256",
+          "RSA2048"
+        ],
+        "rotationRevocation": "Never production trust; regenerate only local fixtures.",
+        "authentication": "Explicit repository public test RSA key; Node independently verifies exact originalJWS signature."
+      },
+      "verification": {
+        "method": "Host RSA-SHA256 verifies synthetic fixture; pure identity/context/affiliation policy regressions pass, final full P2048 standalone witness solves. Final account synthetic fixture is separately re-signed for freshly observed deployed-class action nonce, then7/7 TXE passes. No provider-issued login or fresh student status claimed.",
+        "verifier": "Node node:crypto + jose6.2.13",
+        "commands": [
+          "node scripts/fixtures/generate-university-local.mjs",
+          "node --test packages/credential-proofs-inputs/tests/dist/university.test.js"
+        ],
+        "result": "local-relation-executed",
+        "evidence": []
+      }
+    }
+  ],
+  "acquisitionNotes": [
+    {
+      "category": "provider-test",
+      "reason": "No public provider-issued test ID token verified against the current official key snapshot has been collected. Documentation examples do not establish valid signatures. Personal campus login is optional, not an engineering blocker.",
+      "checkedSources": [
+        "https://www.cilogon.org/oidc",
+        "https://www.cilogon.org/faq"
+      ]
+    }
+  ]
+}

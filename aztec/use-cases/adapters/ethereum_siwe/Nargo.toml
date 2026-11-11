@@ -1,0 +1,12 @@
+[package]
+name = "uc_adapter_ethereum_siwe"
+type = "lib"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"
+
+[dependencies]
+aztec = { git = "https://github.com/aztec-labs-eng/aztec-nr", tag = "v6.0.0", directory = "aztec" }
+ethereum = { path = "../../../../noir/ethereum_auth" }
+time = { path = "../../../../noir/auth_time" }
+uc_login_link = { path = "../../login-link/common" }
+uc_trust = { path = "../../trust" }

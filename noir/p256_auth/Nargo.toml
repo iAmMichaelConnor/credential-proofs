@@ -1,0 +1,5 @@
+[package]
+name = "p256_auth"
+type = "lib"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"

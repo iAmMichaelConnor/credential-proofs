@@ -1,0 +1,13 @@
+[package]
+name = "uc_family_oidc"
+type = "lib"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"
+
+[dependencies]
+aztec = { git = "https://github.com/aztec-labs-eng/aztec-nr", tag = "v6.0.0", directory = "aztec" }
+uc_account = { path = "../../account-authorisation/common" }
+uc_attribute_gate = { path = "../../attribute-gating/common" }
+uc_login_link = { path = "../../login-link/common" }
+uc_trust = { path = "../../trust" }
+uc_uniqueness = { path = "../../uniqueness/common" }

@@ -1,0 +1,46 @@
+{
+  "schema": "uc-fixture-v1",
+  "scheme": "linkedin",
+  "use_case": "login-link",
+  "kind": "synthetic",
+  "generator": {
+    "argv": [
+      "node",
+      "scripts/fixtures/generators/oidc.mjs",
+      "--instance",
+      "login-link/linkedin",
+      "--now",
+      "4000000000",
+      "--audience",
+      "credential-proofs-use-case-client",
+      "--subject",
+      "100000000000000000001"
+    ],
+    "cwd": "aztec/use-cases",
+    "library": "packages/credential-proofs-inputs/src/linkedin.ts importVerifiedLinkedIn (signed with node:crypto)"
+  },
+  "inputs": {
+    "fixtures/data/rsa-signature/rsa4096-test-private.pem": "32057c85cd9003273d8d6be40e81d09e6ec1900effd32474d53af61c1436b403",
+    "packages/credential-proofs-inputs/src/linkedin.ts": "72d1531f683fbca5a3812ae93c27555daa540b776d4437120ca46f7cb25ad4be",
+    "packages/credential-proofs-inputs/src/oidc.ts": "aea6e0218724a1e3acb3d752c805574ecba8c789c0bf5e09b8dee19f5544c8ce",
+    "aztec/use-cases/scripts/fixtures/generators/oidc.mjs": "3bf84f629c58e2597012f3486133bd2d5f215bae759daeb725aea7fbf1c80279",
+    "aztec/use-cases/scripts/fixtures/generators/x509.py": "2a03fa13717c8a96bb79adb48a83beef156bb224a9084dd0a08e12e3e5d9854e"
+  },
+  "key_provenance": "Public RSA-4096 test key committed in fixtures/data; not a linkedin key. Anyone can sign with it.",
+  "claims": {
+    "iss": "https://www.linkedin.com",
+    "aud": "credential-proofs-use-case-client",
+    "sub": "100000000000000000001",
+    "iat": 3999999940,
+    "exp": 4000086340
+  },
+  "notes": [
+    "The provider's ID tokens carry no nonce, so the fixture binds no challenge (bearer).",
+    "iat is 60 s before --now; the adapter reads the signed iat, and exp - iat is 86400 s.",
+    "later_payload() is the same claims with iat one second later and the same exp, signed by the fixture key; other_key_signature() signs the fixture token under the key from the seed label 'uc login-link other rs256-4096 key v1' (x509.py seeded_key), whose modulus exceeds the fixture key's. The importer checks both tokens.",
+    "Negative cases mutate this fixture in src/test.nr."
+  ],
+  "outputs": {
+    "src/fixture.nr": "3de8ad988306c25028aa4dce4c7d9f5240d946c240630760bf4732d84218e988"
+  }
+}

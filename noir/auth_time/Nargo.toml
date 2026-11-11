@@ -1,0 +1,5 @@
+[package]
+name = "auth_time"
+type = "lib"
+authors = ["Michael Connor"]
+compiler_version = ">=1.0.0"

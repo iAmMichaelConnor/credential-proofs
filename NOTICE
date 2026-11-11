@@ -1,0 +1,55 @@
+credential-proofs
+Copyright 2026 Michael Connor
+
+This product includes material from third parties, under the licences named
+below. The licence texts are in LICENSE (Apache-2.0) and in the files named.
+
+1. willemolding/noir-ed25519 v0.1.0-alpha.1, commit
+   e525bf21215b0ec664f50cf6234bf6574f498c5c,
+   https://github.com/willemolding/noir-ed25519
+   Apache-2.0; see vendor/noir-ed25519/LICENSE. Modified copy in
+   vendor/noir-ed25519.
+
+2. zkemail/zkemail.nr v2.0.0, commit 8264758c6dbd6d5e29a3d58b482c3eb014424efb,
+   https://github.com/zkemail/zkemail.nr
+   MIT, Copyright (c) 2024 zk-email; see noir/zkemail/LICENSE and
+   noir/rsa_signature/LICENSE. Adapted into noir/zkemail and
+   noir/rsa_signature. noir/zkemail/src/partial_hash.nr also derives from the
+   Noir standard library sha256.nr, https://github.com/noir-lang/noir (commit
+   76eec710ff73e5e45fdddcd41ae2cd74e879cfa5), MIT OR Apache-2.0. The test
+   vectors in noir/zkemail/src/remove_soft_line_breaks.nr are from
+   https://github.com/zkemail/zk-email-verify (MIT).
+
+3. The Oxide WebAuthn verifier in aztec-labs-eng/zkmoney-public, commit
+   00e54087526d6d89f1755958eb027e077184cd9a,
+   https://github.com/aztec-labs-eng/zkmoney-public
+   MIT, Copyright (c) 2026 Aztec Labs; see noir/passkey_auth/LICENSE. Adapted
+   into noir/passkey_auth/src/webauthn.nr. The unmodified upstream file and its
+   public assertion vector are kept as fixtures in
+   fixtures/material/passkey/provider-test.
+
+4. worldcoin/world-id-contracts, commit f959f725c3ee2dec1ed24944d5b9593b68c7b8a4,
+   and worldcoin/world-id-protocol, commit
+   46f6b43d231780e4fc0b5030bd71e846664532d1, https://github.com/worldcoin
+   MIT; the licence files are kept beside the test vectors, Solidity and
+   Circom sources in fixtures/world-id/upstream, which the World ID fixture
+   importer reads.
+
+5. anon-aadhaar/anon-aadhaar, commit 4dad918761cfb1d7d5ed9918dcd796d0cb23ae82,
+   https://github.com/anon-aadhaar/anon-aadhaar
+   MIT, Copyright (c) 2022 Ethereum Foundation. Its public test QR, test
+   certificate and a saved proof are used as fixtures (fixtures/material/
+   aadhaar_secure_qr, fixtures/data/anon-aadhaar-v2, fixtures/material/
+   anon_aadhaar).
+
+6. alipay/alipay-sdk-nodejs-all, commit e1676390871eb7a69b4f81aa15de8327ac15738a,
+   https://github.com/alipay/alipay-sdk-nodejs-all
+   MIT, Copyright (c) 2024 - present alipay and other contributors. A recorded
+   v2 response from its tests is used as a fixture (fixtures/data/alipay).
+
+Public keys, key sets and published test samples of identity providers and
+platforms (fixtures/data/public-trust and fixtures/material/<scheme>) are
+included for testing only; each manifest records its source URL and date.
+
+Ecosystem logos under docs/assets are the property of their owners; sources
+and terms are in docs/assets/README.md.

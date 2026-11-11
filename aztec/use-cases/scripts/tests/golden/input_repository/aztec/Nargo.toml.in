@@ -1,0 +1,7 @@
+[workspace]
+members = [
+    # Other packages
+    "other/contract",
+    # Use cases
+    "use-cases/stale",
+]
